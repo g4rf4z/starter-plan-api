@@ -7,3 +7,49 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model Buyer {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  firstName     String
+  lastName      String
+  email         String   @unique
+
+  transactions  Transaction[]
+
+  @@map("buyers")
+}
+
+model Product {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name        String
+  url         String
+  description String
+  price       Float
+
+  transactions  Transaction[]
+
+  @@map("products")
+}
+
+
+model Transaction {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  paymentId     String
+  paymentMethod String
+  buyerId       String @db.ObjectId
+  productId     String @db.ObjectId
+
+  buyer         Buyer    @relation(fields: [buyerId], references: [id])
+  product       Product  @relation(fields: [productId], references: [id])
+
+  @@map("transactions")
+}

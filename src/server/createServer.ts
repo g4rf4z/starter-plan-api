@@ -6,21 +6,21 @@ import cookieParser from 'cookie-parser';
 
 import routes from '../routes';
 
-const createServer = () => {
+const clientUrl = config.get<string>('clientUrl').split(',');
+
+export const createServer = () => {
   const app = express();
-  const clientUrl = config.get<string>('clientUrl').split(',');
   app.use(helmet());
   app.use(
     cors({
-      credentials: true,
       origin: clientUrl,
+      credentials: true,
       methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     })
   );
   app.use(express.json({ limit: '5MB' }));
   app.use(cookieParser());
   routes(app);
+
   return app;
 };
-
-export default createServer;
