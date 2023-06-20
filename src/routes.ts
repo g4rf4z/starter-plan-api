@@ -2,9 +2,15 @@ import { Express } from 'express';
 
 import { validate } from './middlewares/validation.middleware';
 
-import { createProductSchema } from './schemas/product.schema';
+import {
+  createProductSchema,
+  findProductsSchema,
+} from './schemas/product.schema';
 
-import { createProductController } from './controllers/product.controller';
+import {
+  createProductController,
+  findProductsController,
+} from './controllers/product.controller';
 
 const routes = (app: Express) => {
   app.get('/', (req, res) => {
@@ -16,6 +22,8 @@ const routes = (app: Express) => {
     [validate(createProductSchema)],
     createProductController
   );
+
+  app.get('/products', [validate(findProductsSchema)], findProductsController);
 };
 
 export default routes;

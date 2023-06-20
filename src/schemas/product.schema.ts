@@ -12,3 +12,19 @@ export const createProductSchema = object({
 }).strict();
 
 export type CreateProductInput = TypeOf<typeof createProductSchema>;
+
+export const findProductsSchema = object({
+  body: object({
+    params: object({
+      id: string().optional(),
+      name: string(),
+      url: string(),
+      description: string(),
+      price: number(),
+    })
+      .strict()
+      .optional(),
+  }).strict(),
+});
+
+export type FindProductsInput = TypeOf<typeof findProductsSchema>;

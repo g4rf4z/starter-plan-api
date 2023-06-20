@@ -8,9 +8,25 @@ export const createProductService = async (
   options: Omit<Prisma.ProductCreateArgs, 'data'> = {}
 ) => {
   try {
-    const product = await prisma.product.create({ data, ...options });
+    const createdProduct = await prisma.product.create({ data, ...options });
 
-    return product;
+    return createdProduct;
+  } catch (error) {
+    throw handlePrismaError(error, 'product');
+  }
+};
+
+export const findProductsService = async (
+  params: Prisma.ProductFindManyArgs['where'],
+  options: Omit<Prisma.ProductFindManyArgs, 'where'> = {}
+) => {
+  try {
+    const foundProducts = await prisma.product.findMany({
+      where: params,
+      ...options,
+    });
+
+    return foundProducts;
   } catch (error) {
     throw handlePrismaError(error, 'product');
   }

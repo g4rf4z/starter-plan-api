@@ -1,21 +1,21 @@
-import { Prisma } from '@prisma/client';
 import { Response } from 'express';
+import { Prisma } from '@prisma/client';
 
 export interface ICustomError {
-  type?: string;
+  type: string;
   path: string;
   code: number;
   message: string;
 }
 
 export class CustomError {
-  type?: string;
-  path: string;
-  code: number;
-  message: string;
+  type;
+  path;
+  code;
+  message;
 
   constructor(data: ICustomError) {
-    this.type = data?.type;
+    this.type = data.type;
     this.path = data.path;
     this.code = data.code;
     this.message = data.message;
