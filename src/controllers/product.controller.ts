@@ -2,11 +2,13 @@ import { Request, Response } from 'express';
 
 import {
   createProductService,
+  findProductService,
   findProductsService,
 } from '../services/product.service';
 
 import type {
   CreateProductInput,
+  FindProductInput,
   FindProductsInput,
 } from '../schemas/product.schema';
 
@@ -35,6 +37,34 @@ export const createProductController = async (
     );
 
     return res.send(createdProduct);
+  } catch (error) {
+    return handleError(error, res);
+  }
+};
+
+export const findProductController = async (
+  req: Request<FindProductInput['params'], {}, {}>,
+  res: Response
+) => {
+  try {
+    const findProductOptions = {
+      select: {
+        id: true,
+        createdAt: true,
+        updatedAt: true,
+        name: true,
+        url: true,
+        description: true,
+        price: true,
+      },
+    };
+
+    const foundProduct = await findProductService(
+      req.params,
+      findProductOptions
+    );
+
+    return foundProduct;
   } catch (error) {
     return handleError(error, res);
   }

@@ -16,6 +16,22 @@ export const createProductService = async (
   }
 };
 
+export const findProductService = async (
+  params: Prisma.ProductFindUniqueOrThrowArgs['where'],
+  options: Omit<Prisma.ProductFindUniqueOrThrowArgs, 'where'> = {}
+) => {
+  try {
+    const foundProduct = await prisma.product.findUniqueOrThrow({
+      where: params,
+      ...options,
+    });
+
+    return foundProduct;
+  } catch (error) {
+    throw handlePrismaError(error, 'product');
+  }
+};
+
 export const findProductsService = async (
   params: Prisma.ProductFindManyArgs['where'],
   options: Omit<Prisma.ProductFindManyArgs, 'where'> = {}
