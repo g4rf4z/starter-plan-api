@@ -26,6 +26,11 @@ import {
   findProductsController,
 } from './controllers/product.controller';
 
+import {
+  createPaymentIntentController,
+  findPaymentIntentsController,
+} from './controllers/paymentIntent.controller';
+
 const routes = (app: Express) => {
   app.get('/', (req, res) => {
     return res.send('Hello World !');
@@ -48,6 +53,10 @@ const routes = (app: Express) => {
     findProductController
   );
   app.get('/products', [validate(findProductsSchema)], findProductsController);
+
+  // ---------- Payments routes ----------
+  app.post('/payments', createPaymentIntentController);
+  app.get('/payments', findPaymentIntentsController);
 };
 
 export default routes;
