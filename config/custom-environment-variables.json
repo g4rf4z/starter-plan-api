@@ -1,11 +1,14 @@
 {
-    "clientUrl": "CLIENT_URL",
-    "port": "PORT",
+  "clientUrl": "CLIENT_URL",
+  "port": "PORT",
 
-    "publicKey": "PUBLIC_KEY",
-    "privateKey": "PRIVATE_KEY",
+  "publicKey": "PUBLIC_KEY",
+  "privateKey": "PRIVATE_KEY",
 
-    "nodemailerService": "NODEMAILER_SERVICE",
-    "nodemailerEmail": "NODEMAILER_EMAIL",
-    "nodemailerPassword": "NODEMAILER_PASSWORD"
+  "nodemailerService": "NODEMAILER_SERVICE",
+  "nodemailerEmail": "NODEMAILER_EMAIL",
+  "nodemailerPassword": "NODEMAILER_PASSWORD",
+
+  "stripePublishableKey": "STRIPE_PUBLISHABLE_KEY",
+  "stripeSecretKey": "STRIPE_SECRET_KEY"
 }
