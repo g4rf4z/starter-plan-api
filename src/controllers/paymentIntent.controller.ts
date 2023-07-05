@@ -26,7 +26,9 @@ export const createPaymentIntentController = async (
       automatic_payment_methods
     );
 
-    return res.send({ client_secret: createdPaymentIntent.client_secret });
+    return res.send({
+      clientSecret: createdPaymentIntent.client_secret,
+    });
   } catch (error) {
     throw error;
   }
@@ -40,6 +42,12 @@ export const findPaymentIntentsController = async (
     const foundPaymentIntents = await findPaymentIntentsService(10);
 
     return res.send(foundPaymentIntents);
+
+    // const clientSecrets = foundPaymentIntents.data.map(
+    //   (paymentIntent) => paymentIntent.client_secret
+    // );
+
+    // return res.send(clientSecrets);
   } catch (error) {
     throw error;
   }
