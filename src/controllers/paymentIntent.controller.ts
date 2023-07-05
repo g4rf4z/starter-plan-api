@@ -5,16 +5,10 @@ import {
   findPaymentIntentsService,
 } from '../services/paymentIntent.service';
 
+import { createPaymentIntentInput } from '../schemas/paymentIntent.schema';
+
 export const createPaymentIntentController = async (
-  req: Request<
-    {},
-    {},
-    {
-      amount: number;
-      currency: string;
-      automatic_payment_methods: { enabled: true };
-    }
-  >,
+  req: Request<{}, {}, createPaymentIntentInput['body']>,
   res: Response
 ) => {
   try {
