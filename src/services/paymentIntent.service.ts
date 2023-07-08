@@ -18,12 +18,12 @@ export const createPaymentIntentService = async (
   }
 };
 
-export const findPaymentIntentsService = async (limit: number) => {
-  try {
-    const foundPaymentIntents = await stripe.paymentIntents.list({ limit });
+// export const findPaymentIntentsService = async (limit: number) => {
+//   try {
+//     const foundPaymentIntents = await stripe.paymentIntents.list({ limit });
 
-    return foundPaymentIntents;
-  } catch (error) {
-    throw error;
-  }
-};
+//     return foundPaymentIntents;
+//   } catch (error) {
+//     throw error;
+//   }
+// };

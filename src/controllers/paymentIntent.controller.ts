@@ -1,9 +1,6 @@
 import { Request, Response } from 'express';
 
-import {
-  createPaymentIntentService,
-  findPaymentIntentsService,
-} from '../services/paymentIntent.service';
+import { createPaymentIntentService } from '../services/paymentIntent.service';
 
 import { createPaymentIntentInput } from '../schemas/paymentIntent.schema';
 
@@ -28,21 +25,15 @@ export const createPaymentIntentController = async (
   }
 };
 
-export const findPaymentIntentsController = async (
-  req: Request<{}, {}, {}>,
-  res: Response
-) => {
-  try {
-    const foundPaymentIntents = await findPaymentIntentsService(10);
+// export const findPaymentIntentsController = async (
+//   req: Request<{}, {}, {}>,
+//   res: Response
+// ) => {
+//   try {
+//     const foundPaymentIntents = await findPaymentIntentsService(10);
 
-    return res.send(foundPaymentIntents);
-
-    // const clientSecrets = foundPaymentIntents.data.map(
-    //   (paymentIntent) => paymentIntent.client_secret
-    // );
-
-    // return res.send(clientSecrets);
-  } catch (error) {
-    throw error;
-  }
-};
+//     return res.send(foundPaymentIntents);
+//   } catch (error) {
+//     throw error;
+//   }
+// };

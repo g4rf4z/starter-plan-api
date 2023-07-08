@@ -1,6 +1,8 @@
 import { boolean, number, object, string, TypeOf } from 'zod';
 
-export const createPaymentIntent = object({
+export const createPaymentIntentSchema = object({
+  params: object({}).optional(),
+  query: object({}).optional(),
   body: object({
     amount: number(),
     currency: string(),
@@ -8,4 +10,4 @@ export const createPaymentIntent = object({
   }).strict(),
 }).strict();
 
-export type createPaymentIntentInput = TypeOf<typeof createPaymentIntent>;
+export type createPaymentIntentInput = TypeOf<typeof createPaymentIntentSchema>;
