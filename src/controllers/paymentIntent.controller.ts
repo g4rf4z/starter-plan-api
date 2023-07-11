@@ -21,7 +21,7 @@ export const createPaymentIntentController = async (
       clientSecret: createdPaymentIntent.client_secret,
     });
   } catch (error) {
-    throw error;
+    res.status(400).send('bad_request');
   }
 };
 
