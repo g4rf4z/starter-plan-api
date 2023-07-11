@@ -30,6 +30,8 @@ import { createPaymentIntentSchema } from './schemas/paymentIntent.schema';
 
 import { createPaymentIntentController } from './controllers/paymentIntent.controller';
 
+import { findPublishableKeyController } from './controllers/publishableKey.controller';
+
 const routes = (app: Express) => {
   app.get('/', (req, res) => {
     return res.send('Hello World !');
@@ -52,6 +54,9 @@ const routes = (app: Express) => {
     createPaymentIntentController
   );
   // app.get('/payments', findPaymentIntentsController);
+
+  // ---------- Publishable key route ----------
+  app.get('/config', findPublishableKeyController);
 };
 
 export default routes;
