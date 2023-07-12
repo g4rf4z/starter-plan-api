@@ -28,7 +28,10 @@ import {
 
 import { createPaymentIntentSchema } from './schemas/paymentIntent.schema';
 
-import { createPaymentIntentController } from './controllers/paymentIntent.controller';
+import {
+  createPaymentIntentController,
+  findPaymentIntentsController,
+} from './controllers/paymentIntent.controller';
 
 import { findPublishableKeyController } from './controllers/publishableKey.controller';
 
@@ -53,7 +56,7 @@ const routes = (app: Express) => {
     validate(createPaymentIntentSchema),
     createPaymentIntentController
   );
-  // app.get('/payments', findPaymentIntentsController);
+  app.get('/find-payment-intents', findPaymentIntentsController);
 
   // ---------- Publishable key route ----------
   app.get('/config', findPublishableKeyController);
