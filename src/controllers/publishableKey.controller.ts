@@ -1,14 +1,14 @@
-import { Request, Response } from 'express';
+import config from 'config';
 
-import { findPublishableKeyService } from '../services/publishableKey.service';
+import { Request, Response } from 'express';
 
 export const findPublishableKeyController = async (
   req: Request<{}, {}, {}>,
   res: Response
 ) => {
   try {
-    const publishableKey = await findPublishableKeyService(
-      process.env.STRIPE_PUBLISHABLE_KEY
+    const publishableKey = config.get<string | undefined>(
+      'stripePublishableKey'
     );
 
     if (!publishableKey) {

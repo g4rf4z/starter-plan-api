@@ -1,9 +1,6 @@
-export const findPublishableKeyService = async (
-  publishableKey: string | undefined
-) => {
-  try {
-    return publishableKey;
-  } catch (error) {
-    throw error;
-  }
+import config from 'config';
+
+export const findPublishableKeyService = (): string | undefined => {
+  const publishableKey = config.get<string>('stripePublishableKey');
+  return publishableKey;
 };
