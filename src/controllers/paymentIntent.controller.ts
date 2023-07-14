@@ -12,12 +12,14 @@ export const createPaymentIntentController = async (
   res: Response
 ) => {
   try {
-    const { amount, currency, automatic_payment_methods } = req.body;
+    const { amount, currency, enable_automatic_payment } = req.body;
 
     const createdPaymentIntent = await createPaymentIntentService(
       amount,
       currency,
-      automatic_payment_methods
+      {
+        enabled: enable_automatic_payment,
+      }
     );
 
     return res.send({

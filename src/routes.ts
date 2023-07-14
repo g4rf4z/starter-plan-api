@@ -50,15 +50,13 @@ const routes = (app: Express) => {
   app.get('/products/:id', validate(findProductSchema), findProductController);
   app.get('/products', validate(findProductsSchema), findProductsController);
 
-  // ---------- Payments routes ----------
+  // ---------- Stripe routes ----------
   app.post(
     '/create-payment-intent',
     validate(createPaymentIntentSchema),
     createPaymentIntentController
   );
   app.get('/find-payment-intents', findPaymentIntentsController);
-
-  // ---------- Publishable key route ----------
   app.get('/config', findPublishableKeyController);
 };
 
