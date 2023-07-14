@@ -1,14 +1,12 @@
 import { object, string, TypeOf } from 'zod';
 
 export const createBuyerSchema = object({
-  params: object({}).optional(),
-  query: object({}).optional(),
   body: object({
     firstname: string(),
     lastname: string(),
     email: string().email(),
   }).strict(),
-}).strict();
+});
 
 export type CreateBuyerInput = TypeOf<typeof createBuyerSchema>;
 
