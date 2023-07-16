@@ -25,7 +25,7 @@ export const findBuyerService = async (
       where: params,
       ...options,
     });
-    console.log(foundBuyer);
+
     return foundBuyer;
   } catch (error) {
     throw handlePrismaError(error, 'product');

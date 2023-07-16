@@ -64,7 +64,7 @@ export const findProductController = async (
       findProductOptions
     );
 
-    return foundProduct;
+    return res.send(foundProduct);
   } catch (error) {
     return handleError(error, res);
   }

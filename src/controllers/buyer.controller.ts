@@ -43,7 +43,6 @@ export const findBuyerController = async (
   res: Response
 ) => {
   try {
-    console.log('1');
     const findbuyerOptions = {
       select: {
         id: true,
@@ -54,10 +53,10 @@ export const findBuyerController = async (
         email: true,
       },
     };
-    console.log('2');
+
     const foundBuyer = await findBuyerService(req.params, findbuyerOptions);
-    console.log('3');
-    return foundBuyer;
+
+    return res.send(foundBuyer);
   } catch (error) {
     return handleError(error, res);
   }
