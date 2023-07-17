@@ -43,7 +43,7 @@
     updatedAt DateTime @updatedAt
 
     buyerId       String @db.ObjectId @unique
-    productId     String @db.ObjectId
+    productId     String[] @db.ObjectId
 
     buyer         Buyer    @relation(fields: [buyerId], references: [id])
     product       Product  @relation(fields: [productId], references: [id])
