@@ -1,6 +1,6 @@
 import { object, string, TypeOf } from 'zod';
 
-export const createBuyerSchema = object({
+export const createUserSchema = object({
   body: object({
     firstname: string(),
     lastname: string(),
@@ -8,17 +8,17 @@ export const createBuyerSchema = object({
   }).strict(),
 });
 
-export type CreateBuyerInput = TypeOf<typeof createBuyerSchema>;
+export type CreateUserInput = TypeOf<typeof createUserSchema>;
 
-export const findBuyerSchema = object({
+export const findUserSchema = object({
   params: object({
     id: string(),
   }).strict(),
 });
 
-export type FindBuyerInput = TypeOf<typeof findBuyerSchema>;
+export type FindUserInput = TypeOf<typeof findUserSchema>;
 
-export const findBuyersSchema = object({
+export const findUsersSchema = object({
   body: object({
     params: object({
       firstname: string().optional(),
@@ -30,4 +30,4 @@ export const findBuyersSchema = object({
   }).strict(),
 });
 
-export type FindBuyersInput = TypeOf<typeof findBuyersSchema>;
+export type FindUsersInput = TypeOf<typeof findUsersSchema>;

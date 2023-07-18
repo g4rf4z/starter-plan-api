@@ -3,16 +3,16 @@ import { Express } from 'express';
 import { validate } from './middlewares/validation.middleware';
 
 import {
-  createBuyerSchema,
-  findBuyerSchema,
-  findBuyersSchema,
-} from './schemas/buyer.schema';
+  createUserSchema,
+  findUserSchema,
+  findUsersSchema,
+} from './schemas/user.schema';
 
 import {
-  createBuyerController,
-  findBuyerController,
-  findBuyersController,
-} from './controllers/buyer.controller';
+  createUserController,
+  findUserController,
+  findUsersController,
+} from './controllers/user.controller';
 
 import {
   createProductSchema,
@@ -41,10 +41,10 @@ const routes = (app: Express) => {
     return res.send('Hello World !');
   });
 
-  // ---------- Buyers routes ----------
-  app.post('/buyers', validate(createBuyerSchema), createBuyerController);
-  app.get('/buyers/:id', validate(findBuyerSchema), findBuyerController);
-  app.get('/buyers', validate(findBuyersSchema), findBuyersController);
+  // ---------- Users routes ----------
+  app.post('/users', validate(createUserSchema), createUserController);
+  app.get('/users/:id', validate(findUserSchema), findUserController);
+  app.get('/users', validate(findUsersSchema), findUsersController);
 
   // ---------- Products routes ----------
   app.post('/products', validate(createProductSchema), createProductController);
@@ -59,6 +59,8 @@ const routes = (app: Express) => {
   );
   app.get('/find-payment-intents', findPaymentIntentsController);
   app.get('/config', findPublishableKeyController);
+
+  // ---------- Cart routes ----------
   app.post('/cart', createCartController);
 };
 

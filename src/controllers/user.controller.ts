@@ -1,25 +1,25 @@
 import { Request, Response } from 'express';
 
 import {
-  createBuyerService,
-  findBuyerService,
-  findBuyersService,
-} from '../services/buyer.service';
+  createUserService,
+  findUserService,
+  findUsersService,
+} from '../services/user.service';
 
 import {
-  CreateBuyerInput,
-  FindBuyerInput,
-  FindBuyersInput,
-} from '../schemas/buyer.schema';
+  CreateUserInput,
+  FindUserInput,
+  FindUsersInput,
+} from '../schemas/user.schema';
 
 import { handleError } from '../utils/errors.util';
 
-export const createBuyerController = async (
-  req: Request<{}, {}, CreateBuyerInput['body']>,
+export const createUserController = async (
+  req: Request<{}, {}, CreateUserInput['body']>,
   res: Response
 ) => {
   try {
-    const createBuyerOptions = {
+    const createUserOptions = {
       select: {
         id: true,
         createdAt: true,
@@ -30,20 +30,20 @@ export const createBuyerController = async (
       },
     };
 
-    const createdBuyer = await createBuyerService(req.body, createBuyerOptions);
+    const createdUser = await createUserService(req.body, createUserOptions);
 
-    return res.send(createdBuyer);
+    return res.send(createdUser);
   } catch (error) {
     return handleError(error, res);
   }
 };
 
-export const findBuyerController = async (
-  req: Request<FindBuyerInput['params'], {}, {}>,
+export const findUserController = async (
+  req: Request<FindUserInput['params'], {}, {}>,
   res: Response
 ) => {
   try {
-    const findbuyerOptions = {
+    const findUserOptions = {
       select: {
         id: true,
         createdAt: true,
@@ -54,20 +54,20 @@ export const findBuyerController = async (
       },
     };
 
-    const foundBuyer = await findBuyerService(req.params, findbuyerOptions);
+    const foundUser = await findUserService(req.params, findUserOptions);
 
-    return res.send(foundBuyer);
+    return res.send(foundUser);
   } catch (error) {
     return handleError(error, res);
   }
 };
 
-export const findBuyersController = async (
-  req: Request<{}, {}, FindBuyersInput['body']>,
+export const findUsersController = async (
+  req: Request<{}, {}, FindUsersInput['body']>,
   res: Response
 ) => {
   try {
-    const findBuyersOptions = {
+    const findUsersOptions = {
       select: {
         id: true,
         createdAt: true,
@@ -78,9 +78,9 @@ export const findBuyersController = async (
       },
     };
 
-    const foundBuyers = await findBuyersService(req.params, findBuyersOptions);
+    const foundUsers = await findUsersService(req.params, findUsersOptions);
 
-    return res.send(foundBuyers);
+    return res.send(foundUsers);
   } catch (error) {
     return handleError(error, res);
   }
