@@ -10,14 +10,13 @@ export const createCartController = async (
   req: Request<{}, {}, CreateCartInput['body']>,
   res: Response
 ) => {
-  // const { buyerId, productId } = req.body;
   try {
     const createCartOptions = {
       select: {
         id: true,
         createdAt: true,
         updatedAt: true,
-        buyerId: true,
+        userId: true,
         productId: true,
       },
     };

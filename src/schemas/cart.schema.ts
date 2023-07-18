@@ -1,8 +1,8 @@
-import { array, object, string, TypeOf } from 'zod';
+import { array, number, object, string, TypeOf } from 'zod';
 
 export const createCartSchema = object({
   body: object({
-    buyerId: string(),
+    userId: string(),
     productId: array(string()),
   }).strict(),
 });
