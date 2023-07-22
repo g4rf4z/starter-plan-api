@@ -34,7 +34,10 @@ import {
 } from './controllers/paymentIntent.controller';
 
 import { findPublishableKeyController } from './controllers/publishableKey.controller';
-import { createCartController } from './controllers/cart.controller';
+
+import { findCartSchema } from './schemas/cart.schema';
+
+import { findCartController } from './controllers/cart.controller';
 
 const routes = (app: Express) => {
   app.get('/', (req, res) => {
@@ -61,7 +64,7 @@ const routes = (app: Express) => {
   app.get('/config', findPublishableKeyController);
 
   // ---------- Cart routes ----------
-  app.post('/cart', createCartController);
+  app.get('/carts/:id', validate(findCartSchema), findCartController);
 };
 
 export default routes;

@@ -12,6 +12,8 @@ import {
   FindUsersInput,
 } from '../schemas/user.schema';
 
+import { createCartService } from '../services/cart.service';
+
 import { handleError } from '../utils/errors.util';
 
 export const createUserController = async (
@@ -32,7 +34,9 @@ export const createUserController = async (
 
     const createdUser = await createUserService(req.body, createUserOptions);
 
-    return res.send(createdUser);
+    const createdCart = await createCartService({ userId: createdUser.id });
+
+    return res.send({ user: createdUser, cart: createdCart });
   } catch (error) {
     return handleError(error, res);
   }

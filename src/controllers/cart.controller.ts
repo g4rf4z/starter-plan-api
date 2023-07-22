@@ -1,29 +1,28 @@
 import { Request, Response } from 'express';
 
-import { createCartService } from '../services/cart.service';
+import { findCartService } from '../services/cart.service';
 
-import { CreateCartInput } from '../schemas/cart.schema';
+import { FindCartInput } from '../schemas/cart.schema';
 
 import { handleError } from '../utils/errors.util';
 
-export const createCartController = async (
-  req: Request<{}, {}, CreateCartInput['body']>,
+export const findCartController = async (
+  req: Request<FindCartInput['params'], {}, {}>,
   res: Response
 ) => {
   try {
-    const createCartOptions = {
+    const findCartOptions = {
       select: {
         id: true,
         createdAt: true,
         updatedAt: true,
         userId: true,
-        productId: true,
       },
     };
 
-    const createdCart = await createCartService(req.body, createCartOptions);
+    const foundCart = await findCartService(req.params, findCartOptions);
 
-    return res.send(createdCart);
+    return res.send(foundCart);
   } catch (error) {
     return handleError(error, res);
   }

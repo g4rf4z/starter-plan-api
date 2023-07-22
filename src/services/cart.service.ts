@@ -8,9 +8,27 @@ export const createCartService = async (
   options: Omit<Prisma.CartCreateArgs, 'data'> = {}
 ) => {
   try {
-    const createdCart = await prisma.cart.create({ data, ...options });
+    const createdCart = await prisma.cart.create({
+      data: {
+        user: {
+          connect: { id: data.userId },
+        },
+      },
+      ...options,
+    });
 
     return createdCart;
+  } catch (error) {
+    throw handlePrismaError(error, 'cart');
+  }
+};
+
+export const findCartService = async (
+  params: Prisma.CartFindFirstOrThrowArgs['where'],
+  options: Omit<Prisma.CartFindFirstOrThrowArgs, 'where'> = {}
+) => {
+  try {
+    return await prisma.cart.findFirstOrThrow({ where: params, ...options });
   } catch (error) {
     throw handlePrismaError(error, 'cart');
   }

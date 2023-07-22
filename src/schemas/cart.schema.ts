@@ -1,10 +1,9 @@
-import { array, number, object, string, TypeOf } from 'zod';
+import { object, string, TypeOf } from 'zod';
 
-export const createCartSchema = object({
-  body: object({
-    userId: string(),
-    productId: array(string()),
+export const findCartSchema = object({
+  params: object({
+    id: string(),
   }).strict(),
 });
 
-export type CreateCartInput = TypeOf<typeof createCartSchema>;
+export type FindCartInput = TypeOf<typeof findCartSchema>;

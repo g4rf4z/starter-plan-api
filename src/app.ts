@@ -8,6 +8,11 @@ import { createServer } from './server/createServer';
 const port = process.env.PORT || config.get<number>('port');
 const app = createServer();
 
+import express, { Request, Response } from 'express';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
 // const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 // const webhookSecretKey = process.env.STRIPE_WEBHOOK_SECRET_KEY;
