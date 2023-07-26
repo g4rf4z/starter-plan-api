@@ -39,6 +39,16 @@ import { findCartSchema } from './schemas/cart.schema';
 
 import { findCartController } from './controllers/cart.controller';
 
+import {
+  createCartItemSchema,
+  readCartItemSchema,
+} from './schemas/cartItem/cartItem.schema';
+
+import {
+  createCartItemController,
+  readCartItemController,
+} from './controllers/cartItem/cartItem.controller';
+
 const routes = (app: Express) => {
   app.get('/', (req, res) => {
     return res.send('Hello World !');
@@ -65,6 +75,18 @@ const routes = (app: Express) => {
 
   // ---------- Cart routes ----------
   app.get('/carts/:id', validate(findCartSchema), findCartController);
+
+  // ---------- Cart item routes
+  app.post(
+    '/cart/:cartId',
+    validate(createCartItemSchema),
+    createCartItemController
+  );
+  app.get(
+    '/read-cart-items/:cartId?',
+    validate(readCartItemSchema),
+    readCartItemController
+  );
 };
 
 export default routes;

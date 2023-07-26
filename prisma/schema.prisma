@@ -62,7 +62,7 @@
   cart Cart @relation(fields: [cartId], references: [id])
   cartId String @db.ObjectId
 
-  product Product @relation(fields: [productId], references: [id])
+  products Product[] @relation(fields: [productId], references: [id])
   productId String[] @db.ObjectId
 
   @@map("cartItems")
@@ -78,7 +78,8 @@
     description String
     price Float
 
-    cartItems CartItem[]
+    cartItems CartItem[] @relation(fields: [cartId], references: [id])
+    cartId String[] @db.ObjectId
 
     @@map("products")
   }
