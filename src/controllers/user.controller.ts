@@ -29,6 +29,14 @@ export const createUserController = async (
         firstname: true,
         lastname: true,
         email: true,
+        cart: {
+          select: {
+            id: true,
+            createdAt: true,
+            updatedAt: true,
+            userId: true,
+          },
+        },
       },
     };
 
@@ -55,6 +63,14 @@ export const findUserController = async (
         firstname: true,
         lastname: true,
         email: true,
+        cart: {
+          select: {
+            id: true,
+            createdAt: true,
+            updatedAt: true,
+            userId: true,
+          },
+        },
       },
     };
 
@@ -79,6 +95,14 @@ export const findUsersController = async (
         firstname: true,
         lastname: true,
         email: true,
+        cart: {
+          select: {
+            id: true,
+            createdAt: true,
+            updatedAt: true,
+            userId: true,
+          },
+        },
       },
     };
 
