@@ -1,5 +1,5 @@
-import express from 'express';
 import config from 'config';
+import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
