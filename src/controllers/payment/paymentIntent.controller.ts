@@ -3,9 +3,9 @@ import { Request, Response } from 'express';
 import {
   createPaymentIntentService,
   findPaymentIntentsService,
-} from '../services/paymentIntent.service';
+} from '../../services/payment/paymentIntent.service';
 
-import { createPaymentIntentInput } from '../schemas/paymentIntent.schema';
+import { createPaymentIntentInput } from '../../schemas/payment/paymentIntent.schema';
 
 export const createPaymentIntentController = async (
   req: Request<{}, {}, createPaymentIntentInput['body']>,

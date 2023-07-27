@@ -6,38 +6,38 @@ import {
   createUserSchema,
   findUserSchema,
   findUsersSchema,
-} from './schemas/user.schema';
+} from './schemas/user/user.schema';
 
 import {
   createUserController,
   findUserController,
   findUsersController,
-} from './controllers/user.controller';
+} from './controllers/user/user.controller';
 
 import {
   createProductSchema,
   findProductSchema,
   findProductsSchema,
-} from './schemas/product.schema';
+} from './schemas/product/product.schema';
 
 import {
   createProductController,
   findProductController,
   findProductsController,
-} from './controllers/product.controller';
+} from './controllers/product/product.controller';
 
-import { createPaymentIntentSchema } from './schemas/paymentIntent.schema';
+import { createPaymentIntentSchema } from './schemas/payment/paymentIntent.schema';
 
 import {
   createPaymentIntentController,
   findPaymentIntentsController,
-} from './controllers/paymentIntent.controller';
+} from './controllers/payment/paymentIntent.controller';
 
-import { findPublishableKeyController } from './controllers/publishableKey.controller';
+import { findPublishableKeyController } from './controllers/payment/publishableKey.controller';
 
-import { findCartSchema } from './schemas/cart.schema';
+import { findCartSchema } from './schemas/cart/cart.schema';
 
-import { findCartController } from './controllers/cart.controller';
+import { findCartController } from './controllers/cart/cart.controller';
 
 import {
   createCartItemSchema,

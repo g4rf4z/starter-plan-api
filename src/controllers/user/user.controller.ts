@@ -4,17 +4,17 @@ import {
   createUserService,
   findUserService,
   findUsersService,
-} from '../services/user.service';
+} from '../../services/user/user.service';
 
 import {
   CreateUserInput,
   FindUserInput,
   FindUsersInput,
-} from '../schemas/user.schema';
+} from '../../schemas/user/user.schema';
 
-import { createCartService } from '../services/cart.service';
+import { createCartService } from '../../services/cart/cart.service';
 
-import { handleError } from '../utils/errors.util';
+import { handleError } from '../../utils/errors.util';
 
 export const createUserController = async (
   req: Request<{}, {}, CreateUserInput['body']>,

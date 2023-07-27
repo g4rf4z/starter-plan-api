@@ -1,7 +1,7 @@
 import type { Prisma } from '@prisma/client';
 
-import { prisma } from '../utils/prisma.util';
-import { handlePrismaError } from '../utils/errors.util';
+import { prisma } from '../../utils/prisma.util';
+import { handlePrismaError } from '../../utils/errors.util';
 
 export const createUserService = async (
   data: Prisma.UserCreateArgs['data'],

@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 
-import { findCartService } from '../services/cart.service';
+import { findCartService } from '../../services/cart/cart.service';
 
-import { FindCartInput } from '../schemas/cart.schema';
+import { FindCartInput } from '../../schemas/cart/cart.schema';
 
-import { handleError } from '../utils/errors.util';
+import { handleError } from '../../utils/errors.util';
 
 export const findCartController = async (
   req: Request<FindCartInput['params'], {}, {}>,

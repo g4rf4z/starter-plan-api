@@ -4,15 +4,15 @@ import {
   createProductService,
   findProductService,
   findProductsService,
-} from '../services/product.service';
+} from '../../services/product/product.service';
 
 import type {
   CreateProductInput,
   FindProductInput,
   FindProductsInput,
-} from '../schemas/product.schema';
+} from '../../schemas/product/product.schema';
 
-import { handleError } from '../utils/errors.util';
+import { handleError } from '../../utils/errors.util';
 
 export const createProductController = async (
   req: Request<{}, {}, CreateProductInput['body']>,
