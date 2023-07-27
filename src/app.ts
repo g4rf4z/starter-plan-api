@@ -37,27 +37,27 @@ const prisma = new PrismaClient();
 // });
 
 // Lecture du panier d'un utilisateur avec les articles du panier
-app.get('/user/:userId/cart', async (req, res) => {
-  const { userId } = req.params;
+// app.get('/user/:userId/cart', async (req, res) => {
+//   const { userId } = req.params;
 
-  // Vérification de l'existence de l'utilisateur
-  const user = await prisma.user.findUnique({ where: { id: userId } });
-  if (!user) return res.status(404).send('User not found');
+//   // Vérification de l'existence de l'utilisateur
+//   const user = await prisma.user.findUnique({ where: { id: userId } });
+//   if (!user) return res.status(404).send('User not found');
 
-  // Lecture du panier de l'utilisateur avec les articles du panier
-  const cart = await prisma.cart.findUnique({
-    where: { userId },
-    include: {
-      cartItems: {
-        include: { product: true },
-      },
-    },
-  });
+//   // Lecture du panier de l'utilisateur avec les articles du panier
+//   const cart = await prisma.cart.findUnique({
+//     where: { userId },
+//     include: {
+//       cartItems: {
+//         include: { product: true },
+//       },
+//     },
+//   });
 
-  if (!cart) return res.status(404).send('Cart not found');
+//   if (!cart) return res.status(404).send('Cart not found');
 
-  return res.json(cart);
-});
+//   return res.json(cart);
+// });
 
 // const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
