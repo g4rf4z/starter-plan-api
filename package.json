@@ -6,7 +6,7 @@
   "author": "g4rf4z <gregoire.pinte@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": "~20.3.O",
+    "node": "~20.4.0",
     "npm": "~9.5.0"
   },
   "scripts": {
