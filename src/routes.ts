@@ -6,12 +6,16 @@ import {
   createUserSchema,
   findUserSchema,
   findUsersSchema,
+  updateUserSchema,
+  deleteUserSchema,
 } from './schemas/user/user.schema';
 
 import {
   createUserController,
   findUserController,
   findUsersController,
+  updateUserController,
+  deleteUserController,
 } from './controllers/user/user.controller';
 
 import {
@@ -54,10 +58,12 @@ const routes = (app: Express) => {
     return res.send('Hello World !');
   });
 
-  // ---------- Users routes ----------
+  // ---------- User routes ----------
   app.post('/users', validate(createUserSchema), createUserController);
   app.get('/users/:id', validate(findUserSchema), findUserController);
   app.get('/users', validate(findUsersSchema), findUsersController);
+  app.patch('/users/:id', validate(updateUserSchema), updateUserController);
+  app.delete('/users/:id', validate(deleteUserSchema), deleteUserController);
 
   // ---------- Products routes ----------
   app.post('/products', validate(createProductSchema), createProductController);

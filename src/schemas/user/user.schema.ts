@@ -31,3 +31,24 @@ export const findUsersSchema = object({
 });
 
 export type FindUsersInput = TypeOf<typeof findUsersSchema>;
+
+export const updateUserSchema = object({
+  params: object({
+    id: string(),
+  }).strict(),
+  body: object({
+    firstname: string(),
+    lastname: string(),
+    email: string().email(),
+  }).strict(),
+});
+
+export type UpdateUserInput = TypeOf<typeof updateUserSchema>;
+
+export const deleteUserSchema = object({
+  params: object({
+    id: string(),
+  }).strict(),
+});
+
+export type DeleteUserInput = TypeOf<typeof deleteUserSchema>;

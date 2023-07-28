@@ -12,7 +12,7 @@ export const createUserService = async (
 
     return createdUser;
   } catch (error) {
-    throw handlePrismaError(error, 'product');
+    throw handlePrismaError(error, 'user');
   }
 };
 
@@ -28,7 +28,7 @@ export const findUserService = async (
 
     return foundUser;
   } catch (error) {
-    throw handlePrismaError(error, 'product');
+    throw handlePrismaError(error, 'user');
   }
 };
 
@@ -44,6 +44,40 @@ export const findUsersService = async (
 
     return foundUsers;
   } catch (error) {
-    throw handlePrismaError(error, 'product');
+    throw handlePrismaError(error, 'user');
+  }
+};
+
+export const updateUserService = async (
+  params: Prisma.UserUpdateArgs['where'],
+  data: Prisma.UserUpdateArgs['data'],
+  options: Omit<Prisma.UserUpdateArgs, 'where' | 'data'> = {}
+) => {
+  try {
+    const updatedUser = await prisma.user.update({
+      where: params,
+      data,
+      ...options,
+    });
+
+    return updatedUser;
+  } catch (error) {
+    throw handlePrismaError(error, 'user');
+  }
+};
+
+export const deleteUserService = async (
+  params: Prisma.UserDeleteArgs['where'],
+  options: Omit<Prisma.UserDeleteArgs, 'where'> = {}
+) => {
+  try {
+    const deletedUser = await prisma.user.delete({
+      where: params,
+      ...options,
+    });
+
+    return deletedUser;
+  } catch (error) {
+    throw handlePrismaError(error, 'user');
   }
 };

@@ -31,3 +31,19 @@ export const findCartService = async (
     throw handlePrismaError(error, 'cart');
   }
 };
+
+export const deleteCartService = async (
+  params: Prisma.CartDeleteArgs['where'],
+  options: Omit<Prisma.CartDeleteArgs, 'where'> = {}
+) => {
+  try {
+    const deletedCart = await prisma.cart.delete({
+      where: params,
+      ...options,
+    });
+
+    return deletedCart;
+  } catch (error) {
+    throw handlePrismaError(error, 'cart');
+  }
+};
