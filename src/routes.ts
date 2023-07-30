@@ -63,7 +63,7 @@ const routes = (app: Express) => {
   app.get('/users/:id', validate(findUserSchema), findUserController);
   app.get('/users', validate(findUsersSchema), findUsersController);
   app.patch('/users/:id', validate(updateUserSchema), updateUserController);
-  app.delete('/users/:id', validate(deleteUserSchema), deleteUserController);
+  app.delete('/users/:id', deleteUserController);
 
   // ---------- Products routes ----------
   app.post('/products', validate(createProductSchema), createProductController);
