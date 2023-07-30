@@ -16,11 +16,7 @@ import {
   DeleteUserInput,
 } from '../../schemas/user/user.schema';
 
-import {
-  createCartService,
-  deleteCartService,
-  findCartService,
-} from '../../services/cart/cart.service';
+import { createCartService } from '../../services/cart/cart.service';
 
 import { handleError } from '../../utils/errors.util';
 
@@ -165,29 +161,9 @@ export const deleteUserController = async (
         firstname: true,
         lastname: true,
         email: true,
-        cart: {
-          select: {
-            id: true,
-            createdAt: true,
-            updatedAt: true,
-            userId: true,
-          },
-        },
       },
     };
 
-    const foundUser = await findUserService(req.params, deleteUserOptions);
-    console.log(foundUser);
-
-    await deleteCartService({ id: foundUser.cart.id });
-
-    // Recherche du panier associé à l'utilisateur.
-    // const foundCart = await findCartService();
-
-    // Suppression du panier associé à l'utilisateur.
-    // const deletedCart = await deleteCartService();
-
-    // Suppression de l'utilisateur.
     const deletedUser = await deleteUserService(req.params, deleteUserOptions);
 
     return res.send(deletedUser);
