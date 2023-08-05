@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "description": "Starter Plan - API",
   "repository": "https://github.com/g4rf4z/starter-plan-api",
-  "author": "g4rf4z <gregoire.pinte@gmail.com>",
+  "author": "Grégoire Pinte - Garfaz",
   "license": "MIT",
   "engines": {
     "node": "~20.4.0",
     "npm": "~9.5.0"
   },
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only src/app.ts",
     "build": "tsc",
     "postinstall": "npx prisma generate && npx prisma db push && tsc",
     "start": "node build/app.js",
@@ -20,7 +20,7 @@
     "deps:reset": "npm run deps:clear && npm install"
   },
   "dependencies": {
-    "@prisma/client": "~5.0.0",
+    "@prisma/client": "~5.1.1",
     "bcrypt": "~5.1.0",
     "config": "~3.3.9",
     "cookie-parser": "~1.4.6",
@@ -31,9 +31,9 @@
     "helmet": "~7.0.0",
     "jsonwebtoken": "~9.0.1",
     "nodemailer": "~6.9.3",
-    "prisma": "~5.0.0",
+    "prisma": "~5.1.1",
     "rimraf": "~5.0.0",
-    "stripe": "~12.16.0",
+    "stripe": "~12.17.0",
     "zod": "~3.21.4"
   },
   "devDependencies": {
@@ -45,7 +45,8 @@
     "@types/jsonwebtoken": "~9.0.1",
     "@types/node": "~20.4.5",
     "@types/nodemailer": "~6.4.6",
-    "mongodb-memory-server": "~8.13.0",
+    "mongodb-memory-server": "~8.14.0",
+    "tsconfig-paths": "~4.2.0",
     "ts-node-dev": "~2.0.0",
     "typescript": "~5.1.6"
   }
