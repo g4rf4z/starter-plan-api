@@ -1,6 +1,6 @@
 import { object, string, TypeOf } from 'zod';
 
-export const createUserSchema = object({
+export const registerSchema = object({
   body: object({
     firstname: string(),
     lastname: string(),
@@ -8,7 +8,7 @@ export const createUserSchema = object({
   }).strict(),
 });
 
-export type CreateUserInput = TypeOf<typeof createUserSchema>;
+export type RegisterInput = TypeOf<typeof registerSchema>;
 
 export const findUserSchema = object({
   params: object({

@@ -3,20 +3,19 @@ import { Express } from 'express';
 import { validate } from './middlewares/validation.middleware';
 
 import {
-  createUserSchema,
+  registerSchema,
   findUserSchema,
   findUsersSchema,
   updateUserSchema,
-  deleteUserSchema,
 } from './schemas/user/user.schema';
 
 import {
-  createUserController,
+  registerController,
   findUserController,
   findUsersController,
   updateUserController,
   deleteUserController,
-} from './controllers/user/user.controller';
+} from './controllers/user/register.controller';
 
 import {
   createProductSchema,
@@ -59,7 +58,7 @@ const routes = (app: Express) => {
   });
 
   // ---------- User routes ----------
-  app.post('/users', validate(createUserSchema), createUserController);
+  app.post('/users', validate(registerSchema), registerController);
   app.get('/users/:id', validate(findUserSchema), findUserController);
   app.get('/users', validate(findUsersSchema), findUsersController);
   app.patch('/users/:id', validate(updateUserSchema), updateUserController);

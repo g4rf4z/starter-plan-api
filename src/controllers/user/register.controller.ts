@@ -1,15 +1,16 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 import {
-  createUserService,
   findUserService,
   findUsersService,
   updateUserService,
   deleteUserService,
 } from '../../services/user/user.service';
 
+import { UserDatabase } from '../../models/user/user.database';
+
 import {
-  CreateUserInput,
+  RegisterInput,
   FindUserInput,
   FindUsersInput,
   UpdateUserInput,
@@ -20,37 +21,26 @@ import { createCartService } from '../../services/cart/cart.service';
 
 import { handleError } from '../../utils/errors.util';
 
-export const createUserController = async (
-  req: Request<{}, {}, CreateUserInput['body']>,
-  res: Response
+export const registerController = async (
+  req: Request<{}, {}, RegisterInput['body']>,
+  res: Response,
+  next: NextFunction
 ) => {
   try {
-    const createUserOptions = {
-      select: {
-        id: true,
-        createdAt: true,
-        updatedAt: true,
-        firstname: true,
-        lastname: true,
-        email: true,
-        cart: {
-          select: {
-            id: true,
-            createdAt: true,
-            updatedAt: true,
-            userId: true,
-          },
-        },
-      },
-    };
+    const { firstname, lastname, email } = req.body;
 
-    // Création d'un utilisateur.
-    const createdUser = await createUserService(req.body, createUserOptions);
+    const userDb = new UserDatabase();
 
-    // Création du panier associé à l'utilisateur.
-    const createdCart = await createCartService({ userId: createdUser.id });
+    const user = await userDb.create({
+      firstname,
+      lastname,
+      email,
+    });
 
-    return res.send({ user: createdUser, cart: createdCart });
+    // create user's cart
+    await createCartService({ userId: user.id });
+
+    res.status(201).json(user);
   } catch (error) {
     return handleError(error, res);
   }
