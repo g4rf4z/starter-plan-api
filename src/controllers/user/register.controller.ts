@@ -1,13 +1,14 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
+
+import { UserDatabase } from '@/models/user/user.database';
+import { CartDatabase } from '@/models/cart/cart.database';
 
 import {
   findUserService,
   findUsersService,
   updateUserService,
   deleteUserService,
-} from '../../services/user/user.service';
-
-import { UserDatabase } from '../../models/user/user.database';
+} from '@/services/user/user.service';
 
 import {
   RegisterInput,
@@ -15,11 +16,9 @@ import {
   FindUsersInput,
   UpdateUserInput,
   DeleteUserInput,
-} from '../../schemas/user/user.schema';
+} from '@/schemas/user/user.schema';
 
-import { createCartService } from '../../services/cart/cart.service';
-
-import { handleError } from '../../utils/errors.util';
+import { handleError } from '@/utils/errors.util';
 
 export const registerController = async (
   req: Request<{}, {}, RegisterInput['body']>,
@@ -27,6 +26,7 @@ export const registerController = async (
   next: NextFunction
 ) => {
   try {
+    // create user
     const { firstname, lastname, email } = req.body;
 
     const userDb = new UserDatabase();
@@ -38,9 +38,13 @@ export const registerController = async (
     });
 
     // create user's cart
-    await createCartService({ userId: user.id });
+    const cartDb = new CartDatabase();
 
-    res.status(201).json(user);
+    const cart = await cartDb.create({
+      userId: user.id,
+    });
+
+    res.status(201).json({ user, cart });
   } catch (error) {
     return handleError(error, res);
   }
