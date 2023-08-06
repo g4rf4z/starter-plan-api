@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-import { ICart, ICartFullPayload } from '@/models/cart/cart.entity';
+import { ICart, ICartFull, ICartFullPayload } from '@/models/cart/cart.entity';
 
 import { prisma } from '@/utils/prisma.util';
 
@@ -31,6 +31,17 @@ export class CartDatabase {
       return cart;
     } catch (error) {
       throw console.error('CartDatabase.create', error);
+    }
+  }
+
+  async readByUserId(userId: ICartFull['userId']): Promise<ICartFullPayload> {
+    try {
+      const cart = await this.cartDb.findUniqueOrThrow({
+        where: { userId: userId },
+      });
+      return cart;
+    } catch (error) {
+      throw console.error('CartDatabase.readByUserId', error);
     }
   }
 }
