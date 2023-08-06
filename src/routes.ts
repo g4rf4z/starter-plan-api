@@ -4,7 +4,7 @@ import { validate } from './middlewares/validation.middleware';
 
 import {
   registerSchema,
-  findUserSchema,
+  fetchUserSchema,
   findUsersSchema,
   updateUserSchema,
 } from './schemas/user/user.schema';
@@ -51,6 +51,7 @@ import {
   createCartItemController,
   readCartItemController,
 } from './controllers/cartItem/cartItem.controller';
+import { fetchUserController } from './controllers/user/fetchUser.controller';
 
 const routes = (app: Express) => {
   app.get('/', (req, res) => {
@@ -59,7 +60,7 @@ const routes = (app: Express) => {
 
   // ---------- User routes ----------
   app.post('/users', validate(registerSchema), registerController);
-  app.get('/users/:id', validate(findUserSchema), findUserController);
+  app.get('/users/:id', validate(fetchUserSchema), fetchUserController);
   app.get('/users', validate(findUsersSchema), findUsersController);
   app.patch('/users/:id', validate(updateUserSchema), updateUserController);
   app.delete('/users/:id', deleteUserController);
