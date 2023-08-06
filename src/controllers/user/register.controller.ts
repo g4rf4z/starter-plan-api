@@ -4,7 +4,6 @@ import { UserDatabase } from '@/models/user/user.database';
 import { CartDatabase } from '@/models/cart/cart.database';
 
 import {
-  findUserService,
   findUsersService,
   updateUserService,
   deleteUserService,
@@ -12,7 +11,6 @@ import {
 
 import {
   RegisterInput,
-  FindUserInput,
   FindUsersInput,
   UpdateUserInput,
   DeleteUserInput,
@@ -43,40 +41,7 @@ export const registerController = async (
     const cart = await cartDb.create({
       userId: user.id,
     });
-
-    res.status(201).json({ user, cart });
-  } catch (error) {
-    return handleError(error, res);
-  }
-};
-
-export const findUserController = async (
-  req: Request<FindUserInput['params'], {}, {}>,
-  res: Response
-) => {
-  try {
-    const findUserOptions = {
-      select: {
-        id: true,
-        createdAt: true,
-        updatedAt: true,
-        firstname: true,
-        lastname: true,
-        email: true,
-        cart: {
-          select: {
-            id: true,
-            createdAt: true,
-            updatedAt: true,
-            userId: true,
-          },
-        },
-      },
-    };
-
-    const foundUser = await findUserService(req.params, findUserOptions);
-
-    return res.send(foundUser);
+    return res.status(201).json({ user, cart });
   } catch (error) {
     return handleError(error, res);
   }
