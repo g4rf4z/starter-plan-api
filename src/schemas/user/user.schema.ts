@@ -7,16 +7,14 @@ export const registerSchema = object({
     email: string().email(),
   }).strict(),
 });
-
 export type RegisterInput = TypeOf<typeof registerSchema>;
 
-export const findUserSchema = object({
+export const fetchUserSchema = object({
   params: object({
     id: string(),
   }).strict(),
 });
-
-export type FindUserInput = TypeOf<typeof findUserSchema>;
+export type FetchUserInput = TypeOf<typeof fetchUserSchema>;
 
 export const findUsersSchema = object({
   body: object({
