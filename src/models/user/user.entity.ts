@@ -1,3 +1,5 @@
+import { ICart } from '@/models/cart/cart.entity';
+
 export interface IUser {
   id?: string;
   createdAt?: Date;
@@ -5,9 +7,11 @@ export interface IUser {
   firstname: string;
   lastname: string;
   email: string;
+  cart?: ICart;
 }
 
 export type IUserFull = Required<IUser>;
+export type IUserFullPayload = Omit<IUserFull, 'cart'>;
 
 export class User {
   id;
@@ -16,6 +20,7 @@ export class User {
   firstname;
   lastname;
   email;
+  cart;
 
   constructor(data: IUser) {
     this.id = data.id;
@@ -24,5 +29,6 @@ export class User {
     this.firstname = data.firstname;
     this.lastname = data.lastname;
     this.email = data.email;
+    this.cart = data.cart;
   }
 }
