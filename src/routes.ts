@@ -4,18 +4,13 @@ import { validate } from './middlewares/validation.middleware';
 
 import {
   registerSchema,
-  fetchUserSchema,
   findUsersSchema,
   updateUserSchema,
 } from './schemas/user/user.schema';
 
-import {
-  registerController,
-  findUserController,
-  findUsersController,
-  updateUserController,
-  deleteUserController,
-} from './controllers/user/register.controller';
+import { readUserSchema } from './schemas/user/readUser.schema';
+
+import { registerController } from './controllers/user/register.controller';
 
 import {
   createProductSchema,
@@ -47,10 +42,6 @@ import {
   readCartItemSchema,
 } from './schemas/cartItem/cartItem.schema';
 
-import {
-  createCartItemController,
-  readCartItemController,
-} from './controllers/cartItem/cartItem.controller';
 import { fetchUserController } from './controllers/user/fetchUser.controller';
 
 const routes = (app: Express) => {
@@ -60,10 +51,10 @@ const routes = (app: Express) => {
 
   // ---------- User routes ----------
   app.post('/users', validate(registerSchema), registerController);
-  app.get('/users/:id', validate(fetchUserSchema), fetchUserController);
-  app.get('/users', validate(findUsersSchema), findUsersController);
-  app.patch('/users/:id', validate(updateUserSchema), updateUserController);
-  app.delete('/users/:id', deleteUserController);
+  app.get('/users/:id', validate(readUserSchema), fetchUserController);
+  // app.get('/users', validate(findUsersSchema), findUsersController);
+  // app.patch('/users/:id', validate(updateUserSchema), updateUserController);
+  // app.delete('/users/:id', deleteUserController);
 
   // ---------- Products routes ----------
   app.post('/products', validate(createProductSchema), createProductController);
@@ -81,18 +72,6 @@ const routes = (app: Express) => {
 
   // ---------- Cart routes ----------
   app.get('/carts/:id', validate(findCartSchema), findCartController);
-
-  // ---------- Cart item routes
-  app.post(
-    '/cart/:cartId',
-    validate(createCartItemSchema),
-    createCartItemController
-  );
-  app.get(
-    '/read-cart-items/:cartId?',
-    validate(readCartItemSchema),
-    readCartItemController
-  );
 };
 
 export default routes;
