@@ -11,13 +11,14 @@ export class UserDatabase {
     this.userDb = prisma.user;
   }
 
-  async create(data: IUser): Promise<IUserFullPayload> {
+  async createUser(data: IUser): Promise<IUserFullPayload> {
     try {
       const user = await this.userDb.create({
         data: {
           firstname: data.firstname,
           lastname: data.lastname,
           email: data.email,
+          password: data.password,
         },
         select: {
           id: true,
@@ -26,15 +27,16 @@ export class UserDatabase {
           firstname: true,
           lastname: true,
           email: true,
+          password: true,
         },
       });
       return user;
     } catch (error) {
-      throw console.error('UserDatabase.create', error);
+      throw console.error('UserDatabase.createUser', error);
     }
   }
 
-  async readById(id: IUserFull['id']): Promise<IUserFullPayload> {
+  async readUser(id: IUserFull['id']): Promise<IUserFullPayload> {
     try {
       const user = await this.userDb.findUniqueOrThrow({
         where: { id },
@@ -45,11 +47,12 @@ export class UserDatabase {
           firstname: true,
           lastname: true,
           email: true,
+          password: true,
         },
       });
       return user;
     } catch (error) {
-      throw console.error('UserDatabase.readById', error);
+      throw console.error('UserDatabase.readUser', error);
     }
   }
 }
