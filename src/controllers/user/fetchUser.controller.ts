@@ -3,12 +3,12 @@ import { Request, Response, NextFunction } from 'express';
 import { UserDatabase } from '@/models/user/user.database';
 import { CartDatabase } from '@/models/cart/cart.database';
 
-import { FetchUserInput } from '@/schemas/user/user.schema';
+import { ReadUserInput } from '@/schemas/user/readUser.schema';
 
 import { handleError } from '@/utils/errors.util';
 
 export const fetchUserController = async (
-  req: Request<FetchUserInput['params'], {}, {}>,
+  req: Request<ReadUserInput['params'], {}, {}>,
   res: Response,
   next: NextFunction
 ) => {
@@ -19,10 +19,10 @@ export const fetchUserController = async (
     const cartDb = new CartDatabase();
 
     // read user by id
-    const user = await userDb.readById(id);
+    const user = await userDb.readUser(id);
     // read cart by user's id
     const cart = await cartDb.readByUserId(id);
-    return res.status(201).json({ user, cart });
+    return res.status(200).json({ user, cart });
   } catch (error) {
     return handleError(error, res);
   }
