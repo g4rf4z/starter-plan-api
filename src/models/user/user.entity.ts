@@ -7,11 +7,17 @@ export interface IUser {
   firstname: string;
   lastname: string;
   email: string;
+  password: string;
   cart?: ICart;
+  orders?: string[];
+  sessions?: string[];
 }
 
 export type IUserFull = Required<IUser>;
-export type IUserFullPayload = Omit<IUserFull, 'cart'>;
+export type IUserWithoutPassword = Omit<IUser, 'password'>;
+export type IUserFullWithoutPassword = Omit<IUserFull, 'password'>;
+export type IUserFullWithoutSession = Omit<IUserFull, 'sessions'>;
+export type IUserFullPayload = Omit<IUserFull, 'cart' | 'orders' | 'sessions'>;
 
 export class User {
   id;
@@ -20,7 +26,10 @@ export class User {
   firstname;
   lastname;
   email;
+  password;
   cart;
+  orders;
+  sessions;
 
   constructor(data: IUser) {
     this.id = data.id;
@@ -29,6 +38,9 @@ export class User {
     this.firstname = data.firstname;
     this.lastname = data.lastname;
     this.email = data.email;
+    this.password = data.password;
     this.cart = data.cart;
+    this.orders = data.orders;
+    this.sessions = data.sessions;
   }
 }
