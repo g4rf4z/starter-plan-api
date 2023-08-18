@@ -5,16 +5,10 @@ export const registerSchema = object({
     firstname: string(),
     lastname: string(),
     email: string().email(),
+    password: string(),
   }).strict(),
 });
 export type RegisterInput = TypeOf<typeof registerSchema>;
-
-export const fetchUserSchema = object({
-  params: object({
-    id: string(),
-  }).strict(),
-});
-export type FetchUserInput = TypeOf<typeof fetchUserSchema>;
 
 export const findUsersSchema = object({
   body: object({
