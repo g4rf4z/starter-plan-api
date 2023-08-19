@@ -11,7 +11,8 @@ export class CartDatabase {
     this.cartDb = prisma.cart;
   }
 
-  async create({ userId }: ICart): Promise<ICartFullPayload> {
+  // create cart
+  async createCart({ userId }: ICart): Promise<ICartFullPayload> {
     try {
       const cart = await this.cartDb.create({
         data: {
@@ -30,18 +31,19 @@ export class CartDatabase {
       });
       return cart;
     } catch (error) {
-      throw console.error('CartDatabase.create', error);
+      throw console.error('CartDatabase.createCart', error);
     }
   }
 
-  async readByUserId(userId: ICartFull['userId']): Promise<ICartFullPayload> {
+  // read cart by user's id
+  async readCart(userId: ICartFull['userId']): Promise<ICartFullPayload> {
     try {
       const cart = await this.cartDb.findUniqueOrThrow({
         where: { userId: userId },
       });
       return cart;
     } catch (error) {
-      throw console.error('CartDatabase.readByUserId', error);
+      throw console.error('CartDatabase.readCart', error);
     }
   }
 }
