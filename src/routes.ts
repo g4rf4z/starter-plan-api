@@ -14,15 +14,8 @@ import { registerController } from './controllers/user/register.controller';
 
 import {
   createProductSchema,
-  findProductSchema,
   findProductsSchema,
 } from './schemas/product/product.schema';
-
-import {
-  createProductController,
-  findProductController,
-  findProductsController,
-} from './controllers/product/product.controller';
 
 import { createPaymentIntentSchema } from './schemas/payment/paymentIntent.schema';
 
@@ -37,12 +30,10 @@ import { findCartSchema } from './schemas/cart/cart.schema';
 
 import { findCartController } from './controllers/cart/cart.controller';
 
-import {
-  createCartItemSchema,
-  readCartItemSchema,
-} from './schemas/cartItem/cartItem.schema';
+import { createCartItemSchema } from './schemas/cartItem/cartItem.schema';
 
 import { fetchUserController } from './controllers/user/fetchUser.controller';
+import { createCartItemController } from './controllers/cartItem/cartItem.controller';
 
 const routes = (app: Express) => {
   app.get('/', (req, res) => {
@@ -52,14 +43,21 @@ const routes = (app: Express) => {
   // ---------- User routes ----------
   app.post('/users', validate(registerSchema), registerController);
   app.get('/users/:id', validate(readUserSchema), fetchUserController);
+
+  // cart item routes
+  app.post(
+    '/cart-items/:cartId',
+    validate(createCartItemSchema),
+    createCartItemController
+  );
   // app.get('/users', validate(findUsersSchema), findUsersController);
   // app.patch('/users/:id', validate(updateUserSchema), updateUserController);
   // app.delete('/users/:id', deleteUserController);
 
-  // ---------- Products routes ----------
-  app.post('/products', validate(createProductSchema), createProductController);
-  app.get('/products/:id', validate(findProductSchema), findProductController);
-  app.get('/products', validate(findProductsSchema), findProductsController);
+  // // ---------- Products routes ----------
+  // app.post('/products', validate(createProductSchema), createProductController);
+  // app.get('/products/:id', validate(findProductSchema), findProductController);
+  // app.get('/products', validate(findProductsSchema), findProductsController);
 
   // ---------- Stripe routes ----------
   app.post(
