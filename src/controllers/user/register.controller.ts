@@ -28,7 +28,7 @@ export const registerController = async (
     // create user's cart
     const cartDb = new CartDatabase();
 
-    const cart = await cartDb.create({
+    const cart = await cartDb.createCart({
       userId: user.id,
     });
     return res.status(201).json({ user, cart });
