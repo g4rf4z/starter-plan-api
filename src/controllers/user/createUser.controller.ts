@@ -3,12 +3,12 @@ import { Request, Response, NextFunction } from 'express';
 import { UserDatabase } from '@/models/user/user.database';
 import { CartDatabase } from '@/models/cart/cart.database';
 
-import { RegisterInput } from '@/schemas/user/user.schema';
+import { CreateUserInput } from '@/schemas/user/createUser.schema';
 
 import { handleError } from '@/utils/errors.util';
 
-export const registerController = async (
-  req: Request<{}, {}, RegisterInput['body']>,
+export const createUserController = async (
+  req: Request<{}, {}, CreateUserInput['body']>,
   res: Response,
   next: NextFunction
 ) => {

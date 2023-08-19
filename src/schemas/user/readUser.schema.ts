@@ -5,5 +5,4 @@ export const readUserSchema = object({
     id: string(),
   }).strict(),
 });
-
 export type ReadUserInput = TypeOf<typeof readUserSchema>;
