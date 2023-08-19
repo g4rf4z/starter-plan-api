@@ -1,76 +1,34 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
-import {
-  createCartItemService,
-  readCartItemService,
-} from '../../services/cartItem/cartItem.service';
+import { CartItemDatabase } from '@/models/cartItem/cartItem.database';
+import { ProductDatabase } from '@/models/product/product.database';
 
-import type {
-  CreateCartItemInput,
-  ReadCartItemInput,
-} from '../../schemas/cartItem/cartItem.schema';
+import type { CreateCartItemInput } from '@/schemas/cartItem/cartItem.schema';
 
-import { handleError } from '../../utils/errors.util';
+import { handleError } from '@/utils/errors.util';
 
 export const createCartItemController = async (
   req: Request<CreateCartItemInput['params'], {}, CreateCartItemInput['body']>,
-  res: Response
+  res: Response,
+  next: NextFunction
 ) => {
   try {
-    const createCartItemOptions = {
-      select: {
-        id: true,
-        createdAt: true,
-        updatedAt: true,
-        productId: true,
-      },
-    };
-
     const { cartId } = req.params;
-    const { productId } = req.body;
+    const { productId, quantity } = req.body;
 
-    const createdCartItem = await createCartItemService(
-      { cartId, productId },
-      createCartItemOptions
-    );
+    const cartItemDb = new CartItemDatabase();
+    const productDb = new ProductDatabase();
 
-    return res.send(createdCartItem);
-  } catch (error) {
-    return handleError(error, res);
-  }
-};
-
-export const readCartItemController = async (
-  req: Request<{}, {}, ReadCartItemInput['body']>,
-  res: Response
-) => {
-  try {
-    const readCartItemOptions = {
-      select: {
-        id: true,
-        createdAt: true,
-        updatedAt: true,
-        cartId: true,
-        products: {
-          select: {
-            id: true,
-            createdAt: true,
-            updatedAt: true,
-            name: true,
-            url: true,
-            description: true,
-            price: true,
-          },
-        },
-      },
-    };
-
-    const readCartItem = await readCartItemService(
-      req.params,
-      readCartItemOptions
-    );
-
-    return res.send({ cartItems: readCartItem });
+    // Create a cart item in the database.
+    // A cart item represents a specific product with variables in a user's cart.
+    const cartItem = await cartItemDb.createCartItem({
+      cartId,
+      productId,
+      quantity,
+    });
+    // Read a product in the database.
+    const product = await productDb.readProduct(productId);
+    return res.status(201).json({ cartItem, product });
   } catch (error) {
     return handleError(error, res);
   }
