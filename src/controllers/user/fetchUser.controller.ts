@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 import { UserDatabase } from '@/models/user/user.database';
 import { CartDatabase } from '@/models/cart/cart.database';
 
-import { ReadUserInput } from '@/schemas/user/readUser.schema';
+import type { ReadUserInput } from '@/schemas/user/readUser.schema';
 
 import { handleError } from '@/utils/errors.util';
 
@@ -21,7 +21,7 @@ export const fetchUserController = async (
     // read user by id
     const user = await userDb.readUser(id);
     // read cart by user's id
-    const cart = await cartDb.readByUserId(id);
+    const cart = await cartDb.readCart(id);
     return res.status(200).json({ user, cart });
   } catch (error) {
     return handleError(error, res);
