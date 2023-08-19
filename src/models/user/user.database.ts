@@ -11,6 +11,7 @@ export class UserDatabase {
     this.userDb = prisma.user;
   }
 
+  // create user
   async createUser(data: IUser): Promise<IUserFullPayload> {
     try {
       const user = await this.userDb.create({
@@ -36,6 +37,7 @@ export class UserDatabase {
     }
   }
 
+  // read user by id
   async readUser(id: IUserFull['id']): Promise<IUserFullPayload> {
     try {
       const user = await this.userDb.findUniqueOrThrow({
