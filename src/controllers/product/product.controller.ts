@@ -1,98 +1,22 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
-import {
-  createProductService,
-  findProductService,
-  findProductsService,
-} from '../../services/product/product.service';
+import { ReadProductInput } from '@/schemas/product/readProduct.schema';
 
-import type {
-  CreateProductInput,
-  FindProductInput,
-  FindProductsInput,
-} from '../../schemas/product/product.schema';
+import { handleError } from '@/utils/errors.util';
+import { ProductDatabase } from '@/models/product/product.database';
 
-import { handleError } from '../../utils/errors.util';
-
-export const createProductController = async (
-  req: Request<{}, {}, CreateProductInput['body']>,
-  res: Response
+export const readProduct = async (
+  req: Request<ReadProductInput['params'], {}, {}>,
+  res: Response,
+  next: NextFunction
 ) => {
   try {
-    const createProductOptions = {
-      select: {
-        id: true,
-        createdAt: true,
-        updatedAt: true,
-        name: true,
-        url: true,
-        description: true,
-        price: true,
-      },
-    };
+    const { id } = req.params;
 
-    const createdProduct = await createProductService(
-      req.body,
-      createProductOptions
-    );
+    const productDb = new ProductDatabase();
 
-    return res.send(createdProduct);
-  } catch (error) {
-    return handleError(error, res);
-  }
-};
-
-export const findProductController = async (
-  req: Request<FindProductInput['params'], {}, {}>,
-  res: Response
-) => {
-  try {
-    const findProductOptions = {
-      select: {
-        id: true,
-        createdAt: true,
-        updatedAt: true,
-        name: true,
-        url: true,
-        description: true,
-        price: true,
-      },
-    };
-
-    const foundProduct = await findProductService(
-      req.params,
-      findProductOptions
-    );
-
-    return res.send(foundProduct);
-  } catch (error) {
-    return handleError(error, res);
-  }
-};
-
-export const findProductsController = async (
-  req: Request<{}, {}, FindProductsInput['body']>,
-  res: Response
-) => {
-  try {
-    const findProductsOptions = {
-      select: {
-        id: true,
-        createdAt: true,
-        updatedAt: true,
-        name: true,
-        url: true,
-        description: true,
-        price: true,
-      },
-    };
-
-    const foundProduct = await findProductsService(
-      req.params,
-      findProductsOptions
-    );
-
-    return res.send(foundProduct);
+    const product = await productDb.readProduct(id);
+    return res.status(200).json({ product });
   } catch (error) {
     return handleError(error, res);
   }
