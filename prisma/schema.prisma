@@ -69,8 +69,10 @@ model CartItem {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  productId String @db.ObjectId
   quantity Int
+
+  productId String @db.ObjectId
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   cartId String @db.ObjectId
   cart Cart @relation(fields: [cartId], references: [id], onDelete: Cascade)
@@ -123,6 +125,8 @@ model Product {
   url String
   description String
   price Float
+
+  cartItems CartItem[] // [Product] one-to-many [CartItem]
 
   @@map("products")
 }
