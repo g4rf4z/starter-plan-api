@@ -25,7 +25,11 @@ export class CartItemDatabase {
               id: cartId,
             },
           },
-          productId: productId,
+          product: {
+            connect: {
+              id: productId,
+            },
+          },
           quantity: quantity,
         },
         select: {
