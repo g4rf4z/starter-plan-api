@@ -5,7 +5,7 @@ import { validate } from '@/middlewares/validation.middleware';
 import { createUserSchema } from '@/schemas/user/createUser.schema';
 import { readUserSchema } from '@/schemas/user/readUser.schema';
 
-import { createCartItemSchema } from '@/schemas/cartItem/cartItem.schema';
+import { createCartItemSchema } from '@/schemas/cartItem/createCartItem.schema';
 
 import { createUserController } from '@/controllers/user/createUser.controller';
 import { readUserController } from '@/controllers/user/readUser.controller';
@@ -20,6 +20,8 @@ import {
 } from './controllers/payment/paymentIntent.controller';
 
 import { findPublishableKeyController } from './controllers/payment/publishableKey.controller';
+import { readCartSchema } from './schemas/cart/readCart.schema';
+import { readCartController } from './controllers/cart/readCart.controller';
 
 const routes = (app: Express) => {
   app.get('/', (req, res) => {
@@ -29,6 +31,9 @@ const routes = (app: Express) => {
   // ---------- User routes ----------
   app.post('/users', validate(createUserSchema), createUserController);
   app.get('/users/:id', validate(readUserSchema), readUserController);
+
+  // ---------- Cart routes ----------
+  app.get('/carts/:userId', validate(readCartSchema), readCartController);
 
   // ---------- Cart Item routes ----------
   app.post(

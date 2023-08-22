@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { CartItemDatabase } from '@/models/cartItem/cartItem.database';
 import { ProductDatabase } from '@/models/product/product.database';
 
-import type { CreateCartItemInput } from '@/schemas/cartItem/cartItem.schema';
+import type { CreateCartItemInput } from '@/schemas/cartItem/createCartItem.schema';
 
 import { handleError } from '@/utils/errors.util';
 
