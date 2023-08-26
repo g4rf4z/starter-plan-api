@@ -11,7 +11,6 @@ export class CartItemDatabase {
     this.cartItemDb = prisma.cartItem;
   }
 
-  // create cart item
   async createCartItem({
     cartId,
     productId,
@@ -44,6 +43,30 @@ export class CartItemDatabase {
       return cartItem;
     } catch (error) {
       throw console.error('CartItemDatabase.createCartItem', error);
+    }
+  }
+
+  async updateCartItem({ id, quantity }: ICartItem): Promise<ICartItemFull> {
+    try {
+      const cartItem = await this.cartItemDb.update({
+        where: {
+          id: id,
+        },
+        data: {
+          quantity: quantity,
+        },
+        select: {
+          id: true,
+          createdAt: true,
+          updatedAt: true,
+          cartId: true,
+          productId: true,
+          quantity: true,
+        },
+      });
+      return cartItem;
+    } catch (error) {
+      throw console.error('CartItemDatabase.updateCartItem', error);
     }
   }
 }

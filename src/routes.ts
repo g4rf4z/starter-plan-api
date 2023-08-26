@@ -22,6 +22,8 @@ import {
 import { findPublishableKeyController } from './controllers/payment/publishableKey.controller';
 import { readCartSchema } from './schemas/cart/readCart.schema';
 import { readCartController } from './controllers/cart/readCart.controller';
+import { updateCartItemController } from './controllers/cartItem/updateCartItem.controller';
+import { updateCartItemSchema } from './schemas/cartItem/updateCartItem.schema';
 
 const routes = (app: Express) => {
   app.get('/', (req, res) => {
@@ -40,6 +42,11 @@ const routes = (app: Express) => {
     '/cart-items/:cartId',
     validate(createCartItemSchema),
     createCartItemController
+  );
+  app.patch(
+    '/cart-items/:cartId/:id',
+    validate(updateCartItemSchema),
+    updateCartItemController
   );
 
   // ---------- Stripe routes ----------
