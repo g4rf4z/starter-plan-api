@@ -13,7 +13,6 @@ export const updateCartItemController = async (
   next: NextFunction
 ) => {
   try {
-    // il faut récupérer l'id du cartItem à modifier en base de données.
     const { cartId, id } = req.params;
     const { productId, quantity } = req.body;
 
