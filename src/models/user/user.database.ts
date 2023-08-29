@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 import { IUser, IUserFull, IUserFullPayload } from '@/models/user/user.entity';
 
-import { prisma } from '@/utils/prisma.util';
+import { prisma } from '@/services/prisma.service';
 
 export class UserDatabase {
   private userDb: PrismaClient['user'];

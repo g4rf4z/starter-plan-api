@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 import { IProductFull } from './product.entity';
 
-import { prisma } from '@/utils/prisma.util';
+import { prisma } from '@/services/prisma.service';
 
 export class ProductDatabase {
   private productDb: PrismaClient['product'];

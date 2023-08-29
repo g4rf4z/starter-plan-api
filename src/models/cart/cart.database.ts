@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 import { ICart, ICartFull, ICartFullPayload } from '@/models/cart/cart.entity';
 
-import { prisma } from '@/utils/prisma.util';
+import { prisma } from '@/services/prisma.service';
 
 export class CartDatabase {
   private cartDb: PrismaClient['cart'];
