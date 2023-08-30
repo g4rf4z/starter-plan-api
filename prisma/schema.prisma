@@ -38,6 +38,30 @@ model Session {
   @@map("sessions")
 }
 
+model ApiError {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  status  Int
+  type    ApiErrorType
+  message String
+
+  path    String
+  userId  String?
+  userIp  String?
+  details String?
+  raw     String?
+
+  @@map("error_logs")
+}
+
+enum ApiErrorType {
+  API
+  DATABASE
+  VALIDATION
+}
+
 model ResetPasswordToken {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
@@ -107,8 +131,10 @@ model OrderItem {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  productId String @db.ObjectId
   quantity Int
+
+  productId String @db.ObjectId
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   orderId String @db.ObjectId
   order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
@@ -127,6 +153,7 @@ model Product {
   price Float
 
   cartItems CartItem[] // [Product] one-to-many [CartItem]
+  orderItems OrderItem[]
 
   @@map("products")
 }
