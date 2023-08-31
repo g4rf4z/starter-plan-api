@@ -1,7 +1,7 @@
 import type { PrismaClient } from '@prisma/client';
 
-import { formatPrismaErrors } from '@/services/formatPrismaErrors.service';
 import { prisma } from '@/services/prisma.service';
+import { formatPrismaErrors } from '@/services/formatPrismaErrors.service';
 
 import type {
   IApiError,

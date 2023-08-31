@@ -1,8 +1,9 @@
 import { PrismaClient } from '@prisma/client';
 
-import { IProductFull } from './product.entity';
-
 import { prisma } from '@/services/prisma.service';
+import { formatPrismaErrors } from '@/services/formatPrismaErrors.service';
+
+import type { IProductFull } from '@/models/product/product.entity';
 
 export class ProductDatabase {
   private productDb: PrismaClient['product'];
@@ -11,7 +12,6 @@ export class ProductDatabase {
     this.productDb = prisma.product;
   }
 
-  // read product by id
   async readProduct(id: IProductFull['id']): Promise<IProductFull> {
     try {
       const product = await this.productDb.findUniqueOrThrow({
@@ -28,7 +28,7 @@ export class ProductDatabase {
       });
       return product;
     } catch (error) {
-      throw console.error('ProductDatabase.product', error);
+      throw formatPrismaErrors('ProductDatabase.readProduct', error);
     }
   }
 }

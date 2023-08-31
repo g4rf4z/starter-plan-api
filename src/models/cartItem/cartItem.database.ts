@@ -1,8 +1,12 @@
 import { PrismaClient } from '@prisma/client';
 
-import { ICartItem, ICartItemFull } from '@/models/cartItem/cartItem.entity';
-
 import { prisma } from '@/services/prisma.service';
+import { formatPrismaErrors } from '@/services/formatPrismaErrors.service';
+
+import type {
+  ICartItem,
+  ICartItemFull,
+} from '@/models/cartItem/cartItem.entity';
 
 export class CartItemDatabase {
   private cartItemDb: PrismaClient['cartItem'];
@@ -42,7 +46,7 @@ export class CartItemDatabase {
       });
       return cartItem;
     } catch (error) {
-      throw console.error('CartItemDatabase.createCartItem', error);
+      throw formatPrismaErrors('CartItemDatabase.createCartItem', error);
     }
   }
 
@@ -66,7 +70,7 @@ export class CartItemDatabase {
       });
       return cartItem;
     } catch (error) {
-      throw console.error('CartItemDatabase.updateCartItem', error);
+      throw formatPrismaErrors('CartItemDatabase.updateCartItem', error);
     }
   }
 }

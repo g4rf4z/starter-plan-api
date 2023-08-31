@@ -1,8 +1,13 @@
 import { PrismaClient } from '@prisma/client';
 
-import { IUser, IUserFull, IUserFullPayload } from '@/models/user/user.entity';
-
 import { prisma } from '@/services/prisma.service';
+import { formatPrismaErrors } from '@/services/formatPrismaErrors.service';
+
+import type {
+  IUser,
+  IUserFull,
+  IUserFullPayload,
+} from '@/models/user/user.entity';
 
 export class UserDatabase {
   private userDb: PrismaClient['user'];
@@ -11,7 +16,6 @@ export class UserDatabase {
     this.userDb = prisma.user;
   }
 
-  // create user
   async createUser(data: IUser): Promise<IUserFullPayload> {
     try {
       const user = await this.userDb.create({
@@ -33,11 +37,10 @@ export class UserDatabase {
       });
       return user;
     } catch (error) {
-      throw console.error('UserDatabase.createUser', error);
+      throw formatPrismaErrors('UserDatabase.createUser', error);
     }
   }
 
-  // read user by id
   async readUser(id: IUserFull['id']): Promise<IUserFullPayload> {
     try {
       const user = await this.userDb.findUniqueOrThrow({
@@ -54,7 +57,7 @@ export class UserDatabase {
       });
       return user;
     } catch (error) {
-      throw console.error('UserDatabase.readUser', error);
+      throw formatPrismaErrors('UserDatabase.readUser', error);
     }
   }
 }
