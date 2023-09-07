@@ -1,5 +1,5 @@
-import config from 'config';
 import bcrypt from 'bcrypt';
+import config from 'config';
 import crypto from 'crypto';
 
 export class CryptoService {
