@@ -1,19 +1,28 @@
 import { ICart } from '@/models/cart/cart.entity';
+import { ISession } from '@/models/session/session.entity';
 
 export interface IUser {
-  id?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+
   firstname: string;
   lastname: string;
   email: string;
   password: string;
+
   cart?: ICart;
   orders?: string[];
-  sessions?: string[];
+  sessions?: ISession[];
 }
 
+export type IUserCreate = Pick<
+  IUser,
+  'firstname' | 'lastname' | 'email' | 'password'
+>;
 export type IUserFull = Required<IUser>;
+export type IUserReadByEmail = Pick<IUser, 'email'>;
+export type IUserReadById = Pick<IUser, 'id'>;
 export type IUserWithoutPassword = Omit<IUser, 'password'>;
 export type IUserFullWithoutPassword = Omit<IUserFull, 'password'>;
 export type IUserFullWithoutSession = Omit<IUserFull, 'sessions'>;

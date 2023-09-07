@@ -1,31 +1,36 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { UserDatabase } from '@/models/user/user.database';
 import { CartDatabase } from '@/models/cart/cart.database';
+import { UserDatabase } from '@/models/user/user.database';
+
+import { CryptoService } from '@/services/crypto.service';
 
 import { CreateUserInput } from '@/schemas/user/createUser.schema';
 
-import { handleError } from '@/utils/errors.util';
-
 export const createUserController = async (
-  req: Request<{}, {}, CreateUserInput['body']>,
+  req: Request<
+    CreateUserInput['params'],
+    {},
+    CreateUserInput['body'],
+    CreateUserInput['query']
+  >,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    // create user
     const { firstname, lastname, email, password } = req.body;
 
-    const userDb = new UserDatabase();
+    const userDatabase = new UserDatabase();
+    const cryptoService = new CryptoService();
 
-    const user = await userDb.createUser({
+    const hashedPassword = await cryptoService.hash(password);
+    const user = await userDatabase.createUser({
       firstname,
       lastname,
       email,
-      password,
+      password: hashedPassword,
     });
 
-    // create user's cart
     const cartDb = new CartDatabase();
 
     const cart = await cartDb.createCart({
@@ -33,6 +38,6 @@ export const createUserController = async (
     });
     return res.status(201).json({ user, cart });
   } catch (error) {
-    return handleError(error, res);
+    next(error);
   }
 };
