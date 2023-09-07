@@ -1,16 +1,16 @@
 import config from 'config';
 import jwt from 'jsonwebtoken';
 
-import { UserDatabase } from '@/models/user/user.database';
-import { SessionDatabase } from '@/models/session/session.database';
 import { AuthorizationError } from '@/models/apiError/apiError.entity';
+
+import { SessionDatabase } from '@/models/session/session.database';
+import { UserDatabase } from '@/models/user/user.database';
 
 export interface AccessToken {
   user: {
     id: string;
     firstname: string;
     lastname: string;
-    nickname: string;
     email: string;
   };
   session: {
@@ -91,7 +91,6 @@ export class TokenService {
         id: user.id,
         firstname: user.firstname,
         lastname: user.lastname,
-        nickname: user.nickname,
         email: user.email,
       },
       session: {
