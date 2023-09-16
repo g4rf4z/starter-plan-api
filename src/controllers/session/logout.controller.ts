@@ -18,11 +18,7 @@ export const logoutController = async (
   next: NextFunction
 ) => {
   try {
-    console.log('1');
-    console.log(res.locals);
-    console.log('2');
     const sessionId = res.locals.session.id as ISession['id'];
-    console.log(sessionId);
 
     if (!sessionId) {
       throw new AuthorizationError({
