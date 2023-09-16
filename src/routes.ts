@@ -26,6 +26,9 @@ import { updateCartItemController } from './controllers/cartItem/updateCartItem.
 import { updateCartItemSchema } from './schemas/cartItem/updateCartItem.schema';
 import { loginController } from './controllers/session/login.controller';
 import { loginSchema } from './schemas/session/login.schema';
+import { logoutController } from './controllers/session/logout.controller';
+import { requireAuthentication } from '@/middlewares/requireAuthentication.middleware';
+import { logoutSchema } from './schemas/session/logout.schema';
 
 const routes = (app: Express) => {
   app.get('/', (req, res) => {
@@ -36,6 +39,12 @@ const routes = (app: Express) => {
   app.post('/users', validate(createUserSchema), createUserController);
   app.get('/users/:id', validate(readUserSchema), readUserController);
   app.post('/login', validate(loginSchema), loginController);
+  app.post(
+    '/logout',
+    requireAuthentication,
+    validate(logoutSchema),
+    logoutController
+  );
 
   // ---------- Cart routes ----------
   app.get('/carts/:userId', validate(readCartSchema), readCartController);
