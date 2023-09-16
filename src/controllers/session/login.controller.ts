@@ -27,6 +27,7 @@ export const loginController = async (
 
     const sessionDb = new SessionDatabase();
     const userDb = new UserDatabase();
+
     const cryptoService = new CryptoService();
     const tokenService = new TokenService();
 
@@ -42,8 +43,8 @@ export const loginController = async (
       });
     }
 
+    // Nullity check.
     if (!user || !user.id) {
-      // Vérification de nullité ajoutée ici
       throw new CredentialsError({
         path: 'login',
         type: 'API',
@@ -56,10 +57,6 @@ export const loginController = async (
       user.password
     );
 
-    console.log(password);
-    console.log(user.password);
-    console.log(isPasswordValid);
-
     if (!isPasswordValid) {
       throw new CredentialsError({
         path: 'login',
@@ -67,10 +64,10 @@ export const loginController = async (
         details: 'invalid_credentials',
       });
     }
-    console.log('3');
+
     const session = await sessionDb.create({
-      active: true,
       userId: user.id,
+      active: true,
       userAgent: userAgent,
     });
 
@@ -82,9 +79,9 @@ export const loginController = async (
     const accessToken = tokenService.createAccessToken({
       user: {
         id: user.id,
-        email: user.email,
         firstname: user.firstname,
         lastname: user.lastname,
+        email: user.email,
       },
       session: {
         id: session.id,
@@ -105,13 +102,14 @@ export const loginController = async (
       sameSite: 'none',
       secure: true,
     });
+
     res.cookie('refreshToken', refreshToken, {
-      maxAge: parseInt(refreshTokenTtl) * 24 * 60 * 60 * 1000, // 7 days
+      maxAge: parseInt(refreshTokenTtl) * 24 * 60 * 60 * 1000, // 7 days.
       httpOnly: true,
       sameSite: 'none',
       secure: true,
     });
-    res.status(201).json(session);
+    return res.status(201).json(session);
   } catch (error) {
     next(error);
   }
