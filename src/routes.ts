@@ -29,6 +29,8 @@ import { loginController } from './controllers/session/login.controller';
 import { loginSchema } from './schemas/session/login.schema';
 import { logoutController } from './controllers/session/logout.controller';
 import { logoutSchema } from './schemas/session/logout.schema';
+import { retrieveSessionController } from './controllers/session/retrieveSession.controller';
+import { retrieveSessionSchema } from './schemas/session/retrieveSession.schema';
 
 const routes = (app: Express) => {
   app.get('/', (req, res) => {
@@ -44,6 +46,11 @@ const routes = (app: Express) => {
     requireAuthentication,
     validate(logoutSchema),
     logoutController
+  );
+  app.get(
+    '/retrieve-session',
+    [requireAuthentication, validate(retrieveSessionSchema)],
+    retrieveSessionController
   );
 
   // ---------- Cart routes ----------
