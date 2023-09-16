@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { TokenService } from '@/services/token.service';
 import { AccessToken } from '@/services/token.service';
+import { TokenService } from '@/services/token.service';
 
 export const tokenDeserializer = async (
   req: Request,
