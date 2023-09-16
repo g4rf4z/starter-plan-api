@@ -8,7 +8,7 @@ import { tokenDeserializer } from '@/middlewares/tokenDeserializer.middleware';
 
 import routes from '@/routes';
 
-const clientUrl = config.get<string>('clientUrl').split(',');
+const clientUrl = config.get<string>('clientUrl');
 
 export const createServer = () => {
   const app = express();

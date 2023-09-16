@@ -1,5 +1,6 @@
 import { Express } from 'express';
 
+import { requireAuthentication } from '@/middlewares/requireAuthentication.middleware';
 import { validate } from '@/middlewares/validation.middleware';
 
 import { createUserSchema } from '@/schemas/user/createUser.schema';
@@ -27,7 +28,6 @@ import { updateCartItemSchema } from './schemas/cartItem/updateCartItem.schema';
 import { loginController } from './controllers/session/login.controller';
 import { loginSchema } from './schemas/session/login.schema';
 import { logoutController } from './controllers/session/logout.controller';
-import { requireAuthentication } from '@/middlewares/requireAuthentication.middleware';
 import { logoutSchema } from './schemas/session/logout.schema';
 
 const routes = (app: Express) => {
