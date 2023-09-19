@@ -10,7 +10,7 @@ import { SessionDatabase } from '@/models/session/session.database';
 export const retrieveSessionController = async (
   req: Request<
     RetrieveSessionInput['params'],
-    {},
+    {}, // Options.
     RetrieveSessionInput['body'],
     RetrieveSessionInput['query']
   >,
