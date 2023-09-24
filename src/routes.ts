@@ -32,6 +32,9 @@ import { logoutSchema } from './schemas/session/logout.schema';
 import { retrieveSessionController } from './controllers/session/retrieveSession.controller';
 import { retrieveSessionSchema } from './schemas/session/retrieveSession.schema';
 
+import { resetPasswordController } from './controllers/session/resetPasswordToken.controller';
+import { resetPasswordSchema } from './schemas/session/resetPasswordToken.schema';
+
 const routes = (app: Express) => {
   app.get('/', (req, res) => {
     return res.send('Hello World !');
@@ -52,6 +55,16 @@ const routes = (app: Express) => {
     [requireAuthentication, validate(retrieveSessionSchema)],
     retrieveSessionController
   );
+  app.post(
+    '/reset-password',
+    validate(resetPasswordSchema),
+    resetPasswordController
+  );
+  // app.post(
+  //   '/:userId/set-new-password/:token',
+  //   validate(setNewPasswordSchema),
+  //   setNewPasswordController
+  // );
 
   // ---------- Cart routes ----------
   app.get('/carts/:userId', validate(readCartSchema), readCartController);
