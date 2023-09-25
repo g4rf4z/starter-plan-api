@@ -6,9 +6,9 @@
   "publicKey": "PUBLIC_KEY",
   "privateKey": "PRIVATE_KEY",
 
-  "nodemailerService": "NODEMAILER_SERVICE",
-  "nodemailerEmail": "NODEMAILER_EMAIL",
-  "nodemailerPassword": "NODEMAILER_PASSWORD",
+  "emailService": "EMAIL_SERVICE",
+  "emailEmail": "EMAIL_EMAIL",
+  "emailPassword": "EMAIL_PASSWORD",
 
   "stripePublishableKey": "STRIPE_PUBLISHABLE_KEY",
   "stripeSecretKey": "STRIPE_SECRET_KEY"
