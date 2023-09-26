@@ -13,6 +13,8 @@ const clientUrl = config.get<string>('clientUrl');
 export const createServer = () => {
   const app = express();
 
+  app.get('/', (req, res) => res.send('Starter Plan API is running.'));
+
   // Security.
   app.use(helmet());
 
