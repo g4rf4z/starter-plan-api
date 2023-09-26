@@ -7,7 +7,7 @@
   "privateKey": "PRIVATE_KEY",
 
   "emailService": "EMAIL_SERVICE",
-  "emailEmail": "EMAIL_EMAIL",
+  "emailUser": "EMAIL_USER",
   "emailPassword": "EMAIL_PASSWORD",
 
   "stripePublishableKey": "STRIPE_PUBLISHABLE_KEY",
