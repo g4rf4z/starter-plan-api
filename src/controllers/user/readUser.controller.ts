@@ -1,4 +1,6 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
+
+import { IUser } from '@/models/user/user.entity';
 
 import { UserDatabase } from '@/models/user/user.database';
 import { CartDatabase } from '@/models/cart/cart.database';
@@ -13,15 +15,13 @@ export const readUserController = async (
   next: NextFunction
 ) => {
   try {
-    const { id } = req.params;
+    const userId = res.locals.user.id as IUser['id'];
 
     const userDb = new UserDatabase();
     const cartDb = new CartDatabase();
 
-    // read user by id
-    const user = await userDb.readUser(id);
-    // read cart by user's id
-    const cart = await cartDb.readCart(id);
+    const user = await userDb.readUser(userId);
+    const cart = await cartDb.readCart(userId);
     return res.status(200).json({ user, cart });
   } catch (error) {
     return handleError(error, res);
