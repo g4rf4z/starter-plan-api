@@ -3,8 +3,8 @@ import jwt from 'jsonwebtoken';
 
 import { AuthorizationError } from '@/models/apiError/apiError.entity';
 
-import { SessionDatabase } from '@/models/session/session.database';
 import { UserDatabase } from '@/models/user/user.database';
+import { SessionDatabase } from '@/models/session/session.database';
 
 export interface AccessToken {
   user: {
@@ -24,8 +24,8 @@ export interface RefreshToken {
 }
 
 export class TokenService {
-  private readonly privateKey: string;
   private readonly publicKey: string;
+  private readonly privateKey: string;
   private readonly userDb?: UserDatabase;
   private readonly sessionDb?: SessionDatabase;
 
@@ -74,12 +74,13 @@ export class TokenService {
     const { userId, sessionId } = this.verify<RefreshToken>(refreshToken);
 
     let session, user;
+
     await Promise.all([
-      (session = await this.sessionDb?.readById({ id: sessionId })),
       (user = await this.userDb?.readById({ id: userId })),
+      (session = await this.sessionDb?.readById({ id: sessionId })),
     ]);
 
-    if (!session?.active || !user)
+    if (!user || !session?.active)
       throw new AuthorizationError({
         path: 'reIssueAccessToken',
         type: 'API',
