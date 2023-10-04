@@ -1,5 +1,9 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
+import { IUser } from '@/models/user/user.entity';
+
+import { UserDatabase } from '@/models/user/user.database';
+import { CartDatabase } from '@/models/cart/cart.database';
 import { CartItemDatabase } from '@/models/cartItem/cartItem.database';
 import { ProductDatabase } from '@/models/product/product.database';
 
@@ -13,13 +17,21 @@ export const createCartItemController = async (
   next: NextFunction
 ) => {
   try {
-    const { cartId } = req.params;
+    // const { cartId } = req.params;
+    const userId = res.locals.user.id as IUser['id'];
     const { productId, quantity } = req.body;
 
+    const userDb = new UserDatabase();
+    const cartDb = new CartDatabase();
     const cartItemDb = new CartItemDatabase();
     const productDb = new ProductDatabase();
 
-    // Create a cart item in the database.
+    const user = await userDb.readUser(userId);
+    const cart = await cartDb.readCart(userId);
+
+    const cartId = cart.id;
+
+    // Create a carte item in the database.
     // A cart item represents a specific product with variables in a user's cart.
     const cartItem = await cartItemDb.createCartItem({
       cartId,
