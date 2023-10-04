@@ -5,11 +5,12 @@ import { Request, Response, NextFunction } from 'express';
 import { CryptoService } from '@/services/crypto.service';
 import { TokenService } from '@/services/token.service';
 
-import { LoginInput } from '@/schemas/session/login.schema';
-
 import { CredentialsError } from '@/models/apiError/apiError.entity';
-import { SessionDatabase } from '@/models/session/session.database';
+
 import { UserDatabase } from '@/models/user/user.database';
+import { SessionDatabase } from '@/models/session/session.database';
+
+import { LoginInput } from '@/schemas/session/login.schema';
 
 export const loginController = async (
   req: Request<
@@ -25,11 +26,11 @@ export const loginController = async (
     const { email, password } = req.body;
     const userAgent = req.headers['user-agent'] || null;
 
-    const sessionDb = new SessionDatabase();
-    const userDb = new UserDatabase();
-
     const cryptoService = new CryptoService();
     const tokenService = new TokenService();
+
+    const userDb = new UserDatabase();
+    const sessionDb = new SessionDatabase();
 
     let user;
 
