@@ -1,4 +1,4 @@
-import { stripe } from '../../utils/stripe.util';
+import { stripe } from '@/services/stripe.service';
 
 export const createPaymentIntentService = async (
   amount: number,
