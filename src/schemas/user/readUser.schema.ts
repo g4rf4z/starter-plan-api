@@ -1,8 +1,6 @@
-import { object, string, TypeOf } from 'zod';
+import { object, TypeOf } from 'zod';
 
 export const readUserSchema = object({
-  params: object({
-    id: string(),
-  }).strict(),
+  params: object({}).strict(),
 });
 export type ReadUserInput = TypeOf<typeof readUserSchema>;

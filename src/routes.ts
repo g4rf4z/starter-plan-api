@@ -42,7 +42,7 @@ const routes = (app: Express) => {
 
   // ---------- User routes ----------
   app.post('/users', validate(createUserSchema), createUserController);
-  app.get('/users', readUserController);
+  app.get('/users', validate(readUserSchema), readUserController);
   app.post('/login', validate(loginSchema), loginController);
   app.post(
     '/logout',
