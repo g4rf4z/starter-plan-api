@@ -7,6 +7,7 @@ import type {
   ICart,
   ICartFull,
   ICartFullPayload,
+  ICartReadById,
 } from '@/models/cart/cart.entity';
 
 export class CartDatabase {
@@ -36,6 +37,17 @@ export class CartDatabase {
       return cart;
     } catch (error) {
       throw formatPrismaErrors('CartDatabase.createCart', error);
+    }
+  }
+
+  async readById(data: ICartReadById): Promise<ICart> {
+    try {
+      const cart = await this.cartDb.findUniqueOrThrow({
+        where: { id: data.id },
+      });
+      return cart;
+    } catch (error) {
+      throw formatPrismaErrors('CartDatabase.readById', error);
     }
   }
 
