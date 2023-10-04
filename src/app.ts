@@ -14,5 +14,5 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 app.listen(port, async () => {
-  console.info(`Server is running on : ${apiUrl}, and port : ${port}.`);
+  console.info(`Server is running on ${apiUrl}:${port}.`);
 });
