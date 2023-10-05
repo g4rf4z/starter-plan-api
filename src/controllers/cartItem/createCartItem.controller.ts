@@ -17,7 +17,6 @@ export const createCartItemController = async (
   next: NextFunction
 ) => {
   try {
-    // const { cartId } = req.params;
     const userId = res.locals.user.id as IUser['id'];
     const { productId, quantity } = req.body;
 
