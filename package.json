@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "Starter Plan - API",
   "repository": "https://github.com/g4rf4z/starter-plan-api",
-  "author": "Grégoire Pinte - Garfaz",
+  "author": "Grégoire Pinte - @g4rf4z",
   "license": "MIT",
   "engines": {
-    "node": "~20.4.0",
-    "npm": "~9.5.0"
+    "node": "~20.8.0",
+    "npm": "~10.1.0"
   },
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only src/app.ts",
