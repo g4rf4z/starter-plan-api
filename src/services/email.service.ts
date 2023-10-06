@@ -1,10 +1,10 @@
 import config from 'config';
 import nodemailer, { Transporter } from 'nodemailer';
 
+import { IUser } from '@/models/user/user.entity';
 import { ServerError } from '@/models/apiError/apiError.entity';
 
 import { ApiErrorDatabase } from '@/models/apiError/apiError.database';
-import { IUser } from '@/models/user/user.entity';
 
 const emailService = config.get<string>('emailService');
 const emailUser = config.get<string>('emailUser');
@@ -18,20 +18,16 @@ interface SendResetPasswordEmailInput {
 }
 
 export class EmailService {
-  private transporter: Transporter;
   private apiErrorDb: ApiErrorDatabase;
+  private transporter: Transporter;
 
   constructor() {
     this.apiErrorDb = new ApiErrorDatabase();
     this.transporter = nodemailer.createTransport({
       service: emailService,
       auth: {
-        type: 'OAuth2',
         user: emailUser,
-        password: emailPassword,
-        // clientId: emailClientId,
-        // clientSecret: emailClientSecret,
-        // refreshToken: emailRefreshToken,
+        pass: emailPassword,
       },
     });
   }
