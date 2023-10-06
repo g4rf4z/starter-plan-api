@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 
+import { ProductDatabase } from '@/models/product/product.database';
+
 import { ReadProductInput } from '@/schemas/product/readProduct.schema';
 
 import { handleError } from '@/utils/errors.util';
-import { ProductDatabase } from '@/models/product/product.database';
 
 export const readProduct = async (
   req: Request<ReadProductInput['params'], {}, {}>,
