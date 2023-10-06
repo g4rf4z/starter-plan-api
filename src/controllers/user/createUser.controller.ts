@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { CartDatabase } from '@/models/cart/cart.database';
-import { UserDatabase } from '@/models/user/user.database';
-
 import { CryptoService } from '@/services/crypto.service';
+
+import { UserDatabase } from '@/models/user/user.database';
+import { CartDatabase } from '@/models/cart/cart.database';
 
 import { CreateUserInput } from '@/schemas/user/createUser.schema';
 
