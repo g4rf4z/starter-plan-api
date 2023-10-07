@@ -1,11 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { SetNewPasswordInput } from '@/schemas';
-import { CryptoService } from '@/services';
+import { CryptoService } from '@/services/crypto.service';
 
 import { CredentialsError } from '@/models/apiError/apiError.entity';
+
 import { ResetPasswordTokenDatabase } from '@/models/resetPasswordToken/resetPasswordToken.database';
 import { UserDatabase } from '@/models/user/user.database';
+
+import { SetNewPasswordInput } from '@/schemas/session/setNewPassword.schema';
 
 export const setNewPasswordController = async (
   req: Request<
@@ -20,11 +22,14 @@ export const setNewPasswordController = async (
   try {
     const { userId, token } = req.params;
     const { password } = req.body;
-    const userDb = new UserDatabase();
-    const resetPasswordTokenDb = new ResetPasswordTokenDatabase();
+
     const cryptoService = new CryptoService();
 
+    const resetPasswordTokenDb = new ResetPasswordTokenDatabase();
+    const userDb = new UserDatabase();
+
     let foundToken;
+
     try {
       foundToken = await resetPasswordTokenDb.findValidTokenByUserId({
         userId,
@@ -50,7 +55,7 @@ export const setNewPasswordController = async (
     const passwordHash = await cryptoService.hash(password);
     await userDb.update(userId, { password: passwordHash });
 
-    res.status(200).json({
+    return res.status(200).json({
       message: 'new_password_set_successfully',
     });
   } catch (error) {
