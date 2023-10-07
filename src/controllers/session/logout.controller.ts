@@ -20,6 +20,8 @@ export const logoutController = async (
   try {
     const sessionId = res.locals.session.id as ISession['id'];
 
+    const sessionDb = new SessionDatabase();
+
     if (!sessionId) {
       throw new AuthorizationError({
         path: 'logout',
@@ -28,12 +30,11 @@ export const logoutController = async (
       });
     }
 
-    const sessionDb = new SessionDatabase();
     await sessionDb.update({ id: sessionId, active: false });
 
     res.clearCookie('accessToken');
     res.clearCookie('refreshToken');
-    res.status(204).send();
+    return res.status(204).send();
   } catch (error) {
     next(error);
   }
