@@ -25,7 +25,7 @@ import { setNewPasswordController } from '@/controllers/session/setNewPassword.c
 import { readCartController } from '@/controllers/cart/readCart.controller';
 import { createCartItemController } from '@/controllers/cartItem/createCartItem.controller';
 import { updateCartItemController } from '@/controllers/cartItem/updateCartItem.controller';
-import { findPublishableKeyController } from '@/controllers/payment/publishableKey.controller';
+import { readPublishableKeyController } from '@/controllers/payment/readPublishableKey.controller';
 import {
   createPaymentIntentController,
   findPaymentIntentsController,
@@ -87,5 +87,5 @@ export const routes = (app: Express) => {
     createPaymentIntentController
   );
   app.get('/find-payment-intents', findPaymentIntentsController);
-  app.get('/config', findPublishableKeyController);
+  app.get('/config', readPublishableKeyController);
 };

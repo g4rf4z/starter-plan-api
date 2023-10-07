@@ -1,10 +1,11 @@
 import config from 'config';
 
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
-export const findPublishableKeyController = async (
+export const readPublishableKeyController = async (
   req: Request<{}, {}, {}>,
-  res: Response
+  res: Response,
+  next: NextFunction
 ) => {
   try {
     const publishableKey = config.get<string | undefined>(
