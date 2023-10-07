@@ -26,10 +26,8 @@ import { readCartController } from '@/controllers/cart/readCart.controller';
 import { createCartItemController } from '@/controllers/cartItem/createCartItem.controller';
 import { updateCartItemController } from '@/controllers/cartItem/updateCartItem.controller';
 import { readPublishableKeyController } from '@/controllers/payment/readPublishableKey.controller';
-import {
-  createPaymentIntentController,
-  findPaymentIntentsController,
-} from '@/controllers/payment/paymentIntent.controller';
+import { createPaymentIntentController } from '@/controllers/payment/createPaymentIntent.controller';
+import { readPaymentIntentsController } from '@/controllers/payment/readPaymentIntents.controller';
 
 export const routes = (app: Express) => {
   app.get('/', (req, res) => {
@@ -86,6 +84,6 @@ export const routes = (app: Express) => {
     validate(createPaymentIntentSchema),
     createPaymentIntentController
   );
-  app.get('/find-payment-intents', findPaymentIntentsController);
+  app.get('/read-payment-intents', readPaymentIntentsController);
   app.get('/config', readPublishableKeyController);
 };
