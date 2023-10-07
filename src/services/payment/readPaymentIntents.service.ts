@@ -18,7 +18,7 @@ export const createPaymentIntentService = async (
   }
 };
 
-export const findPaymentIntentsService = async (limit: number) => {
+export const readPaymentIntentsService = async (limit: number) => {
   try {
     const foundPaymentIntents = await stripe.paymentIntents.list({ limit });
 
