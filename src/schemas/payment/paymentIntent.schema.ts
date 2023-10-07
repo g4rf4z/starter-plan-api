@@ -1,4 +1,4 @@
-import { boolean, number, object, string, TypeOf } from 'zod';
+import { object, number, string, boolean, TypeOf } from 'zod';
 
 export const createPaymentIntentSchema = object({
   body: object({
@@ -7,5 +7,4 @@ export const createPaymentIntentSchema = object({
     enable_automatic_payment: boolean(),
   }).strict(),
 });
-
 export type createPaymentIntentInput = TypeOf<typeof createPaymentIntentSchema>;
