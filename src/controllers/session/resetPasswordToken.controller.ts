@@ -1,16 +1,16 @@
 import config from 'config';
 
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 import { CryptoService } from '@/services/crypto.service';
 import { EmailService } from '@/services/email.service';
 
-import { ResetPasswordInput } from '@/schemas/session/resetPasswordToken.schema';
-
 import { CredentialsError } from '@/models/apiError/apiError.entity';
 
-import { ResetPasswordTokenDatabase } from '@/models/resetPasswordToken/resetPasswordToken.database';
 import { UserDatabase } from '@/models/user/user.database';
+import { ResetPasswordTokenDatabase } from '@/models/resetPasswordToken/resetPasswordToken.database';
+
+import { ResetPasswordInput } from '@/schemas/session/resetPasswordToken.schema';
 
 export const resetPasswordController = async (
   req: Request<
@@ -27,11 +27,11 @@ export const resetPasswordController = async (
 
     const clientUrl = config.get<string>('clientUrl');
 
-    const userDb = new UserDatabase();
-    const resetPasswordTokenDb = new ResetPasswordTokenDatabase();
-
     const cryptoService = new CryptoService();
     const emailService = new EmailService();
+
+    const userDb = new UserDatabase();
+    const resetPasswordTokenDb = new ResetPasswordTokenDatabase();
 
     let user;
 
@@ -58,11 +58,12 @@ export const resetPasswordController = async (
     const setNewPasswordUrl = `${clientUrl}/set-password?id=${user.id}&token=${token}`;
     emailService.sendEmail({
       email: user.email,
-      subject: 'Starter Plan - Réinitialisation du mot de passe',
-      text: `Bonjour,
-      Veuillez cliquer sur le lien ci-dessous afin de réinitialiser votre mot de passe : ${setNewPasswordUrl}`,
-      html: `<h1>Bonjour</h1>
-      <p>Veuillez cliquer sur le lien ci-dessous afin de réinitialiser votre mot de passe :</p>
+      subject: 'Starter Plan - Réinitialisation de mot de passe',
+      text: `Bonjour ${user.firstname},
+      Vous avez demandé la réinitialisation de votre mot de passe. Pour le réinitialiser, veuillez cliquer sur le lien ci-dessous 👇🏻
+      ${setNewPasswordUrl}`,
+      html: `<p>Bonjour ${user.firstname},</p>
+      <p>Vous avez demandé la réinitialisation de votre mot de passe. Pour le réinitialiser, veuillez cliquer sur le lien ci-dessous 👇🏻</p>
       <p><a href="${setNewPasswordUrl}">Réinitialiser le mot de passe</a></p>`,
     });
     return res.status(200).json({
