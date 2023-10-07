@@ -10,6 +10,7 @@ import type {
   IUserFullPayload,
   IUserReadByEmail,
   IUserReadById,
+  IUserUpdate,
   IUserWithoutPassword,
 } from '@/models/user/user.entity';
 
@@ -78,6 +79,29 @@ export class UserDatabase {
       return user;
     } catch (error) {
       throw formatPrismaErrors('UserDatabase.readUser', error);
+    }
+  }
+
+  async update(
+    id: IUser['id'],
+    data: IUserUpdate
+  ): Promise<IUserWithoutPassword> {
+    try {
+      const user = await this.userDb.update({
+        where: { id },
+        data,
+        select: {
+          id: true,
+          createdAt: true,
+          updatedAt: true,
+          firstname: true,
+          lastname: true,
+          email: true,
+        },
+      });
+      return user;
+    } catch (error) {
+      throw formatPrismaErrors('UserDatabase.update', error);
     }
   }
 }
