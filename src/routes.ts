@@ -13,7 +13,7 @@ import { setNewPasswordSchema } from '@/schemas/session/setNewPassword.schema';
 import { readCartSchema } from '@/schemas/cart/readCart.schema';
 import { createCartItemSchema } from '@/schemas/cartItem/createCartItem.schema';
 import { updateCartItemSchema } from '@/schemas/cartItem/updateCartItem.schema';
-import { createPaymentIntentSchema } from '@/schemas/payment/paymentIntent.schema';
+import { createPaymentIntentSchema } from '@/schemas/payment/createPaymentIntent.schema';
 
 import { createUserController } from '@/controllers/user/createUser.controller';
 import { readUserController } from '@/controllers/user/readUser.controller';
