@@ -1,26 +1,42 @@
-import express from 'express';
 import config from 'config';
+import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
-import routes from '../routes';
+import { tokenDeserializer } from '@/middlewares/tokenDeserializer.middleware';
 
-const createServer = () => {
+import { routes } from '@/routes';
+
+const clientUrl = config.get<string>('clientUrl');
+
+export const createServer = () => {
   const app = express();
-  const clientUrl = config.get<string>('clientUrl').split(',');
+
+  app.get('/', (req, res) => res.send('Starter Plan API is running.'));
+
+  // Security.
   app.use(helmet());
+
+  // CORS policy.
   app.use(
     cors({
-      credentials: true,
       origin: clientUrl,
+      credentials: true,
       methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     })
   );
+
+  // Body parser.
   app.use(express.json({ limit: '5MB' }));
+
+  // Cookie(s).
   app.use(cookieParser());
+
+  // Token(s).
+  app.use(tokenDeserializer);
+
+  // Route(s).
   routes(app);
   return app;
 };
-
-export default createServer;
