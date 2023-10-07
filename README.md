@@ -6,6 +6,8 @@ Starter Plan is a small-scale e-commerce API designed to sell digital products.
 
 ## Technologies
 
+Node.js, Express.js, Prisma.
+
 ## Installation
 
 ## Configuration
