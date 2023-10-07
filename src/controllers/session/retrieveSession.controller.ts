@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 import { RetrieveSessionInput } from '@/schemas/session/retrieveSession.schema';
 
@@ -19,6 +19,7 @@ export const retrieveSessionController = async (
 ) => {
   try {
     const sessionId = res.locals.session.id as ISession['id'];
+
     const sessionDb = new SessionDatabase();
 
     let session;
@@ -33,7 +34,6 @@ export const retrieveSessionController = async (
         details: 'unauthorized',
       });
     }
-
     return res.status(200).json({ session });
   } catch (error) {
     next(error);
