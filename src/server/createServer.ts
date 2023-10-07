@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 
 import { tokenDeserializer } from '@/middlewares/tokenDeserializer.middleware';
 
-import routes from '@/routes';
+import { routes } from '@/routes';
 
 const clientUrl = config.get<string>('clientUrl');
 
