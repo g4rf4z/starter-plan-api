@@ -23,6 +23,7 @@ export type IUserCreate = Pick<
 export type IUserFull = Required<IUser>;
 export type IUserReadByEmail = Pick<IUser, 'email'>;
 export type IUserReadById = Pick<IUser, 'id'>;
+export type IUserUpdate = Partial<Pick<IUser, 'email' | 'password'>>;
 export type IUserWithoutPassword = Omit<IUser, 'password'>;
 export type IUserFullWithoutPassword = Omit<IUserFull, 'password'>;
 export type IUserFullWithoutSession = Omit<IUserFull, 'sessions'>;
