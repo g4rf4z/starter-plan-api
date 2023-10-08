@@ -20,8 +20,10 @@ export const createUserController = async (
   try {
     const { firstname, lastname, email, password } = req.body;
 
-    const userDatabase = new UserDatabase();
     const cryptoService = new CryptoService();
+
+    const userDatabase = new UserDatabase();
+    const cartDb = new CartDatabase();
 
     const hashedPassword = await cryptoService.hash(password);
     const user = await userDatabase.createUser({
@@ -30,8 +32,6 @@ export const createUserController = async (
       email,
       password: hashedPassword,
     });
-
-    const cartDb = new CartDatabase();
 
     const cart = await cartDb.createCart({
       userId: user.id,
