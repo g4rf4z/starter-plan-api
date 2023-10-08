@@ -68,7 +68,7 @@ export const routes = (app: Express) => {
 
   // Cart Item route(s).
   app.post(
-    '/cart-items',
+    '/cart-items/:productId',
     validate(createCartItemSchema),
     createCartItemController
   );
