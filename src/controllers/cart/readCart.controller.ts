@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 import { CartDatabase } from '@/models/cart/cart.database';
 
@@ -8,7 +8,8 @@ import { handleError } from '@/utils/errors.util';
 
 export const readCartController = async (
   req: Request<ReadCartInput['params'], {}, {}>,
-  res: Response
+  res: Response,
+  next: NextFunction
 ) => {
   try {
     const { userId } = req.params;
