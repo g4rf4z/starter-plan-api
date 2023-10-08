@@ -22,11 +22,11 @@ export const createUserController = async (
 
     const cryptoService = new CryptoService();
 
-    const userDatabase = new UserDatabase();
+    const userDb = new UserDatabase();
     const cartDb = new CartDatabase();
 
     const hashedPassword = await cryptoService.hash(password);
-    const user = await userDatabase.createUser({
+    const user = await userDb.createUser({
       firstname,
       lastname,
       email,
