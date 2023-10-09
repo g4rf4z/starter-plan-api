@@ -73,7 +73,7 @@ export const routes = (app: Express) => {
     createCartItemController
   );
   app.patch(
-    '/cart-items/:cartId/:id',
+    '/cart-items/:id',
     validate(updateCartItemSchema),
     updateCartItemController
   );

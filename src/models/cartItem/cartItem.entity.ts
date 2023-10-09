@@ -10,8 +10,7 @@ export interface ICartItem {
   quantity: number;
 }
 
-export type ICartItemFull = Required<ICartItem>;
-export type ICartItemFullPayload = Omit<ICartItemFull, 'productId'>;
+export type ICartItemUpdate = Pick<ICartItem, 'id' | 'quantity'>;
 
 export class CartItem {
   id;

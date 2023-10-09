@@ -5,7 +5,7 @@ import { formatPrismaErrors } from '@/services/formatPrismaErrors.service';
 
 import type {
   ICartItem,
-  ICartItemFull,
+  ICartItemUpdate,
 } from '@/models/cartItem/cartItem.entity';
 
 export class CartItemDatabase {
@@ -15,11 +15,7 @@ export class CartItemDatabase {
     this.cartItemDb = prisma.cartItem;
   }
 
-  async createCartItem({
-    cartId,
-    productId,
-    quantity,
-  }: ICartItem): Promise<ICartItemFull> {
+  async create({ cartId, productId, quantity }: ICartItem): Promise<ICartItem> {
     try {
       const cartItem = await this.cartItemDb.create({
         data: {
@@ -50,7 +46,7 @@ export class CartItemDatabase {
     }
   }
 
-  async updateCartItem({ id, quantity }: ICartItem): Promise<ICartItemFull> {
+  async update({ id, quantity }: ICartItemUpdate): Promise<ICartItem> {
     try {
       const cartItem = await this.cartItemDb.update({
         where: {
