@@ -4,7 +4,6 @@ import { IUser } from '@/models/user/user.entity';
 
 import { CartDatabase } from '@/models/cart/cart.database';
 import { CartItemDatabase } from '@/models/cartItem/cartItem.database';
-import { ProductDatabase } from '@/models/product/product.database';
 
 import type { CreateCartItemInput } from '@/schemas/cartItem/createCartItem.schema';
 
@@ -22,18 +21,16 @@ export const createCartItemController = async (
 
     const cartDb = new CartDatabase();
     const cartItemDb = new CartItemDatabase();
-    const productDb = new ProductDatabase();
 
     const cart = await cartDb.readCart(userId);
     const cartId = cart.id;
 
-    const cartItem = await cartItemDb.createCartItem({
+    const cartItem = await cartItemDb.create({
       cartId,
       productId,
       quantity,
     });
-    const product = await productDb.readProduct(productId);
-    return res.status(201).json({ cartItem, product });
+    return res.status(201).json({ cartItem });
   } catch (error) {
     return handleError(error, res);
   }
