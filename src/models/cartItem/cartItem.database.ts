@@ -6,6 +6,7 @@ import { formatPrismaErrors } from '@/services/formatPrismaErrors.service';
 import type {
   ICartItem,
   ICartItemUpdate,
+  ICartItemDelete,
 } from '@/models/cartItem/cartItem.entity';
 
 export class CartItemDatabase {
@@ -42,7 +43,7 @@ export class CartItemDatabase {
       });
       return cartItem;
     } catch (error) {
-      throw formatPrismaErrors('CartItemDatabase.createCartItem', error);
+      throw formatPrismaErrors('CartItemDatabase.create', error);
     }
   }
 
@@ -66,7 +67,20 @@ export class CartItemDatabase {
       });
       return cartItem;
     } catch (error) {
-      throw formatPrismaErrors('CartItemDatabase.updateCartItem', error);
+      throw formatPrismaErrors('CartItemDatabase.update', error);
+    }
+  }
+
+  async delete({ id }: ICartItemDelete): Promise<ICartItem> {
+    try {
+      const cartItem = await this.cartItemDb.delete({
+        where: {
+          id: id,
+        },
+      });
+      return cartItem;
+    } catch (error) {
+      throw formatPrismaErrors('CartItemDatabase.delete', error);
     }
   }
 }

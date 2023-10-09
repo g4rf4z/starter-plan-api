@@ -11,6 +11,7 @@ export interface ICartItem {
 }
 
 export type ICartItemUpdate = Pick<ICartItem, 'id' | 'quantity'>;
+export type ICartItemDelete = Pick<ICartItem, 'id'>;
 
 export class CartItem {
   id;
