@@ -36,6 +36,6 @@ export const logoutController = async (
     res.clearCookie('refreshToken');
     return res.status(204).send();
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };

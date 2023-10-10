@@ -70,6 +70,6 @@ export const resetPasswordController = async (
       message: 'reset_password_email_sent',
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };

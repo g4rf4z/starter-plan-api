@@ -36,6 +36,6 @@ export const retrieveSessionController = async (
     }
     return res.status(200).json({ session });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };

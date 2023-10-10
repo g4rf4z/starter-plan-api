@@ -19,6 +19,6 @@ export const readProduct = async (
     const product = await productDb.readProduct(id);
     return res.status(200).json({ product });
   } catch (error) {
-    return handleError(error, res);
+    return next(error);
   }
 };

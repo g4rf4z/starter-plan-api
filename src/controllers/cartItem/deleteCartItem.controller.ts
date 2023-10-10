@@ -22,6 +22,6 @@ export const deleteCartItemController = async (
     await cartItemDb.delete({ id });
     return res.status(204).send();
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };

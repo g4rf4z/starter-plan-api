@@ -38,6 +38,6 @@ export const createUserController = async (
     });
     return res.status(201).json({ user, cart });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };

@@ -59,6 +59,6 @@ export const setNewPasswordController = async (
       message: 'new_password_set_successfully',
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };

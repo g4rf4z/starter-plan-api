@@ -112,6 +112,6 @@ export const loginController = async (
     });
     return res.status(201).json({ session });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };

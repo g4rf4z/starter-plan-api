@@ -23,6 +23,6 @@ export const updateCartItemController = async (
     });
     return res.status(201).json({ cartItem });
   } catch (error) {
-    return handleError(error, res);
+    return next(error);
   }
 };
