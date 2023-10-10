@@ -17,12 +17,12 @@ export class ApiErrorDatabase {
 
   async create(data: IApiError): Promise<Required<IApiErrorRead>> {
     try {
-      const errorLog = await this.apiErrorDb.create({
+      const apiError = await this.apiErrorDb.create({
         data,
       });
-      return errorLog;
+      return apiError;
     } catch (error) {
-      throw formatPrismaErrors('errorLogDatabase_create', error);
+      throw formatPrismaErrors('apiErrorDatabase.create', error);
     }
   }
 }
