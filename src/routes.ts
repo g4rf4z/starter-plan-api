@@ -27,9 +27,6 @@ import { readCartController } from '@/controllers/cart/readCart.controller';
 import { createCartItemController } from '@/controllers/cartItem/createCartItem.controller';
 import { updateCartItemController } from '@/controllers/cartItem/updateCartItem.controller';
 import { deleteCartItemController } from '@/controllers/cartItem/deleteCartItem.controller';
-import { readPublishableKeyController } from '@/controllers/payment/readPublishableKey.controller';
-import { createPaymentIntentController } from '@/controllers/payment/createPaymentIntent.controller';
-import { readPaymentIntentsController } from '@/controllers/payment/readPaymentIntents.controller';
 
 export const routes = (app: Express) => {
   app.get('/', (req, res) => {
@@ -84,13 +81,4 @@ export const routes = (app: Express) => {
     validate(deleteCartItemSchema),
     deleteCartItemController
   );
-
-  // Stripe route(s).
-  app.post(
-    '/create-payment-intent',
-    validate(createPaymentIntentSchema),
-    createPaymentIntentController
-  );
-  app.get('/read-payment-intents', readPaymentIntentsController);
-  app.get('/config', readPublishableKeyController);
 };
