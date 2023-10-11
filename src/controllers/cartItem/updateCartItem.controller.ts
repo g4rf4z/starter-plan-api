@@ -4,8 +4,6 @@ import { CartItemDatabase } from '@/models/cartItem/cartItem.database';
 
 import type { UpdateCartItemInput } from '@/schemas/cartItem/updateCartItem.schema';
 
-import { handleError } from '@/utils/errors.util';
-
 export const updateCartItemController = async (
   req: Request<UpdateCartItemInput['params'], {}, UpdateCartItemInput['body']>,
   res: Response,

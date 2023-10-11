@@ -7,8 +7,6 @@ import { CartDatabase } from '@/models/cart/cart.database';
 
 import type { ReadUserInput } from '@/schemas/user/readUser.schema';
 
-import { handleError } from '@/utils/errors.util';
-
 export const readUserController = async (
   req: Request<ReadUserInput['params'], {}, {}>,
   res: Response,

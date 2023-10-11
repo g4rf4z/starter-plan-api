@@ -4,8 +4,6 @@ import { ProductDatabase } from '@/models/product/product.database';
 
 import { ReadProductInput } from '@/schemas/product/readProduct.schema';
 
-import { handleError } from '@/utils/errors.util';
-
 export const readProduct = async (
   req: Request<ReadProductInput['params'], {}, {}>,
   res: Response,

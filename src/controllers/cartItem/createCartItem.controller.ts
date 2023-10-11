@@ -7,8 +7,6 @@ import { CartItemDatabase } from '@/models/cartItem/cartItem.database';
 
 import type { CreateCartItemInput } from '@/schemas/cartItem/createCartItem.schema';
 
-import { handleError } from '@/utils/errors.util';
-
 export const createCartItemController = async (
   req: Request<CreateCartItemInput['params'], {}, CreateCartItemInput['body']>,
   res: Response,
