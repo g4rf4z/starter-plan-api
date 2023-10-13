@@ -14,7 +14,6 @@ import { readCartSchema } from '@/schemas/cart/readCart.schema';
 import { createCartItemSchema } from '@/schemas/cartItem/createCartItem.schema';
 import { updateCartItemSchema } from '@/schemas/cartItem/updateCartItem.schema';
 import { deleteCartItemSchema } from '@/schemas/cartItem/deleteCartItem.schema';
-import { createPaymentIntentSchema } from '@/schemas/payment/createPaymentIntent.schema';
 
 import { createUserController } from '@/controllers/user/createUser.controller';
 import { readUserController } from '@/controllers/user/readUser.controller';
@@ -27,6 +26,7 @@ import { readCartController } from '@/controllers/cart/readCart.controller';
 import { createCartItemController } from '@/controllers/cartItem/createCartItem.controller';
 import { updateCartItemController } from '@/controllers/cartItem/updateCartItem.controller';
 import { deleteCartItemController } from '@/controllers/cartItem/deleteCartItem.controller';
+import { createCheckoutSessionController } from './controllers/payment/createCheckoutSession.controller';
 
 export const routes = (app: Express) => {
   app.get('/', (req, res) => {
@@ -81,4 +81,7 @@ export const routes = (app: Express) => {
     validate(deleteCartItemSchema),
     deleteCartItemController
   );
+
+  // Payment route(s).
+  app.post('/create-checkout-session', createCheckoutSessionController);
 };
