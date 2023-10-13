@@ -21,3 +21,5 @@ Starter Plan is under the MIT license, which means that you are free to use, mod
 ## Crédits
 
 ## Contact
+
+gregoire.pinte@gmail.com
