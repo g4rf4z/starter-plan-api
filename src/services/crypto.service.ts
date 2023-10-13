@@ -1,6 +1,6 @@
+import crypto from 'crypto';
 import bcrypt from 'bcrypt';
 import config from 'config';
-import crypto from 'crypto';
 
 export class CryptoService {
   generateRandomString(length: number): string {
