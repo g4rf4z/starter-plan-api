@@ -31,7 +31,6 @@ export class UserDatabase {
           firstname: true,
           lastname: true,
           email: true,
-          password: false,
         },
       });
       return user;
@@ -77,7 +76,6 @@ export class UserDatabase {
           firstname: true,
           lastname: true,
           email: true,
-          password: false,
         },
       });
       return user;
