@@ -1,11 +1,13 @@
-import { object, string, number, TypeOf } from 'zod';
+import { object, array, string, number, TypeOf } from 'zod';
 
 export const createCheckoutSessionSchema = object({
   body: object({
-    currency: string(),
-    productName: string(),
-    unitAmount: number(),
-    quantity: number(),
+    line_items: array(
+      object({
+        price: string(),
+        quantity: number(),
+      })
+    ),
   }).strict(),
 });
 export type createCheckoutSessionInput = TypeOf<
