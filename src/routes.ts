@@ -68,16 +68,19 @@ export const routes = (app: Express) => {
   // Cart Item route(s).
   app.post(
     '/cart-items/:productId',
+    requireAuthentication,
     validate(createCartItemSchema),
     createCartItemController
   );
   app.patch(
     '/cart-items/:id',
+    requireAuthentication,
     validate(updateCartItemSchema),
     updateCartItemController
   );
   app.delete(
     '/cart-items/:id',
+    requireAuthentication,
     validate(deleteCartItemSchema),
     deleteCartItemController
   );
