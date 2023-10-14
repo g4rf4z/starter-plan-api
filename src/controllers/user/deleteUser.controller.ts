@@ -4,10 +4,10 @@ import { IUser } from '@/models/user/user.entity';
 
 import { UserDatabase } from '@/models/user/user.database';
 
-import type { ReadUserInput } from '@/schemas/user/readUser.schema';
+import { DeleteUserInput } from '@/schemas/user/deleteUser.schema';
 
-export const readUserController = async (
-  req: Request<ReadUserInput['params'], {}, {}>,
+export const deleteUserController = async (
+  req: Request<DeleteUserInput['params'], {}, {}>,
   res: Response,
   next: NextFunction
 ) => {
@@ -16,8 +16,8 @@ export const readUserController = async (
 
     const userDb = new UserDatabase();
 
-    const user = await userDb.readById({ id: userId });
-    return res.status(200).json({ user });
+    await userDb.delete({ id: userId });
+    return res.sendStatus(204);
   } catch (error) {
     return next(error);
   }

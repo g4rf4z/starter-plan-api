@@ -1,11 +1,11 @@
-import { IUserFull } from '@/models/user/user.entity';
+import { IUser } from '@/models/user/user.entity';
 import { ICartItem } from '@/models/cartItem/cartItem.entity';
 
 export interface ICart {
   id?: string;
   createdAt?: Date;
   updatedAt?: Date;
-  userId: IUserFull['id'];
+  userId: IUser['id'];
   cartItems?: ICartItem[];
 }
 

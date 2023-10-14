@@ -5,6 +5,9 @@ import { requireAuthentication } from '@/middlewares/requireAuthentication.middl
 
 import { createUserSchema } from '@/schemas/user/createUser.schema';
 import { readUserSchema } from '@/schemas/user/readUser.schema';
+import { updateUserSchema } from '@/schemas/user/updateUser.schema';
+import { updateUserPasswordSchema } from '@/schemas/user/updateUserPassword.schema';
+import { deleteUserSchema } from '@/schemas/user/deleteUser.schema';
 import { loginSchema } from '@/schemas/session/login.schema';
 import { retrieveSessionSchema } from '@/schemas/session/retrieveSession.schema';
 import { logoutSchema } from '@/schemas/session/logout.schema';
@@ -17,6 +20,9 @@ import { deleteCartItemSchema } from '@/schemas/cartItem/deleteCartItem.schema';
 
 import { createUserController } from '@/controllers/user/createUser.controller';
 import { readUserController } from '@/controllers/user/readUser.controller';
+import { updateUserController } from '@/controllers/user/updateUser.controller';
+import { updateUserPasswordController } from '@/controllers/user/updateUserPassword.controller';
+import { deleteUserController } from '@/controllers/user/deleteUser.controller';
 import { loginController } from '@/controllers/session/login.controller';
 import { retrieveSessionController } from '@/controllers/session/retrieveSession.controller';
 import { logoutController } from '@/controllers/session/logout.controller';
@@ -36,6 +42,13 @@ export const routes = (app: Express) => {
   // User route(s).
   app.post('/users', validate(createUserSchema), createUserController);
   app.get('/users', validate(readUserSchema), readUserController);
+  app.patch('/users', validate(updateUserSchema), updateUserController);
+  app.patch(
+    '/users/password',
+    validate(updateUserPasswordSchema),
+    updateUserPasswordController
+  );
+  app.delete('/users', validate(deleteUserSchema), deleteUserController);
 
   // Session route(s).
   app.post('/login', validate(loginSchema), loginController);

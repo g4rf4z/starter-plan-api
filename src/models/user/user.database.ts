@@ -6,11 +6,10 @@ import { formatPrismaErrors } from '@/services/formatPrismaErrors.service';
 import type {
   IUser,
   IUserCreate,
-  IUserFull,
-  IUserFullPayload,
-  IUserReadByEmail,
   IUserReadById,
+  IUserReadByEmail,
   IUserUpdate,
+  IUserDelete,
   IUserWithoutPassword,
 } from '@/models/user/user.entity';
 
@@ -21,7 +20,7 @@ export class UserDatabase {
     this.userDb = prisma.user;
   }
 
-  async createUser(data: IUserCreate): Promise<IUserWithoutPassword> {
+  async create(data: IUserCreate): Promise<IUserWithoutPassword> {
     try {
       const user = await this.userDb.create({
         data,
@@ -32,22 +31,12 @@ export class UserDatabase {
           firstname: true,
           lastname: true,
           email: true,
+          password: false,
         },
       });
       return user;
     } catch (error) {
-      throw formatPrismaErrors('UserDatabase.createUser', error);
-    }
-  }
-
-  async readByEmail(data: IUserReadByEmail): Promise<IUser> {
-    try {
-      const user = await this.userDb.findUniqueOrThrow({
-        where: { email: data.email },
-      });
-      return user;
-    } catch (error) {
-      throw formatPrismaErrors('UserDatabase.readByEmail', error);
+      throw formatPrismaErrors('UserDatabase.create', error);
     }
   }
 
@@ -62,23 +51,14 @@ export class UserDatabase {
     }
   }
 
-  async readUser(id: IUserFull['id']): Promise<IUserFullPayload> {
+  async readByEmail(data: IUserReadByEmail): Promise<IUser> {
     try {
       const user = await this.userDb.findUniqueOrThrow({
-        where: { id },
-        select: {
-          id: true,
-          createdAt: true,
-          updatedAt: true,
-          firstname: true,
-          lastname: true,
-          email: true,
-          password: true,
-        },
+        where: { email: data.email },
       });
       return user;
     } catch (error) {
-      throw formatPrismaErrors('UserDatabase.readUser', error);
+      throw formatPrismaErrors('UserDatabase.readByEmail', error);
     }
   }
 
@@ -97,11 +77,23 @@ export class UserDatabase {
           firstname: true,
           lastname: true,
           email: true,
+          password: false,
         },
       });
       return user;
     } catch (error) {
       throw formatPrismaErrors('UserDatabase.update', error);
+    }
+  }
+
+  async delete(data: IUserDelete): Promise<IUser> {
+    try {
+      const user = await this.userDb.delete({
+        where: { id: data.id },
+      });
+      return user;
+    } catch (error) {
+      throw formatPrismaErrors('UserDatabase.delete', error);
     }
   }
 }

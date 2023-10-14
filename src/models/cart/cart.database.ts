@@ -51,7 +51,7 @@ export class CartDatabase {
     }
   }
 
-  async readCart(userId: ICartFull['userId']): Promise<ICartFull> {
+  async readCart(userId: ICart['userId']): Promise<ICart> {
     try {
       const cart = await this.cartDb.findUniqueOrThrow({
         where: { userId: userId },
