@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 
 import { stripe } from '@/services/stripe.service';
 
+import { IUser } from '@/models/user/user.entity';
+
 import { createCheckoutSessionInput } from '@/schemas/payment/createCheckoutSession.schema';
 
 export const createCheckoutSessionController = async (
@@ -10,35 +12,19 @@ export const createCheckoutSessionController = async (
   next: NextFunction
 ) => {
   try {
-    const { currency, productName, unitAmount, quantity } = req.body;
+    const userId = res.locals.user.id as IUser['id'];
+    const { line_items } = req.body;
 
     const checkoutSession = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          price_data: {
-            currency: currency,
-            product_data: {
-              name: productName,
-            },
-            unit_amount: unitAmount,
-          },
-          quantity: quantity,
-        },
-      ],
+      line_items,
+      mode: 'payment',
       automatic_tax: {
         enabled: true,
       },
-      mode: 'payment',
       success_url: 'http://localhost:3000/success',
       cancel_url: 'http://localhost:3000/cancel',
     });
-    if (checkoutSession.url) {
-      return res.send(303, checkoutSession.url);
-    } else {
-      return res
-        .status(500)
-        .send("La session n'a pas d'URL de redirection valide.");
-    }
+    return res.send(checkoutSession.url);
   } catch (error) {
     return next(error);
   }
