@@ -5,7 +5,7 @@ import { CartItemDatabase } from '@/models/cartItem/cartItem.database';
 import type { UpdateCartItemInput } from '@/schemas/cartItem/updateCartItem.schema';
 
 export const updateCartItemController = async (
-  req: Request<UpdateCartItemInput['params'], {}, UpdateCartItemInput['body']>,
+  req: Request<UpdateCartItemInput['params'], UpdateCartItemInput['body']>,
   res: Response,
   next: NextFunction
 ) => {

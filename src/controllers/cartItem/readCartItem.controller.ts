@@ -5,7 +5,7 @@ import { CartItemDatabase } from '@/models/cartItem/cartItem.database';
 import { ReadCartItemInput } from '@/schemas/cartItem/readCartItem.schema';
 
 export const readCartItemController = async (
-  req: Request<ReadCartItemInput['params'], {}, {}>,
+  req: Request<ReadCartItemInput['params']>,
   res: Response,
   next: NextFunction
 ) => {

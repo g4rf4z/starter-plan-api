@@ -5,7 +5,7 @@ import { CartItemDatabase } from '@/models/cartItem/cartItem.database';
 import { DeleteCartItemInput } from '@/schemas/cartItem/deleteCartItem.schema';
 
 export const deleteCartItemController = async (
-  req: Request<DeleteCartItemInput['params'], {}, {}>,
+  req: Request<DeleteCartItemInput['params']>,
   res: Response,
   next: NextFunction
 ) => {
