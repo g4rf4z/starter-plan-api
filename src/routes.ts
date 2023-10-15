@@ -29,6 +29,7 @@ import { setNewPasswordController } from '@/controllers/session/setNewPassword.c
 import { readCartController } from '@/controllers/cart/readCart.controller';
 import { createCartItemController } from '@/controllers/cartItem/createCartItem.controller';
 import { readCartItemController } from '@/controllers/cartItem/readCartItem.controller';
+import { readAllCartItemsController } from '@/controllers/cartItem/readAllCartItems.controller';
 import { updateCartItemController } from '@/controllers/cartItem/updateCartItem.controller';
 import { deleteCartItemController } from '@/controllers/cartItem/deleteCartItem.controller';
 
@@ -97,6 +98,7 @@ export const routes = (app: Express) => {
     validate(readCartItemSchema),
     readCartItemController
   );
+  app.get('/cart-items', requireAuthentication, readAllCartItemsController);
   app.patch(
     '/cart-items/:id',
     requireAuthentication,

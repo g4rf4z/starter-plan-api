@@ -7,6 +7,7 @@ import type {
   ICartItem,
   ICartItemCreate,
   ICartItemReadById,
+  ICartItemReadAll,
   ICartItemUpdate,
   ICartItemDelete,
 } from '@/models/cartItem/cartItem.entity';
@@ -53,6 +54,17 @@ export class CartItemDatabase {
     try {
       const cartItem = await this.cartItemDb.findUniqueOrThrow({
         where: { id: data.id },
+      });
+      return cartItem;
+    } catch (error) {
+      throw formatPrismaErrors('CartItemDatabase.readById', error);
+    }
+  }
+
+  async readAll(data: ICartItemReadAll): Promise<ICartItem[]> {
+    try {
+      const cartItem = await this.cartItemDb.findMany({
+        where: { cartId: data.cartId },
       });
       return cartItem;
     } catch (error) {

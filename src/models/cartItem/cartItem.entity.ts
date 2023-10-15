@@ -15,5 +15,6 @@ export type ICartItemCreate = Pick<
   'quantity' | 'cartId' | 'productId'
 >;
 export type ICartItemReadById = Pick<ICartItem, 'id'>;
+export type ICartItemReadAll = Pick<ICartItem, 'cartId'>;
 export type ICartItemUpdate = Pick<ICartItem, 'id' | 'quantity'>;
 export type ICartItemDelete = Pick<ICartItem, 'id'>;
