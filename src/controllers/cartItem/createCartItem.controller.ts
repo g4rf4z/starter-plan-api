@@ -20,7 +20,7 @@ export const createCartItemController = async (
     const cartDb = new CartDatabase();
     const cartItemDb = new CartItemDatabase();
 
-    const cart = await cartDb.readCart(userId);
+    const cart = await cartDb.readByUserId({ userId });
     const cartId = cart.id;
 
     const cartItem = await cartItemDb.create({
