@@ -4,16 +4,13 @@ import { validate } from '@/middlewares/validation.middleware';
 import { requireAuthentication } from '@/middlewares/requireAuthentication.middleware';
 
 import { createUserSchema } from '@/schemas/user/createUser.schema';
-import { readUserSchema } from '@/schemas/user/readUser.schema';
 import { updateUserSchema } from '@/schemas/user/updateUser.schema';
 import { updateUserPasswordSchema } from '@/schemas/user/updateUserPassword.schema';
-import { deleteUserSchema } from '@/schemas/user/deleteUser.schema';
 import { loginSchema } from '@/schemas/session/login.schema';
 import { retrieveSessionSchema } from '@/schemas/session/retrieveSession.schema';
 import { logoutSchema } from '@/schemas/session/logout.schema';
 import { resetPasswordSchema } from '@/schemas/session/resetPasswordToken.schema';
 import { setNewPasswordSchema } from '@/schemas/session/setNewPassword.schema';
-import { readCartSchema } from '@/schemas/cart/readCart.schema';
 import { createCartItemSchema } from '@/schemas/cartItem/createCartItem.schema';
 import { readCartItemSchema } from '@/schemas/cartItem/readCartItem.schema';
 import { updateCartItemSchema } from '@/schemas/cartItem/updateCartItem.schema';
@@ -44,12 +41,7 @@ export const routes = (app: Express) => {
 
   // User route(s).
   app.post('/users', validate(createUserSchema), createUserController);
-  app.get(
-    '/users',
-    requireAuthentication,
-    validate(readUserSchema),
-    readUserController
-  );
+  app.get('/users', requireAuthentication, readUserController);
   app.patch(
     '/users',
     requireAuthentication,
@@ -62,7 +54,7 @@ export const routes = (app: Express) => {
     validate(updateUserPasswordSchema),
     updateUserPasswordController
   );
-  app.delete('/users', validate(deleteUserSchema), deleteUserController);
+  app.delete('/users', deleteUserController);
 
   // Session route(s).
   app.post('/login', validate(loginSchema), loginController);
@@ -90,12 +82,7 @@ export const routes = (app: Express) => {
   );
 
   // Cart route(s).
-  app.get(
-    '/carts/:userId',
-    requireAuthentication,
-    validate(readCartSchema),
-    readCartController
-  );
+  app.get('/carts', requireAuthentication, readCartController);
 
   // Cart Item route(s).
   app.post(
