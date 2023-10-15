@@ -10,11 +10,11 @@ export const readCartController = async (
   next: NextFunction
 ) => {
   try {
-    const { userId } = req.params;
+    const { id } = req.params;
 
     const cartDb = new CartDatabase();
 
-    const cart = await cartDb.readCart(userId);
+    const cart = await cartDb.readCart(id);
     return res.status(200).json({ cart });
   } catch (error) {
     return next(error);
