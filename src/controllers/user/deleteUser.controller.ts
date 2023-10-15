@@ -4,10 +4,8 @@ import { IUser } from '@/models/user/user.entity';
 
 import { UserDatabase } from '@/models/user/user.database';
 
-import { DeleteUserInput } from '@/schemas/user/deleteUser.schema';
-
 export const deleteUserController = async (
-  req: Request<DeleteUserInput['params'], {}, {}>,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {

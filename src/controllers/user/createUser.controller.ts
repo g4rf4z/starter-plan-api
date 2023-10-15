@@ -28,9 +28,7 @@ export const createUserController = async (
       password: hashedPassword,
     });
 
-    const cart = await cartDb.createCart({
-      userId: user.id,
-    });
+    const cart = await cartDb.create({ userId: user.id });
     return res.status(201).json({ user, cart });
   } catch (error) {
     return next(error);

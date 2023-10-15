@@ -4,10 +4,8 @@ import { IUser } from '@/models/user/user.entity';
 
 import { UserDatabase } from '@/models/user/user.database';
 
-import type { ReadUserInput } from '@/schemas/user/readUser.schema';
-
 export const readUserController = async (
-  req: Request<ReadUserInput['params'], {}, {}>,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {

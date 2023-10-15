@@ -5,9 +5,9 @@ import { formatPrismaErrors } from '@/services/formatPrismaErrors.service';
 
 import type {
   ICart,
-  ICartFull,
-  ICartFullPayload,
-  ICartReadById,
+  ICartCreateByUserId,
+  ICartReadByUserId,
+  ICartWithoutCartItems,
 } from '@/models/cart/cart.entity';
 
 export class CartDatabase {
@@ -17,13 +17,13 @@ export class CartDatabase {
     this.cartDb = prisma.cart;
   }
 
-  async createCart({ userId }: ICart): Promise<ICartFullPayload> {
+  async create(data: ICartCreateByUserId): Promise<ICartWithoutCartItems> {
     try {
       const cart = await this.cartDb.create({
         data: {
           user: {
             connect: {
-              id: userId,
+              id: data.userId,
             },
           },
         },
@@ -36,30 +36,19 @@ export class CartDatabase {
       });
       return cart;
     } catch (error) {
-      throw formatPrismaErrors('CartDatabase.createCart', error);
+      throw formatPrismaErrors('CartDatabase.create', error);
     }
   }
 
-  async readById(data: ICartReadById): Promise<ICart> {
+  async readByUserId(data: ICartReadByUserId): Promise<ICart> {
     try {
       const cart = await this.cartDb.findUniqueOrThrow({
-        where: { id: data.id },
-      });
-      return cart;
-    } catch (error) {
-      throw formatPrismaErrors('CartDatabase.readById', error);
-    }
-  }
-
-  async readCart(userId: ICart['userId']): Promise<ICart> {
-    try {
-      const cart = await this.cartDb.findUniqueOrThrow({
-        where: { userId: userId },
+        where: { userId: data.userId },
         include: { cartItems: true },
       });
       return cart;
     } catch (error) {
-      throw formatPrismaErrors('CartDatabase.readCart', error);
+      throw formatPrismaErrors('CartDatabase.readByUserId', error);
     }
   }
 }
