@@ -15,6 +15,7 @@ import { resetPasswordSchema } from '@/schemas/session/resetPasswordToken.schema
 import { setNewPasswordSchema } from '@/schemas/session/setNewPassword.schema';
 import { readCartSchema } from '@/schemas/cart/readCart.schema';
 import { createCartItemSchema } from '@/schemas/cartItem/createCartItem.schema';
+import { readCartItemSchema } from '@/schemas/cartItem/readCartItem.schema';
 import { updateCartItemSchema } from '@/schemas/cartItem/updateCartItem.schema';
 import { deleteCartItemSchema } from '@/schemas/cartItem/deleteCartItem.schema';
 
@@ -30,9 +31,11 @@ import { resetPasswordController } from '@/controllers/session/resetPasswordToke
 import { setNewPasswordController } from '@/controllers/session/setNewPassword.controller';
 import { readCartController } from '@/controllers/cart/readCart.controller';
 import { createCartItemController } from '@/controllers/cartItem/createCartItem.controller';
+import { readCartItemController } from '@/controllers/cartItem/readCartItem.controller';
 import { updateCartItemController } from '@/controllers/cartItem/updateCartItem.controller';
 import { deleteCartItemController } from '@/controllers/cartItem/deleteCartItem.controller';
-import { createCheckoutSessionController } from './controllers/payment/createCheckoutSession.controller';
+
+import { createCheckoutSessionController } from '@/controllers/payment/createCheckoutSession.controller';
 
 export const routes = (app: Express) => {
   app.get('/', (req, res) => {
@@ -41,10 +44,21 @@ export const routes = (app: Express) => {
 
   // User route(s).
   app.post('/users', validate(createUserSchema), createUserController);
-  app.get('/users', validate(readUserSchema), readUserController);
-  app.patch('/users', validate(updateUserSchema), updateUserController);
+  app.get(
+    '/users',
+    requireAuthentication,
+    validate(readUserSchema),
+    readUserController
+  );
+  app.patch(
+    '/users',
+    requireAuthentication,
+    validate(updateUserSchema),
+    updateUserController
+  );
   app.patch(
     '/users/password',
+    requireAuthentication,
     validate(updateUserPasswordSchema),
     updateUserPasswordController
   );
@@ -76,7 +90,12 @@ export const routes = (app: Express) => {
   );
 
   // Cart route(s).
-  app.get('/carts/:userId', validate(readCartSchema), readCartController);
+  app.get(
+    '/carts/:userId',
+    requireAuthentication,
+    validate(readCartSchema),
+    readCartController
+  );
 
   // Cart Item route(s).
   app.post(
@@ -84,6 +103,12 @@ export const routes = (app: Express) => {
     requireAuthentication,
     validate(createCartItemSchema),
     createCartItemController
+  );
+  app.get(
+    '/cart-items/:id',
+    requireAuthentication,
+    validate(readCartItemSchema),
+    readCartItemController
   );
   app.patch(
     '/cart-items/:id',
