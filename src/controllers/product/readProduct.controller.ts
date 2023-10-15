@@ -14,7 +14,7 @@ export const readProduct = async (
 
     const productDb = new ProductDatabase();
 
-    const product = await productDb.readProduct(id);
+    const product = await productDb.read({ id });
     return res.status(200).json({ product });
   } catch (error) {
     return next(error);

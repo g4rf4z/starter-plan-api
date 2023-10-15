@@ -3,7 +3,10 @@ import { PrismaClient } from '@prisma/client';
 import { prisma } from '@/services/prisma.service';
 import { formatPrismaErrors } from '@/services/formatPrismaErrors.service';
 
-import type { IProductFull } from '@/models/product/product.entity';
+import type {
+  IProduct,
+  IProductReadById,
+} from '@/models/product/product.entity';
 
 export class ProductDatabase {
   private productDb: PrismaClient['product'];
@@ -12,10 +15,10 @@ export class ProductDatabase {
     this.productDb = prisma.product;
   }
 
-  async readProduct(id: IProductFull['id']): Promise<IProductFull> {
+  async read(data: IProductReadById): Promise<IProduct> {
     try {
       const product = await this.productDb.findUniqueOrThrow({
-        where: { id },
+        where: { id: data.id },
         select: {
           id: true,
           createdAt: true,
