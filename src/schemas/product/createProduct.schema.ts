@@ -1,4 +1,4 @@
-import { number, object, string, TypeOf } from 'zod';
+import { object, string, number, TypeOf } from 'zod';
 
 export const createProductSchema = object({
   body: object({

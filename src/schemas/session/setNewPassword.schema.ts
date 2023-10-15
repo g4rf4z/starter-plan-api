@@ -14,6 +14,5 @@ export const setNewPasswordSchema = object({
     .strict()
     .refine((data) => validatePasswordComplexity(data.password, 3))
     .refine((data) => data.password === data.passwordConfirmation),
-  query: object({}).strict(),
 });
 export type SetNewPasswordInput = TypeOf<typeof setNewPasswordSchema>;

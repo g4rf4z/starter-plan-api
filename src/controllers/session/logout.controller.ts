@@ -1,19 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { LogoutInput } from '@/schemas/session/logout.schema';
-
 import { AuthorizationError } from '@/models/apiError/apiError.entity';
 import { ISession } from '@/models/session/session.entity';
 
 import { SessionDatabase } from '@/models/session/session.database';
 
 export const logoutController = async (
-  req: Request<
-    LogoutInput['params'],
-    {}, // Options.
-    LogoutInput['body'],
-    LogoutInput['query']
-  >,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
@@ -31,7 +24,6 @@ export const logoutController = async (
     }
 
     await sessionDb.update({ id: sessionId, active: false });
-
     res.clearCookie('accessToken');
     res.clearCookie('refreshToken');
     return res.status(204).send();
