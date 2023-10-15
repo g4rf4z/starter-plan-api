@@ -5,6 +5,8 @@ import { formatPrismaErrors } from '@/services/formatPrismaErrors.service';
 
 import type {
   ICartItem,
+  ICartItemCreate,
+  ICartItemReadById,
   ICartItemUpdate,
   ICartItemDelete,
 } from '@/models/cartItem/cartItem.entity';
@@ -16,29 +18,29 @@ export class CartItemDatabase {
     this.cartItemDb = prisma.cartItem;
   }
 
-  async create({ cartId, productId, quantity }: ICartItem): Promise<ICartItem> {
+  async create(data: ICartItemCreate): Promise<ICartItem> {
     try {
       const cartItem = await this.cartItemDb.create({
         data: {
+          quantity: data.quantity,
           cart: {
             connect: {
-              id: cartId,
+              id: data.cartId,
             },
           },
           product: {
             connect: {
-              id: productId,
+              id: data.productId,
             },
           },
-          quantity: quantity,
         },
         select: {
           id: true,
           createdAt: true,
           updatedAt: true,
+          quantity: true,
           cartId: true,
           productId: true,
-          quantity: true,
         },
       });
       return cartItem;
@@ -47,22 +49,33 @@ export class CartItemDatabase {
     }
   }
 
-  async update({ id, quantity }: ICartItemUpdate): Promise<ICartItem> {
+  async readById(data: ICartItemReadById): Promise<ICartItem> {
+    try {
+      const cartItem = await this.cartItemDb.findUniqueOrThrow({
+        where: { id: data.id },
+      });
+      return cartItem;
+    } catch (error) {
+      throw formatPrismaErrors('CartItemDatabase.readById', error);
+    }
+  }
+
+  async update(data: ICartItemUpdate): Promise<ICartItem> {
     try {
       const cartItem = await this.cartItemDb.update({
         where: {
-          id: id,
+          id: data.id,
         },
         data: {
-          quantity: quantity,
+          quantity: data.quantity,
         },
         select: {
           id: true,
           createdAt: true,
           updatedAt: true,
+          quantity: true,
           cartId: true,
           productId: true,
-          quantity: true,
         },
       });
       return cartItem;
@@ -71,11 +84,11 @@ export class CartItemDatabase {
     }
   }
 
-  async delete({ id }: ICartItemDelete): Promise<ICartItem> {
+  async delete(data: ICartItemDelete): Promise<ICartItem> {
     try {
       const cartItem = await this.cartItemDb.delete({
         where: {
-          id: id,
+          id: data.id,
         },
       });
       return cartItem;
