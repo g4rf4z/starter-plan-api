@@ -14,7 +14,7 @@ export const createCartItemController = async (
 ) => {
   try {
     const userId = res.locals.user.id as IUser['id'];
-    const productId = req.params.productId;
+    const { productId } = req.params;
     const { quantity } = req.body;
 
     const cartDb = new CartDatabase();
@@ -24,9 +24,9 @@ export const createCartItemController = async (
     const cartId = cart.id;
 
     const cartItem = await cartItemDb.create({
+      quantity,
       cartId,
       productId,
-      quantity,
     });
     return res.status(201).json({ cartItem });
   } catch (error) {
