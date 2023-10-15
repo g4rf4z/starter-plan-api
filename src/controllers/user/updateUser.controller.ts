@@ -18,7 +18,7 @@ export const updateUserController = async (
     const userDb = new UserDatabase();
 
     const user = await userDb.update(userId, { firstname, lastname, email });
-    return res.send(200).json({ user });
+    return res.status(200).json({ user });
   } catch (error) {
     return next(error);
   }
