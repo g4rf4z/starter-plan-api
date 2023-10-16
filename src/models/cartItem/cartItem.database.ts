@@ -63,10 +63,10 @@ export class CartItemDatabase {
 
   async readAll(data: ICartItemReadAll): Promise<ICartItem[]> {
     try {
-      const cartItem = await this.cartItemDb.findMany({
+      const cartItems = await this.cartItemDb.findMany({
         where: { cartId: data.cartId },
       });
-      return cartItem;
+      return cartItems;
     } catch (error) {
       throw formatPrismaErrors('CartItemDatabase.readById', error);
     }
