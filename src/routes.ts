@@ -7,14 +7,13 @@ import { createUserSchema } from '@/schemas/user/createUser.schema';
 import { updateUserSchema } from '@/schemas/user/updateUser.schema';
 import { updateUserPasswordSchema } from '@/schemas/user/updateUserPassword.schema';
 import { loginSchema } from '@/schemas/session/login.schema';
-import { retrieveSessionSchema } from '@/schemas/session/retrieveSession.schema';
-import { logoutSchema } from '@/schemas/session/logout.schema';
 import { resetPasswordSchema } from '@/schemas/session/resetPasswordToken.schema';
 import { setNewPasswordSchema } from '@/schemas/session/setNewPassword.schema';
 import { createCartItemSchema } from '@/schemas/cartItem/createCartItem.schema';
 import { readCartItemSchema } from '@/schemas/cartItem/readCartItem.schema';
 import { updateCartItemSchema } from '@/schemas/cartItem/updateCartItem.schema';
 import { deleteCartItemSchema } from '@/schemas/cartItem/deleteCartItem.schema';
+import { readProductSchema } from '@/schemas/product/readProduct.schema';
 
 import { createUserController } from '@/controllers/user/createUser.controller';
 import { readUserController } from '@/controllers/user/readUser.controller';
@@ -32,7 +31,8 @@ import { readCartItemController } from '@/controllers/cartItem/readCartItem.cont
 import { readAllCartItemsController } from '@/controllers/cartItem/readAllCartItems.controller';
 import { updateCartItemController } from '@/controllers/cartItem/updateCartItem.controller';
 import { deleteCartItemController } from '@/controllers/cartItem/deleteCartItem.controller';
-
+import { readProduct } from '@/controllers/product/readProduct.controller';
+import { readAllProducts } from '@/controllers/product/readAllProducts.controller';
 import { createCheckoutSessionController } from '@/controllers/payment/createCheckoutSession.controller';
 
 export const routes = (app: Express) => {
@@ -59,16 +59,10 @@ export const routes = (app: Express) => {
 
   // Session route(s).
   app.post('/login', validate(loginSchema), loginController);
-  app.post(
-    '/logout',
-    requireAuthentication,
-    validate(logoutSchema),
-    logoutController
-  );
+  app.post('/logout', requireAuthentication, logoutController);
   app.get(
     '/retrieve-session',
     requireAuthentication,
-    validate(retrieveSessionSchema),
     retrieveSessionController
   );
   app.post(
@@ -111,6 +105,10 @@ export const routes = (app: Express) => {
     validate(deleteCartItemSchema),
     deleteCartItemController
   );
+
+  // Products
+  app.get('/products/:id', validate(readProductSchema), readProduct);
+  app.get('/products', readAllProducts);
 
   // Payment route(s).
   app.post('/create-checkout-session', createCheckoutSessionController);

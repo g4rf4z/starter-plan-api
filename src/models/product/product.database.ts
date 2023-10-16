@@ -31,7 +31,26 @@ export class ProductDatabase {
       });
       return product;
     } catch (error) {
-      throw formatPrismaErrors('ProductDatabase.readProduct', error);
+      throw formatPrismaErrors('ProductDatabase.read', error);
+    }
+  }
+
+  async readAll(): Promise<IProduct[]> {
+    try {
+      const products = await this.productDb.findMany({
+        select: {
+          id: true,
+          createdAt: true,
+          updatedAt: true,
+          name: true,
+          url: true,
+          description: true,
+          price: true,
+        },
+      });
+      return products;
+    } catch (error) {
+      throw formatPrismaErrors('ProductDatabase.readAll', error);
     }
   }
 }
