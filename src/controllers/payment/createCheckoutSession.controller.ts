@@ -8,6 +8,7 @@ import { IUser } from '@/models/user/user.entity';
 
 import { CartDatabase } from '@/models/cart/cart.database';
 import { CartItemDatabase } from '@/models/cartItem/cartItem.database';
+import { ProductDatabase } from '@/models/product/product.database';
 
 import { createCheckoutSessionInput } from '@/schemas/payment/createCheckoutSession.schema';
 
@@ -21,19 +22,19 @@ export const createCheckoutSessionController = async (
 ) => {
   try {
     const userId = res.locals.user.id as IUser['id'];
-    // const { line_items } = req.body;
 
     const cartDb = new CartDatabase();
     const cartItemDb = new CartItemDatabase();
+    const productDb = new ProductDatabase();
 
     const cart = await cartDb.readByUserId({ userId });
-    const cartId = cart.id;
+    const cartItems = await cartItemDb.readAll({ cartId: cart.id });
+    const products = await productDb.readAll();
 
-    const cartItems = await cartItemDb.readAll({ cartId });
-
-    const lineItems = cartItems.map((data) => ({
-      price: data.productId,
-      quantity: data.quantity,
+    const lineItems = cartItems.map((cartItem) => ({
+      price: products.find((product) => product.id === cartItem.productId)
+        ?.description,
+      quantity: cartItem.quantity,
     }));
 
     const checkoutSession = await stripe.checkout.sessions.create({
