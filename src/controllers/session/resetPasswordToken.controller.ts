@@ -13,12 +13,7 @@ import { ResetPasswordTokenDatabase } from '@/models/resetPasswordToken/resetPas
 import { ResetPasswordInput } from '@/schemas/session/resetPasswordToken.schema';
 
 export const resetPasswordController = async (
-  req: Request<
-    ResetPasswordInput['params'],
-    {}, // Options.
-    ResetPasswordInput['body'],
-    ResetPasswordInput['query']
-  >,
+  req: Request<ResetPasswordInput['body']>,
   res: Response,
   next: NextFunction
 ) => {
@@ -70,6 +65,6 @@ export const resetPasswordController = async (
       message: 'reset_password_email_sent',
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };

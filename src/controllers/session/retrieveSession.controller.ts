@@ -1,19 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { RetrieveSessionInput } from '@/schemas/session/retrieveSession.schema';
-
 import { AuthorizationError } from '@/models/apiError/apiError.entity';
 import { ISession } from '@/models/session/session.entity';
 
 import { SessionDatabase } from '@/models/session/session.database';
 
 export const retrieveSessionController = async (
-  req: Request<
-    RetrieveSessionInput['params'],
-    {}, // Options.
-    RetrieveSessionInput['body'],
-    RetrieveSessionInput['query']
-  >,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
@@ -36,6 +29,6 @@ export const retrieveSessionController = async (
     }
     return res.status(200).json({ session });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };

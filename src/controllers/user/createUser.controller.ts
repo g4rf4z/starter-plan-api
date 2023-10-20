@@ -8,36 +8,29 @@ import { CartDatabase } from '@/models/cart/cart.database';
 import { CreateUserInput } from '@/schemas/user/createUser.schema';
 
 export const createUserController = async (
-  req: Request<
-    CreateUserInput['params'],
-    {},
-    CreateUserInput['body'],
-    CreateUserInput['query']
-  >,
+  req: Request<{}, {}, CreateUserInput['body']>,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const { firstname, lastname, email, password } = req.body;
 
-    const userDatabase = new UserDatabase();
     const cryptoService = new CryptoService();
 
+    const userDb = new UserDatabase();
+    const cartDb = new CartDatabase();
+
     const hashedPassword = await cryptoService.hash(password);
-    const user = await userDatabase.createUser({
+    const user = await userDb.create({
       firstname,
       lastname,
       email,
       password: hashedPassword,
     });
 
-    const cartDb = new CartDatabase();
-
-    const cart = await cartDb.createCart({
-      userId: user.id,
-    });
+    const cart = await cartDb.create({ userId: user.id });
     return res.status(201).json({ user, cart });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };

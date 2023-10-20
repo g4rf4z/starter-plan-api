@@ -4,17 +4,20 @@ import { IUser } from '@/models/user/user.entity';
 
 import { UserDatabase } from '@/models/user/user.database';
 
-export const readUserController = async (
-  req: Request,
+import { UpdateUserInput } from '@/schemas/user/updateUser.schema';
+
+export const updateUserController = async (
+  req: Request<{}, {}, UpdateUserInput['body']>,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const userId = res.locals.user.id as IUser['id'];
+    const { firstname, lastname, email } = req.body;
 
     const userDb = new UserDatabase();
 
-    const user = await userDb.readById({ id: userId });
+    const user = await userDb.update(userId, { firstname, lastname, email });
     return res.status(200).json({ user });
   } catch (error) {
     return next(error);

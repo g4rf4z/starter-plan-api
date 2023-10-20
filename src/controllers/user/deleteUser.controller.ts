@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from 'express';
 
 import { IUser } from '@/models/user/user.entity';
 
-import { CartDatabase } from '@/models/cart/cart.database';
+import { UserDatabase } from '@/models/user/user.database';
 
-export const readCartController = async (
+export const deleteUserController = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -12,10 +12,10 @@ export const readCartController = async (
   try {
     const userId = res.locals.user.id as IUser['id'];
 
-    const cartDb = new CartDatabase();
+    const userDb = new UserDatabase();
 
-    const cart = await cartDb.readByUserId({ userId });
-    return res.status(200).json({ cart });
+    await userDb.delete({ id: userId });
+    return res.sendStatus(204);
   } catch (error) {
     return next(error);
   }

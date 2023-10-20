@@ -1,9 +1,10 @@
 import { object, string, number, TypeOf } from 'zod';
 
 export const createCartItemSchema = object({
-  params: object({}).strict(),
-  body: object({
+  params: object({
     productId: string(),
+  }).strict(),
+  body: object({
     quantity: number(),
   }).strict(),
 });

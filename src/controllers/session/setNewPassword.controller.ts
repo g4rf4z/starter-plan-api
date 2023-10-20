@@ -10,12 +10,7 @@ import { UserDatabase } from '@/models/user/user.database';
 import { SetNewPasswordInput } from '@/schemas/session/setNewPassword.schema';
 
 export const setNewPasswordController = async (
-  req: Request<
-    SetNewPasswordInput['params'],
-    {},
-    SetNewPasswordInput['body'],
-    SetNewPasswordInput['query']
-  >,
+  req: Request<SetNewPasswordInput['params'], {}, SetNewPasswordInput['body']>,
   res: Response,
   next: NextFunction
 ) => {
@@ -59,6 +54,6 @@ export const setNewPasswordController = async (
       message: 'new_password_set_successfully',
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };

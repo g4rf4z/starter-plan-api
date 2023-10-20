@@ -4,10 +4,8 @@ export interface ISession {
   id: string;
   createdAt: Date;
   updatedAt: Date;
-
   active: boolean;
   userAgent: string | null;
-
   userId: IUser['id'];
   user?: IUser;
 }

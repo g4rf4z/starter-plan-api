@@ -5,7 +5,11 @@ import { formatPrismaErrors } from '@/services/formatPrismaErrors.service';
 
 import type {
   ICartItem,
-  ICartItemFull,
+  ICartItemCreate,
+  ICartItemReadById,
+  ICartItemReadAll,
+  ICartItemUpdate,
+  ICartItemDelete,
 } from '@/models/cartItem/cartItem.entity';
 
 export class CartItemDatabase {
@@ -15,62 +19,93 @@ export class CartItemDatabase {
     this.cartItemDb = prisma.cartItem;
   }
 
-  async createCartItem({
-    cartId,
-    productId,
-    quantity,
-  }: ICartItem): Promise<ICartItemFull> {
+  async create(data: ICartItemCreate): Promise<ICartItem> {
     try {
       const cartItem = await this.cartItemDb.create({
         data: {
+          quantity: data.quantity,
           cart: {
             connect: {
-              id: cartId,
+              id: data.cartId,
             },
           },
           product: {
             connect: {
-              id: productId,
+              id: data.productId,
             },
           },
-          quantity: quantity,
         },
         select: {
           id: true,
           createdAt: true,
           updatedAt: true,
+          quantity: true,
           cartId: true,
           productId: true,
-          quantity: true,
         },
       });
       return cartItem;
     } catch (error) {
-      throw formatPrismaErrors('CartItemDatabase.createCartItem', error);
+      throw formatPrismaErrors('CartItemDatabase.create', error);
     }
   }
 
-  async updateCartItem({ id, quantity }: ICartItem): Promise<ICartItemFull> {
+  async readById(data: ICartItemReadById): Promise<ICartItem> {
+    try {
+      const cartItem = await this.cartItemDb.findUniqueOrThrow({
+        where: { id: data.id },
+      });
+      return cartItem;
+    } catch (error) {
+      throw formatPrismaErrors('CartItemDatabase.readById', error);
+    }
+  }
+
+  async readAll(data: ICartItemReadAll): Promise<ICartItem[]> {
+    try {
+      const cartItems = await this.cartItemDb.findMany({
+        where: { cartId: data.cartId },
+      });
+      return cartItems;
+    } catch (error) {
+      throw formatPrismaErrors('CartItemDatabase.readById', error);
+    }
+  }
+
+  async update(data: ICartItemUpdate): Promise<ICartItem> {
     try {
       const cartItem = await this.cartItemDb.update({
         where: {
-          id: id,
+          id: data.id,
         },
         data: {
-          quantity: quantity,
+          quantity: data.quantity,
         },
         select: {
           id: true,
           createdAt: true,
           updatedAt: true,
+          quantity: true,
           cartId: true,
           productId: true,
-          quantity: true,
         },
       });
       return cartItem;
     } catch (error) {
-      throw formatPrismaErrors('CartItemDatabase.updateCartItem', error);
+      throw formatPrismaErrors('CartItemDatabase.update', error);
+    }
+  }
+
+  async delete(data: ICartItemDelete): Promise<ICartItem> {
+    try {
+      const cartItem = await this.cartItemDb.delete({
+        where: {
+          id: data.id,
+        },
+      });
+      return cartItem;
+    } catch (error) {
+      throw formatPrismaErrors('CartItemDatabase.delete', error);
     }
   }
 }

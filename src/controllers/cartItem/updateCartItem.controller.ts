@@ -1,36 +1,26 @@
 import { Request, Response, NextFunction } from 'express';
 
 import { CartItemDatabase } from '@/models/cartItem/cartItem.database';
-import { ProductDatabase } from '@/models/product/product.database';
 
 import type { UpdateCartItemInput } from '@/schemas/cartItem/updateCartItem.schema';
 
-import { handleError } from '@/utils/errors.util';
-
 export const updateCartItemController = async (
-  req: Request<UpdateCartItemInput['params'], {}, UpdateCartItemInput['body']>,
+  req: Request<UpdateCartItemInput['params'], UpdateCartItemInput['body']>,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const { cartId, id } = req.params;
-    const { productId, quantity } = req.body;
+    const { id } = req.params;
+    const { quantity } = req.body;
 
     const cartItemDb = new CartItemDatabase();
-    const productDb = new ProductDatabase();
 
-    // Update a cart item in the database.
-    // A cart item represents a specific product with variables in a user's cart.
-    const cartItem = await cartItemDb.updateCartItem({
+    const cartItem = await cartItemDb.update({
       id,
-      cartId,
-      productId,
       quantity,
     });
-    // Read a product in the database.
-    const product = await productDb.readProduct(productId);
-    return res.status(201).json({ cartItem, product });
+    return res.status(201).json({ cartItem });
   } catch (error) {
-    return handleError(error, res);
+    return next(error);
   }
 };

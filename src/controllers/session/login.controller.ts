@@ -13,12 +13,7 @@ import { SessionDatabase } from '@/models/session/session.database';
 import { LoginInput } from '@/schemas/session/login.schema';
 
 export const loginController = async (
-  req: Request<
-    LoginInput['params'],
-    {}, // Options.
-    LoginInput['body'],
-    LoginInput['query']
-  >,
+  req: Request<LoginInput['body']>,
   res: Response,
   next: NextFunction
 ) => {
@@ -112,6 +107,6 @@ export const loginController = async (
     });
     return res.status(201).json({ session });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
