@@ -84,7 +84,7 @@ export class UserDatabase {
     }
   }
 
-  async delete(data: IUserDelete): Promise<IUser> {
+  async delete(data: IUserDelete): Promise<IUserWithoutPassword> {
     try {
       const user = await this.userDb.delete({
         where: { id: data.id },
