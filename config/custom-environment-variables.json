@@ -11,5 +11,6 @@
   "emailPassword": "EMAIL_PASSWORD",
 
   "stripePublishableKey": "STRIPE_PUBLISHABLE_KEY",
-  "stripeSecretKey": "STRIPE_SECRET_KEY"
+  "stripeSecretKey": "STRIPE_SECRET_KEY",
+  "stripeWebhookSecretKey": "STRIPE_WEBHOOK_SECRET_KEY"
 }
