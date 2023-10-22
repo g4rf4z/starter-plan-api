@@ -31,17 +31,25 @@ export const createCheckoutSessionController = async (
     const cartItems = await cartItemDb.readAll({ cartId: cart.id });
     const products = await productDb.readAll();
 
-    const lineItems = cartItems.map((cartItem) => ({
-      price: products.find((product) => product.id === cartItem.productId)
-        ?.description,
-      quantity: cartItem.quantity,
-    }));
+    const lineItems = cartItems.map((cartItem) => {
+      const product = products.find(
+        (product) => product.id === cartItem.productId
+      );
+      if (!product)
+        throw new Error(`Product_ID_${cartItem.productId}_not_found`);
+      return {
+        price: product.description,
+        quantity: cartItem.quantity,
+      };
+    });
 
     const checkoutSession = await stripe.checkout.sessions.create({
       line_items: lineItems,
       billing_address_collection: 'required',
       mode: 'payment',
-      automatic_tax: { enabled: true },
+      automatic_tax: {
+        enabled: true,
+      },
       success_url: `${apiUrl}:${port}/success`,
       cancel_url: `${apiUrl}:${port}/cancel`,
     });
