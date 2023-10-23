@@ -34,6 +34,7 @@ import { deleteCartItemController } from '@/controllers/cartItem/deleteCartItem.
 import { readProduct } from '@/controllers/product/readProduct.controller';
 import { readAllProducts } from '@/controllers/product/readAllProducts.controller';
 import { createCheckoutSessionController } from '@/controllers/payment/createCheckoutSession.controller';
+import { webhookController } from './controllers/payment/webhook.controller';
 
 export const routes = (app: Express) => {
   app.get('/', (req, res) => {
@@ -112,4 +113,5 @@ export const routes = (app: Express) => {
 
   // Payment route(s).
   app.post('/create-checkout-session', createCheckoutSessionController);
+  app.post('/webhook', webhookController);
 };
