@@ -1,5 +1,7 @@
 import { Express } from 'express';
 
+import bodyParser from 'body-parser';
+
 import { validate } from '@/middlewares/validation.middleware';
 import { requireAuthentication } from '@/middlewares/requireAuthentication.middleware';
 
@@ -113,5 +115,9 @@ export const routes = (app: Express) => {
 
   // Payment route(s).
   app.post('/create-checkout-session', createCheckoutSessionController);
-  app.post('/webhook', webhookController);
+  app.post(
+    '/webhook',
+    bodyParser.raw({ type: 'application/json' }),
+    webhookController
+  );
 };
