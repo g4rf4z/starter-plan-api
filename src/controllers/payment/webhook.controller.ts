@@ -6,7 +6,7 @@ import { stripe } from '@/services/stripe.service';
 
 const stripeSecretSignatureKey = config.get<string>('stripeSecretSignatureKey');
 
-export const webhookController = async (
+export const webhooksController = async (
   req: Request,
   res: Response,
   next: NextFunction
