@@ -4,9 +4,11 @@ import { Request, Response, NextFunction } from 'express';
 
 import { stripe } from '@/services/stripe.service';
 
-const stripeSecretSignatureKey = config.get<string>('stripeSecretSignatureKey');
+const stripeWebhookSigningSecret = config.get<string>(
+  'stripeWebhookSigningSecret'
+);
 
-export const webhooksController = async (
+export const webhookController = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -20,7 +22,7 @@ export const webhooksController = async (
     event = stripe.webhooks.constructEvent(
       payload,
       sig,
-      stripeSecretSignatureKey
+      stripeWebhookSigningSecret
     );
   } catch (error) {
     return res.status(400).send(error);
