@@ -1,6 +1,4 @@
-import { Express } from 'express';
-
-import bodyParser from 'body-parser';
+import express, { Express } from 'express';
 
 import { validate } from '@/middlewares/validation.middleware';
 import { requireAuthentication } from '@/middlewares/requireAuthentication.middleware';
@@ -43,7 +41,7 @@ export const routes = (app: Express) => {
     return res.send('Hello World !');
   });
 
-  // User route(s).
+  // User
   app.post('/users', validate(createUserSchema), createUserController);
   app.get('/users', requireAuthentication, readUserController);
   app.patch(
@@ -60,7 +58,7 @@ export const routes = (app: Express) => {
   );
   app.delete('/users', deleteUserController);
 
-  // Session route(s).
+  // Session
   app.post('/login', validate(loginSchema), loginController);
   app.post('/logout', requireAuthentication, logoutController);
   app.get(
@@ -79,10 +77,10 @@ export const routes = (app: Express) => {
     setNewPasswordController
   );
 
-  // Cart route(s).
+  // Cart
   app.get('/carts', requireAuthentication, readCartController);
 
-  // Cart Item route(s).
+  // Cart Item
   app.post(
     '/cart-items/:productId',
     requireAuthentication,
@@ -109,15 +107,15 @@ export const routes = (app: Express) => {
     deleteCartItemController
   );
 
-  // Products
+  // Product
   app.get('/products/:id', validate(readProductSchema), readProduct);
   app.get('/products', readAllProducts);
 
-  // Payment route(s).
+  // Payment
   app.post('/create-checkout-session', createCheckoutSessionController);
   app.post(
     '/webhook',
-    bodyParser.raw({ type: 'application/json' }),
+    express.raw({ type: 'application/json' }),
     webhookController
   );
 };
