@@ -13,20 +13,21 @@ export const webhookController = async (
   res: Response,
   next: NextFunction
 ) => {
-  const payload = req.body;
-  const sig = req.headers['stripe-signature'] as string;
+  const stripePayload = req.body;
+  const stripeSignature = req.headers['stripe-signature'] as string;
 
   let event;
 
   try {
     event = stripe.webhooks.constructEvent(
-      payload,
-      sig,
+      stripePayload,
+      stripeSignature,
       stripeWebhookSigningSecret
     );
   } catch (error) {
     console.error(`Erreur de validation de Webhook : ${error}`);
     return res.status(400).send(error);
   }
-  return res.status(200).json({ received: true });
+  console.log(event.data.object);
+  return res.status(200).send({ received: true });
 };
