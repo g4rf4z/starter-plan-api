@@ -25,9 +25,8 @@ export const webhookController = async (
       stripeWebhookSigningSecret
     );
   } catch (error) {
+    console.error(`Erreur de validation de Webhook : ${error}`);
     return res.status(400).send(error);
   }
-  console.log(event.type);
-  console.log(event.data.object);
-  return res.json({ received: true });
+  return res.status(200).json({ received: true });
 };
