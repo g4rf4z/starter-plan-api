@@ -1,10 +1,15 @@
 {
-  "name": "starter-plan-api",
+  "name": "starter-plan",
+  "description": "Small-scale e-commerce designed to sell digital products.",
   "version": "1.0.0",
-  "description": "Starter Plan - API",
-  "repository": "https://github.com/g4rf4z/starter-plan-api",
-  "author": "Grégoire Pinte @g4rf4z",
   "license": "MIT",
+  "private": true,
+  "type": "module",
+  "author": {
+    "name": "Grégoire Pinte",
+    "email": "gregoire.pinte@gmail.com",
+    "url": "https://www.gregoirepinte.com/"
+  },
   "engines": {
     "node": "20.8.0",
     "npm": "10.1.0"
@@ -43,7 +48,7 @@
     "@types/cors": "~2.8.15",
     "@types/express": "~4.17.20",
     "@types/jsonwebtoken": "~9.0.4",
-    "@types/node": "~20.8.9",
+    "@types/node": "~20.8.10",
     "@types/nodemailer": "~6.4.13",
     "mongodb-memory-server": "~9.0.1",
     "tsconfig-paths": "~4.2.0",
