@@ -28,6 +28,6 @@ export const webhookController = async (
     console.error(`Erreur de validation de Webhook : ${error}`);
     return res.status(400).send(error);
   }
-  console.log(event.data.object);
+  console.log(event);
   return res.status(200).send({ received: true });
 };
