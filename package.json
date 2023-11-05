@@ -1,10 +1,9 @@
 {
-  "name": "starter-plan",
+  "name": "starter-plan-api",
   "description": "Small-scale e-commerce designed to sell digital products.",
   "version": "1.0.0",
   "license": "MIT",
   "private": true,
-  "type": "module",
   "author": {
     "name": "Grégoire Pinte",
     "email": "gregoire.pinte@gmail.com",
