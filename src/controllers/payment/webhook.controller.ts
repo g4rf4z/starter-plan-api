@@ -25,9 +25,26 @@ export const webhookController = async (
       stripeWebhookSigningSecret
     );
   } catch (error) {
-    console.error(`Erreur de validation de Webhook : ${error}`);
+    console.error(`Erreur de validation de Webhook : ${error}.`);
     return res.status(400).send(error);
   }
-  console.log(event);
-  return res.status(200).send({ received: true });
+
+  switch (event.type) {
+    case 'checkout.session.completed':
+      const checkoutSession = event.data.object;
+      console.log(checkoutSession);
+
+      if (
+        checkoutSession.payment_status === 'paid' &&
+        checkoutSession.status === 'complete'
+      ) {
+        return true;
+      } else {
+        return res.sendStatus(402); // Payment required.
+      }
+
+    default:
+      console.warn(`Unhandled event type ${event.type}.`);
+  }
+  return res.status(200).json({ received: true });
 };
