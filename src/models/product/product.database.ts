@@ -24,9 +24,10 @@ export class ProductDatabase {
           createdAt: true,
           updatedAt: true,
           name: true,
-          url: true,
           description: true,
           price: true,
+          stripeProductId: true,
+          stripePriceId: true,
         },
       });
       return product;
@@ -43,9 +44,10 @@ export class ProductDatabase {
           createdAt: true,
           updatedAt: true,
           name: true,
-          url: true,
           description: true,
           price: true,
+          stripeProductId: true,
+          stripePriceId: true,
         },
       });
       return products;

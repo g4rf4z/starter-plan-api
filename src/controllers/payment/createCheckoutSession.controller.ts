@@ -35,10 +35,9 @@ export const createCheckoutSessionController = async (
       const product = products.find(
         (product) => product.id === cartItem.productId
       );
-      if (!product)
-        throw new Error(`Product_ID_${cartItem.productId}_not_found`);
+      if (!product) throw new Error(`product_not_found`);
       return {
-        price: product.description,
+        price: product.stripePriceId,
         quantity: cartItem.quantity,
       };
     });
