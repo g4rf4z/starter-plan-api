@@ -38,9 +38,9 @@ export const webhookController = async (
         checkoutSession.payment_status === 'paid' &&
         checkoutSession.status === 'complete'
       ) {
-        return true;
+        return res.status(200).json({ status: true }); // Payment succesful.
       } else {
-        return res.sendStatus(402); // Payment required.
+        return res.status(402).json({ status: false }); // Payment failed.
       }
 
     default:
