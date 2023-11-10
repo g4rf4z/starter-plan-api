@@ -23,12 +23,14 @@ export const createServer = () => {
     cors({
       origin: clientUrl,
       credentials: true,
-      methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+      methods: ['POST', 'GET', 'PATCH', 'DELETE'],
     })
   );
 
   // Body parser.
-  app.use(express.json({ limit: '5MB' }));
+  app.use((req, res, next) => {
+    req.path !== '/webhook' ? express.json()(req, res, next) : next();
+  });
 
   // Cookie(s).
   app.use(cookieParser());
