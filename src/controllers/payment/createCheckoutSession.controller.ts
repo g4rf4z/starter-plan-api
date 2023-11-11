@@ -42,6 +42,8 @@ export const createCheckoutSessionController = async (
       };
     });
 
+    const purchasedProductIds = cartItems.map((cartItem) => cartItem.productId);
+
     const checkoutSession = await stripe.checkout.sessions.create({
       client_reference_id: userId,
       line_items: lineItems,
@@ -49,6 +51,9 @@ export const createCheckoutSessionController = async (
       mode: 'payment',
       automatic_tax: {
         enabled: true,
+      },
+      metadata: {
+        purchased_product_ids: JSON.stringify(purchasedProductIds),
       },
       success_url: `${apiUrl}:${port}/success`,
       cancel_url: `${apiUrl}:${port}/cancel`,
