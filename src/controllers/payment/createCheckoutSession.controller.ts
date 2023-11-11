@@ -43,6 +43,7 @@ export const createCheckoutSessionController = async (
     });
 
     const checkoutSession = await stripe.checkout.sessions.create({
+      client_reference_id: userId,
       line_items: lineItems,
       billing_address_collection: 'required',
       mode: 'payment',
