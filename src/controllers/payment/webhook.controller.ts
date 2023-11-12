@@ -35,7 +35,6 @@ export const webhookController = async (
   switch (event.type) {
     case 'checkout.session.completed':
       const checkoutSession = event.data.object;
-      console.log(checkoutSession);
 
       if (
         checkoutSession.payment_status === 'paid' &&
@@ -52,22 +51,20 @@ export const webhookController = async (
 
           productIds.forEach(async (productId: string) => {
             try {
-              const result = await userProductDb.create({ userId, productId });
-              console.log(result);
+              const userProduct = await userProductDb.create({
+                userId,
+                productId,
+              });
+              return userProduct;
             } catch (error) {
-              console.error(
-                'Erreur lors de la création du UserProduct :',
-                error
-              );
+              return next(error);
             }
           });
         }
-        return res.status(200).json({ status: true }); // Payment succesful.
+        return res.status(200).json({ status: true });
       } else {
-        return res.status(402).json({ status: false }); // Payment failed.
+        return res.status(402).json({ status: false }); // Payment required.
       }
-    default:
-      console.warn(`Unhandled event type ${event.type}.`);
   }
-  return res.status(200).json({ received: true });
+  return res.sendStatus(200);
 };
