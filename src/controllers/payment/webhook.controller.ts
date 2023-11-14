@@ -63,7 +63,7 @@ export const webhookController = async (
         }
         return res.status(200).json({ status: true });
       } else {
-        return res.status(402).json({ status: false }); // Payment required.
+        return res.status(402).json({ status: false });
       }
   }
   return res.sendStatus(200);
