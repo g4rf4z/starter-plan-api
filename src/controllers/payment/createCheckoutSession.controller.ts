@@ -9,6 +9,7 @@ import { IUser } from '@/models/user/user.entity';
 import { CartDatabase } from '@/models/cart/cart.database';
 import { CartItemDatabase } from '@/models/cartItem/cartItem.database';
 import { ProductDatabase } from '@/models/product/product.database';
+import { UserProductDatabase } from '@/models/userProduct/userProduct.database';
 
 import { createCheckoutSessionInput } from '@/schemas/payment/createCheckoutSession.schema';
 
@@ -26,21 +27,41 @@ export const createCheckoutSessionController = async (
     const cartDb = new CartDatabase();
     const cartItemDb = new CartItemDatabase();
     const productDb = new ProductDatabase();
+    const userProductDb = new UserProductDatabase();
 
     const cart = await cartDb.readByUserId({ userId });
     const cartItems = await cartItemDb.readAll({ cartId: cart.id });
     const products = await productDb.readAll();
+    const userProducts = await userProductDb.readAll({ userId });
 
-    const lineItems = cartItems.map((cartItem) => {
-      const product = products.find(
-        (product) => product.id === cartItem.productId
-      );
-      if (!product) throw new Error(`product_not_found`);
-      return {
+    const purchasedUserProductIds = userProducts.map(
+      (userProduct) => userProduct.productId
+    );
+
+    const purchasedUserProductIdsSet = new Set(purchasedUserProductIds);
+
+    const commonProductIds = cartItems
+      .filter((cartItem) => purchasedUserProductIdsSet.has(cartItem.productId))
+      .map((cartItem) => cartItem.productId);
+    console.log(commonProductIds);
+
+    const lineItems = [];
+
+    for (const cartItem of cartItems) {
+      if (purchasedUserProductIdsSet.has(cartItem.productId)) {
+        throw new Error(`product_already_purchased: ${cartItem.productId}`);
+      }
+
+      const product = products.find((p) => p.id === cartItem.productId);
+      if (!product) {
+        throw new Error(`product_not_found`);
+      }
+
+      lineItems.push({
         price: product.stripePriceId,
         quantity: cartItem.quantity,
-      };
-    });
+      });
+    }
 
     const purchasedProductIds = cartItems.map((cartItem) => cartItem.productId);
 

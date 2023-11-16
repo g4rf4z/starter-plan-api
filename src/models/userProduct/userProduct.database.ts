@@ -7,6 +7,7 @@ import type {
   IUserProduct,
   IUserProductCreate,
   IUserProductReadById,
+  IUserProductReadAllByUserId,
 } from '@/models/userProduct/userProduct.entity';
 
 export class UserProductDatabase {
@@ -56,9 +57,10 @@ export class UserProductDatabase {
     }
   }
 
-  async readAll(): Promise<IUserProduct[]> {
+  async readAll(data: IUserProductReadAllByUserId): Promise<IUserProduct[]> {
     try {
       const userProducts = await this.userProductDb.findMany({
+        where: { userId: data.userId },
         select: {
           id: true,
           createdAt: true,

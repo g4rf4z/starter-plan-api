@@ -11,3 +11,4 @@ export interface IUserProduct {
 
 export type IUserProductCreate = Pick<IUserProduct, 'userId' | 'productId'>;
 export type IUserProductReadById = Pick<IUserProduct, 'id'>;
+export type IUserProductReadAllByUserId = Pick<IUserProduct, 'userId'>;
