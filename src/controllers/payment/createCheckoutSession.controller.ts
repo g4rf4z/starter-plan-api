@@ -34,36 +34,37 @@ export const createCheckoutSessionController = async (
     const products = await productDb.readAll();
     const userProducts = await userProductDb.readAll({ userId });
 
-    const purchasedUserProductIds = userProducts.map(
-      (userProduct) => userProduct.productId
+    const userProductIds = new Set(
+      userProducts.map((userProduct) => userProduct.productId)
     );
 
-    const purchasedUserProductIdsSet = new Set(purchasedUserProductIds);
+    const lineItems: { price: string; quantity: number }[] = [];
+    const purchasedProductIds: string[] = [];
 
-    const commonProductIds = cartItems
-      .filter((cartItem) => purchasedUserProductIdsSet.has(cartItem.productId))
-      .map((cartItem) => cartItem.productId);
-    console.log(commonProductIds);
+    cartItems.forEach((cartItem) => {
+      if (userProductIds.has(cartItem.productId)) {
+        purchasedProductIds.push(cartItem.productId);
+      } else {
+        const matchingProduct = products.find(
+          (product) => product.id === cartItem.productId
+        );
 
-    const lineItems = [];
+        if (!matchingProduct) {
+          throw new Error(`Product not found : ${cartItem.productId}`);
+        }
 
-    for (const cartItem of cartItems) {
-      if (purchasedUserProductIdsSet.has(cartItem.productId)) {
-        throw new Error(`product_already_purchased: ${cartItem.productId}`);
+        lineItems.push({
+          price: matchingProduct.stripePriceId,
+          quantity: cartItem.quantity,
+        });
       }
+    });
 
-      const product = products.find((p) => p.id === cartItem.productId);
-      if (!product) {
-        throw new Error(`product_not_found`);
-      }
-
-      lineItems.push({
-        price: product.stripePriceId,
-        quantity: cartItem.quantity,
-      });
+    if (purchasedProductIds.length > 0) {
+      throw new Error(
+        `Product(s) already purchased : ${purchasedProductIds.join(', ')}`
+      );
     }
-
-    const purchasedProductIds = cartItems.map((cartItem) => cartItem.productId);
 
     const checkoutSession = await stripe.checkout.sessions.create({
       client_reference_id: userId,
