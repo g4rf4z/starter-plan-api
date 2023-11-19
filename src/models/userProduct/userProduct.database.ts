@@ -43,12 +43,13 @@ export class UserProductDatabase {
     try {
       const userProduct = await this.userProductDb.findUniqueOrThrow({
         where: { id: data.id },
-        select: {
-          id: true,
-          createdAt: true,
-          updatedAt: true,
-          userId: true,
-          productId: true,
+        include: {
+          product: {
+            select: {
+              name: true,
+              description: true,
+            },
+          },
         },
       });
       return userProduct;
@@ -61,12 +62,13 @@ export class UserProductDatabase {
     try {
       const userProducts = await this.userProductDb.findMany({
         where: { userId: data.userId },
-        select: {
-          id: true,
-          createdAt: true,
-          updatedAt: true,
-          userId: true,
-          productId: true,
+        include: {
+          product: {
+            select: {
+              name: true,
+              description: true,
+            },
+          },
         },
       });
       return userProducts;
