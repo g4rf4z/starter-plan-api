@@ -1,6 +1,13 @@
 /* Cart */
 import { readCartController } from '@/controllers/cart/readCart.controller';
 
+/* CartItem */
+import { createCartItemController } from '@/controllers/cartItem/createCartItem.controller';
+import { readCartItemController } from '@/controllers/cartItem/readCartItem.controller';
+import { readAllCartItemsController } from '@/controllers/cartItem/readAllCartItems.controller';
+import { updateCartItemController } from '@/controllers/cartItem/updateCartItem.controller';
+import { deleteCartItemController } from '@/controllers/cartItem/deleteCartItem.controller';
+
 /* Session */
 import { loginController } from '@/controllers/session/login.controller';
 import { retrieveSessionController } from '@/controllers/session/retrieveSession.controller';
@@ -18,6 +25,13 @@ import { deleteUserController } from '@/controllers/user/deleteUser.controller';
 export {
   /* Cart */
   readCartController,
+
+  /* CartItem */
+  createCartItemController,
+  readCartItemController,
+  readAllCartItemsController,
+  updateCartItemController,
+  deleteCartItemController,
 
   /* Session */
   loginController,
