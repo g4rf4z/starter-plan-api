@@ -7,4 +7,5 @@ export const updateUserSchema = object({
     email: string().email(),
   }).strict(),
 });
+
 export type UpdateUserInput = TypeOf<typeof updateUserSchema>;

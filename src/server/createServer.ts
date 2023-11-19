@@ -39,6 +39,7 @@ export const createServer = () => {
   app.use(tokenDeserializer);
 
   // Route(s).
-  routes(app);
+  routes.forEach((route) => app.use(route));
+
   return app;
 };
