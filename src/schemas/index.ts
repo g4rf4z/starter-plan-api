@@ -4,6 +4,13 @@ import { readCartItemSchema } from '@/schemas/cartItem/readCartItem.schema';
 import { updateCartItemSchema } from '@/schemas/cartItem/updateCartItem.schema';
 import { deleteCartItemSchema } from '@/schemas/cartItem/deleteCartItem.schema';
 
+/* Payment */
+import { createCheckoutSessionSchema } from '@/schemas/payment/createCheckoutSession.schema';
+
+/* Product */
+import { createProductSchema } from '@/schemas/product/createProduct.schema';
+import { readProductSchema } from '@/schemas/product/readProduct.schema';
+
 /* Session */
 import { loginSchema } from '@/schemas/session/login.schema';
 import { resetPasswordSchema } from '@/schemas/session/resetPasswordToken.schema';
@@ -20,6 +27,13 @@ export {
   readCartItemSchema,
   updateCartItemSchema,
   deleteCartItemSchema,
+
+  /* Payment */
+  createCheckoutSessionSchema,
+
+  /* Product */
+  createProductSchema,
+  readProductSchema,
 
   /* Session */
   loginSchema,
