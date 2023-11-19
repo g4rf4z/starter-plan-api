@@ -8,6 +8,14 @@ import { readAllCartItemsController } from '@/controllers/cartItem/readAllCartIt
 import { updateCartItemController } from '@/controllers/cartItem/updateCartItem.controller';
 import { deleteCartItemController } from '@/controllers/cartItem/deleteCartItem.controller';
 
+/* Payment */
+import { createCheckoutSessionController } from '@/controllers/payment/createCheckoutSession.controller';
+import { webhookController } from '@/controllers/payment/webhook.controller';
+
+/* Product */
+import { readProduct } from '@/controllers/product/readProduct.controller';
+import { readAllProducts } from '@/controllers/product/readAllProducts.controller';
+
 /* Session */
 import { loginController } from '@/controllers/session/login.controller';
 import { retrieveSessionController } from '@/controllers/session/retrieveSession.controller';
@@ -22,6 +30,9 @@ import { updateUserController } from '@/controllers/user/updateUser.controller';
 import { updateUserPasswordController } from '@/controllers/user/updateUserPassword.controller';
 import { deleteUserController } from '@/controllers/user/deleteUser.controller';
 
+/* User Product */
+import { readAllUserProductsController } from '@/controllers/userProduct/readAllUserProducts.controller';
+
 export {
   /* Cart */
   readCartController,
@@ -32,6 +43,14 @@ export {
   readAllCartItemsController,
   updateCartItemController,
   deleteCartItemController,
+
+  /* Payment */
+  createCheckoutSessionController,
+  webhookController,
+
+  /* Product */
+  readProduct,
+  readAllProducts,
 
   /* Session */
   loginController,
@@ -46,4 +65,7 @@ export {
   updateUserController,
   updateUserPasswordController,
   deleteUserController,
+
+  /* User Product */
+  readAllUserProductsController,
 };
