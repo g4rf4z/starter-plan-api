@@ -1,3 +1,6 @@
+/* Cart */
+import { readCartController } from '@/controllers/cart/readCart.controller';
+
 /* Session */
 import { loginController } from '@/controllers/session/login.controller';
 import { retrieveSessionController } from '@/controllers/session/retrieveSession.controller';
@@ -13,6 +16,9 @@ import { updateUserPasswordController } from '@/controllers/user/updateUserPassw
 import { deleteUserController } from '@/controllers/user/deleteUser.controller';
 
 export {
+  /* Cart */
+  readCartController,
+
   /* Session */
   loginController,
   retrieveSessionController,
