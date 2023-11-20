@@ -48,6 +48,7 @@ export class UserProductDatabase {
             select: {
               name: true,
               description: true,
+              url: true,
             },
           },
         },
@@ -67,6 +68,7 @@ export class UserProductDatabase {
             select: {
               name: true,
               description: true,
+              url: true,
             },
           },
         },

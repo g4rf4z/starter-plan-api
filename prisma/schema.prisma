@@ -162,6 +162,7 @@ model Product {
 
   name String
   description String
+  url String
   price Float
 
   stripeProductId String

@@ -4,6 +4,7 @@ export interface IProduct {
   updatedAt: Date;
   name: string;
   description: string;
+  url?: string;
   price: number;
   stripeProductId: string;
   stripePriceId: string;
