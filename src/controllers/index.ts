@@ -1,7 +1,7 @@
 /* Cart */
 import { readCartController } from '@/controllers/cart/readCart.controller';
 
-/* CartItem */
+/* Cart Item */
 import { createCartItemController } from '@/controllers/cartItem/createCartItem.controller';
 import { readCartItemController } from '@/controllers/cartItem/readCartItem.controller';
 import { readAllCartItemsController } from '@/controllers/cartItem/readAllCartItems.controller';
@@ -37,7 +37,7 @@ export {
   /* Cart */
   readCartController,
 
-  /* CartItem */
+  /* Cart Item */
   createCartItemController,
   readCartItemController,
   readAllCartItemsController,
