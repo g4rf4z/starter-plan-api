@@ -3,8 +3,8 @@ import { object, string, number, TypeOf } from 'zod';
 export const createProductSchema = object({
   body: object({
     name: string(),
-    url: string(),
     description: string(),
+    url: string(),
     price: number(),
   }).strict(),
 });
