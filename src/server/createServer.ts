@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
-import { tokenDeserializer } from '@/middlewares/tokenDeserializer.middleware';
+import { decodeToken } from '@/middlewares';
 
 import { routes } from '@/routes';
 
@@ -36,7 +36,7 @@ export const createServer = () => {
   app.use(cookieParser());
 
   // Token(s).
-  app.use(tokenDeserializer);
+  app.use(decodeToken);
 
   // Route(s).
   routes.forEach((route) => app.use(route));
