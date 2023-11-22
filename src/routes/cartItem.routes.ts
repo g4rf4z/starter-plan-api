@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { requireAuthentication, validate } from '@/middlewares';
+import { requireAuthentication, validateSchema } from '@/middlewares';
 
 import {
   createCartItemSchema,
@@ -22,26 +22,26 @@ const router = express.Router();
 router.post(
   '/cart-items/:productId',
   requireAuthentication,
-  validate(createCartItemSchema),
+  validateSchema(createCartItemSchema),
   createCartItemController
 );
 router.get(
   '/cart-items/:id',
   requireAuthentication,
-  validate(readCartItemSchema),
+  validateSchema(readCartItemSchema),
   readCartItemController
 );
 router.get('/cart-items', requireAuthentication, readAllCartItemsController);
 router.patch(
   '/cart-items/:id',
   requireAuthentication,
-  validate(updateCartItemSchema),
+  validateSchema(updateCartItemSchema),
   updateCartItemController
 );
 router.delete(
   '/cart-items/:id',
   requireAuthentication,
-  validate(deleteCartItemSchema),
+  validateSchema(deleteCartItemSchema),
   deleteCartItemController
 );
 

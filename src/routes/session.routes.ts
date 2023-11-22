@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { requireAuthentication, validate } from '@/middlewares';
+import { requireAuthentication, validateSchema } from '@/middlewares';
 
 import {
   loginSchema,
@@ -18,7 +18,7 @@ import {
 
 const router = express.Router();
 
-router.post('/login', validate(loginSchema), loginController);
+router.post('/login', validateSchema(loginSchema), loginController);
 router.post('/logout', requireAuthentication, logoutController);
 router.get(
   '/retrieve-session',
@@ -27,12 +27,12 @@ router.get(
 );
 router.post(
   '/reset-password',
-  validate(resetPasswordSchema),
+  validateSchema(resetPasswordSchema),
   resetPasswordController
 );
 router.post(
   '/:userId/set-new-password/:token',
-  validate(setNewPasswordSchema),
+  validateSchema(setNewPasswordSchema),
   setNewPasswordController
 );
 

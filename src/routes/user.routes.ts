@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { requireAuthentication, validate } from '@/middlewares';
+import { requireAuthentication, validateSchema } from '@/middlewares';
 
 import {
   createUserSchema,
@@ -18,18 +18,18 @@ import {
 
 const router = express.Router();
 
-router.post('/users', validate(createUserSchema), createUserController);
+router.post('/users', validateSchema(createUserSchema), createUserController);
 router.get('/users', requireAuthentication, readUserController);
 router.patch(
   '/users',
   requireAuthentication,
-  validate(updateUserSchema),
+  validateSchema(updateUserSchema),
   updateUserController
 );
 router.patch(
   '/users/password',
   requireAuthentication,
-  validate(updateUserPasswordSchema),
+  validateSchema(updateUserPasswordSchema),
   updateUserPasswordController
 );
 router.delete('/users', deleteUserController);

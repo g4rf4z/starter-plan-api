@@ -1,5 +1,5 @@
 import { requireAuthentication } from '@/middlewares/requireAuthentication.middleware';
 import { decodeToken } from '@/middlewares/decodeToken.middleware';
-import { validate } from '@/middlewares/validation.middleware';
+import { validateSchema } from '@/middlewares/validateSchema.middleware';
 
-export { requireAuthentication, decodeToken, validate };
+export { requireAuthentication, decodeToken, validateSchema };
