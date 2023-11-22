@@ -39,6 +39,7 @@ export const createCheckoutSessionController = async (
     );
 
     const lineItems: { price: string; quantity: number }[] = [];
+    const cartProductIds: string[] = [];
     const purchasedProductIds: string[] = [];
 
     cartItems.forEach((cartItem) => {
@@ -48,6 +49,7 @@ export const createCheckoutSessionController = async (
         const matchingProduct = products.find(
           (product) => product.id === cartItem.productId
         );
+        cartProductIds.push(cartItem.productId);
 
         if (!matchingProduct) {
           throw new Error(`Product not found : ${cartItem.productId}`);
@@ -75,7 +77,7 @@ export const createCheckoutSessionController = async (
         enabled: true,
       },
       metadata: {
-        purchased_product_ids: JSON.stringify(purchasedProductIds),
+        purchased_product_ids: JSON.stringify(cartProductIds),
       },
       success_url: `${apiUrl}:${port}/success`,
       cancel_url: `${apiUrl}:${port}/cancel`,
