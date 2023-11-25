@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-    "outDir": "build", // Spécifie le répertoire dans lequel les fichiers JavaScript compilés seront écrits.
-    "target": "es6", // Version d'ECMAScript vers laquelle le code TypeScript doit être compilé.
-    "module": "commonjs", // Spécifie le type de module à utiliser.
-    "esModuleInterop": true, // Permet aux modules TypeScript d'être importés et exportés de manière interoperable avec les modules JavaScript.
-    "forceConsistentCasingInFileNames": true, // Force les noms de fichiers à avoir une casse uniforme.
-    "strict": true, // Active les règles strictes de TypeScript. Aide à trouver des erreurs de type dans le code TypeScript.
-    "skipLibCheck": true, // Permet de ne pas vérifier la bibliothèque TypeScript. Cela peut être utile si vous utilisez des bibliothèques TypeScript personnalisées.
+    "outDir": "build", // Specify the directory in which compiled JS files will be written.
+    "target": "es6", // ECMAScript version to which TS code must be compiled.
+    "module": "commonjs", // Specify the module type to be used.
+    "esModuleInterop": true, // Enable TS modules to be imported and exported interoperably with JS modules.
+    "forceConsistentCasingInFileNames": true, // Force case-sensitive file names.
+    "strict": true,
+    "skipLibCheck": true,
     "paths": {
-      "@/*": ["./src/*"] // Défini des alias pour les chemins de fichiers.
+      "@/*": ["./src/*"] // Define aliases for file paths.
     }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts"],
