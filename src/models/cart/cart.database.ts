@@ -1,7 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-import { prisma } from '@/services/prisma.service';
-import { formatPrismaErrors } from '@/services/formatPrismaErrors.service';
+import { formatPrismaErrors, prisma } from '@/services';
 
 import type {
   ICart,

@@ -1,7 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-import { prisma } from '@/services/prisma.service';
-import { formatPrismaErrors } from '@/services/formatPrismaErrors.service';
+import { formatPrismaErrors, prisma } from '@/services';
 
 import type {
   IProduct,
@@ -24,9 +23,11 @@ export class ProductDatabase {
           createdAt: true,
           updatedAt: true,
           name: true,
-          url: true,
           description: true,
+          url: false,
           price: true,
+          stripeProductId: true,
+          stripePriceId: true,
         },
       });
       return product;
@@ -43,9 +44,11 @@ export class ProductDatabase {
           createdAt: true,
           updatedAt: true,
           name: true,
-          url: true,
           description: true,
+          url: false,
           price: true,
+          stripeProductId: true,
+          stripePriceId: true,
         },
       });
       return products;

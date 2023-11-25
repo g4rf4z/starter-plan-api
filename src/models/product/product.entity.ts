@@ -3,9 +3,11 @@ export interface IProduct {
   createdAt: Date;
   updatedAt: Date;
   name: string;
-  url: string;
   description: string;
+  url?: string;
   price: number;
+  stripeProductId: string;
+  stripePriceId: string;
 }
 
 export type IProductReadById = Pick<IProduct, 'id'>;

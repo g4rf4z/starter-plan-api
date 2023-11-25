@@ -39,7 +39,6 @@ export const loginController = async (
       });
     }
 
-    // Nullity check.
     if (!user || !user.id) {
       throw new CredentialsError({
         path: 'login',
