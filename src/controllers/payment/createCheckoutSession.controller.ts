@@ -31,17 +31,20 @@ export const createCheckoutSessionController = async (
 
     const cart = await cartDb.readByUserId({ userId });
     const cartItems = await cartItemDb.readAll({ cartId: cart.id });
-    const products = await productDb.readAll();
-    const userProducts = await userProductDb.readAll({ userId });
+    if (cartItems.length === 0) {
+      throw new Error('Cart empty.');
+    }
 
+    const userProducts = await userProductDb.readAll({ userId });
     const userProductIds = new Set(
       userProducts.map((userProduct) => userProduct.productId)
     );
 
-    const lineItems: { price: string; quantity: number }[] = [];
-    const cartProductIds: string[] = [];
     const purchasedProductIds: string[] = [];
+    const cartProductIds: string[] = [];
+    const lineItems: { price: string; quantity: number }[] = [];
 
+    const products = await productDb.readAll();
     cartItems.forEach((cartItem) => {
       if (userProductIds.has(cartItem.productId)) {
         purchasedProductIds.push(cartItem.productId);
@@ -52,7 +55,7 @@ export const createCheckoutSessionController = async (
         cartProductIds.push(cartItem.productId);
 
         if (!matchingProduct) {
-          throw new Error(`Product not found : ${cartItem.productId}`);
+          throw new Error(`Product not found : ${cartItem.productId}.`);
         }
 
         lineItems.push({
@@ -64,7 +67,7 @@ export const createCheckoutSessionController = async (
 
     if (purchasedProductIds.length > 0) {
       throw new Error(
-        `Product(s) already purchased : ${purchasedProductIds.join(', ')}`
+        `Product(s) already purchased : ${purchasedProductIds.join(', ')}.`
       );
     }
 
