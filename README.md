@@ -12,7 +12,7 @@ TypeScript, Node.js, Express.js, Prisma.
 
 1. Download Starter Plan from https://github.com/g4rf4z/starter-plan-api.git.
 2. Enter the following command line "npm i" in your IDE terminal to setup the project.
-3. Create and complete your .env file using the ".env.example" template.
+3. Create and complete your ".env" file using the ".env.example" template.
 4. You are all set !
 
 ## License
