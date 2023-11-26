@@ -16,9 +16,7 @@ export class ApiErrorDatabase {
 
   async create(data: IApiError): Promise<Required<IApiErrorRead>> {
     try {
-      const apiError = await this.apiErrorDb.create({
-        data,
-      });
+      const apiError = await this.apiErrorDb.create({ data });
       return apiError;
     } catch (error) {
       throw formatPrismaError('apiErrorDatabase.create', error);
