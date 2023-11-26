@@ -6,4 +6,5 @@ export const loginSchema = object({
     password: string(),
   }).strict(),
 });
+
 export type LoginInput = TypeOf<typeof loginSchema>;

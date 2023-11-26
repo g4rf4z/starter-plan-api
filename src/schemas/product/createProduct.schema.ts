@@ -8,4 +8,5 @@ export const createProductSchema = object({
     price: number(),
   }).strict(),
 });
+
 export type CreateProductInput = TypeOf<typeof createProductSchema>;
