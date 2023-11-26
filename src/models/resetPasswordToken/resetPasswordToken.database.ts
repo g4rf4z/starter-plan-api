@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-import { formatPrismaErrors, prisma } from '@/services';
+import { prisma, formatPrismaError } from '@/services';
 
 import {
   IResetPasswordToken,
@@ -32,7 +32,7 @@ export class ResetPasswordTokenDatabase {
       });
       return resetPasswordToken;
     } catch (error) {
-      throw formatPrismaErrors('ResetPasswordTokenDatabase.create', error);
+      throw formatPrismaError('ResetPasswordTokenDatabase.create', error);
     }
   }
 
@@ -51,7 +51,7 @@ export class ResetPasswordTokenDatabase {
       });
       return foundToken;
     } catch (error) {
-      throw formatPrismaErrors(
+      throw formatPrismaError(
         'ResetPasswordTokenDatabase.findValidTokenByUserId',
         error
       );
@@ -68,7 +68,7 @@ export class ResetPasswordTokenDatabase {
       });
       return updatedToken;
     } catch (error) {
-      throw formatPrismaErrors(
+      throw formatPrismaError(
         'ResetPasswordTokenDatabase.invalidateToken',
         error
       );
@@ -84,7 +84,7 @@ export class ResetPasswordTokenDatabase {
         data: { isValid: false },
       });
     } catch (error) {
-      throw formatPrismaErrors(
+      throw formatPrismaError(
         'ResetPasswordTokenDatabase.invalidateAllUserTokens',
         error
       );

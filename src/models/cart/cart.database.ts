@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-import { formatPrismaErrors, prisma } from '@/services';
+import { prisma, formatPrismaError } from '@/services';
 
 import type {
   ICart,
@@ -35,7 +35,7 @@ export class CartDatabase {
       });
       return cart;
     } catch (error) {
-      throw formatPrismaErrors('CartDatabase.create', error);
+      throw formatPrismaError('CartDatabase.create', error);
     }
   }
 
@@ -47,7 +47,7 @@ export class CartDatabase {
       });
       return cart;
     } catch (error) {
-      throw formatPrismaErrors('CartDatabase.readByUserId', error);
+      throw formatPrismaError('CartDatabase.readByUserId', error);
     }
   }
 }

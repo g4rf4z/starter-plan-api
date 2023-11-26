@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-import { formatPrismaErrors, prisma } from '@/services';
+import { prisma, formatPrismaError } from '@/services';
 
 import type {
   ICartItem,
@@ -45,7 +45,7 @@ export class CartItemDatabase {
       });
       return cartItem;
     } catch (error) {
-      throw formatPrismaErrors('CartItemDatabase.create', error);
+      throw formatPrismaError('CartItemDatabase.create', error);
     }
   }
 
@@ -56,7 +56,7 @@ export class CartItemDatabase {
       });
       return cartItem;
     } catch (error) {
-      throw formatPrismaErrors('CartItemDatabase.readById', error);
+      throw formatPrismaError('CartItemDatabase.readById', error);
     }
   }
 
@@ -67,7 +67,7 @@ export class CartItemDatabase {
       });
       return cartItems;
     } catch (error) {
-      throw formatPrismaErrors('CartItemDatabase.readById', error);
+      throw formatPrismaError('CartItemDatabase.readById', error);
     }
   }
 
@@ -91,7 +91,7 @@ export class CartItemDatabase {
       });
       return cartItem;
     } catch (error) {
-      throw formatPrismaErrors('CartItemDatabase.update', error);
+      throw formatPrismaError('CartItemDatabase.update', error);
     }
   }
 
@@ -104,7 +104,7 @@ export class CartItemDatabase {
       });
       return cartItem;
     } catch (error) {
-      throw formatPrismaErrors('CartItemDatabase.delete', error);
+      throw formatPrismaError('CartItemDatabase.delete', error);
     }
   }
 }

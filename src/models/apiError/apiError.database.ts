@@ -1,6 +1,6 @@
 import type { PrismaClient } from '@prisma/client';
 
-import { formatPrismaErrors, prisma } from '@/services';
+import { prisma, formatPrismaError } from '@/services';
 
 import type {
   IApiError,
@@ -21,7 +21,7 @@ export class ApiErrorDatabase {
       });
       return apiError;
     } catch (error) {
-      throw formatPrismaErrors('apiErrorDatabase.create', error);
+      throw formatPrismaError('apiErrorDatabase.create', error);
     }
   }
 }
