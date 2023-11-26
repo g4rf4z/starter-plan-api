@@ -6,11 +6,9 @@ export type IApiError = {
   id?: string;
   createdAt?: Date;
   updatedAt?: Date;
-
   status: number;
   type: ErrorType;
   message: string;
-
   path: string;
   userId?: string | null;
   userIp?: string | null;
