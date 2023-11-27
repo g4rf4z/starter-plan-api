@@ -1,6 +1,6 @@
 import type { PrismaClient } from '@prisma/client';
 
-import { formatPrismaErrors, prisma } from '@/services';
+import { prisma, formatPrismaError } from '@/services';
 
 import type {
   IApiError,
@@ -16,12 +16,10 @@ export class ApiErrorDatabase {
 
   async create(data: IApiError): Promise<Required<IApiErrorRead>> {
     try {
-      const apiError = await this.apiErrorDb.create({
-        data,
-      });
+      const apiError = await this.apiErrorDb.create({ data });
       return apiError;
     } catch (error) {
-      throw formatPrismaErrors('apiErrorDatabase.create', error);
+      throw formatPrismaError('apiErrorDatabase.create', error);
     }
   }
 }

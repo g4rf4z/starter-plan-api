@@ -8,4 +8,5 @@ export const createCartItemSchema = object({
     quantity: number(),
   }).strict(),
 });
+
 export type CreateCartItemInput = TypeOf<typeof createCartItemSchema>;

@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-import { formatPrismaErrors, prisma } from '@/services';
+import { prisma, formatPrismaError } from '@/services';
 
 import type {
   IUser,
@@ -34,7 +34,7 @@ export class UserDatabase {
       });
       return user;
     } catch (error) {
-      throw formatPrismaErrors('UserDatabase.create', error);
+      throw formatPrismaError('UserDatabase.create', error);
     }
   }
 
@@ -45,7 +45,7 @@ export class UserDatabase {
       });
       return user;
     } catch (error) {
-      throw formatPrismaErrors('UserDatabase.readById', error);
+      throw formatPrismaError('UserDatabase.readById', error);
     }
   }
 
@@ -56,7 +56,7 @@ export class UserDatabase {
       });
       return user;
     } catch (error) {
-      throw formatPrismaErrors('UserDatabase.readByEmail', error);
+      throw formatPrismaError('UserDatabase.readByEmail', error);
     }
   }
 
@@ -79,7 +79,7 @@ export class UserDatabase {
       });
       return user;
     } catch (error) {
-      throw formatPrismaErrors('UserDatabase.update', error);
+      throw formatPrismaError('UserDatabase.update', error);
     }
   }
 
@@ -90,7 +90,7 @@ export class UserDatabase {
       });
       return user;
     } catch (error) {
-      throw formatPrismaErrors('UserDatabase.delete', error);
+      throw formatPrismaError('UserDatabase.delete', error);
     }
   }
 }

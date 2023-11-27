@@ -30,8 +30,8 @@ export class TokenService {
   private readonly sessionDb?: SessionDatabase;
 
   constructor(reIssue = false) {
-    this.privateKey = config.get<string>('privateKey');
     this.publicKey = config.get<string>('publicKey');
+    this.privateKey = config.get<string>('privateKey');
     if (reIssue) {
       this.userDb = new UserDatabase();
       this.sessionDb = new SessionDatabase();

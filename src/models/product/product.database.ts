@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-import { formatPrismaErrors, prisma } from '@/services';
+import { prisma, formatPrismaError } from '@/services';
 
 import type {
   IProduct,
@@ -32,7 +32,7 @@ export class ProductDatabase {
       });
       return product;
     } catch (error) {
-      throw formatPrismaErrors('ProductDatabase.read', error);
+      throw formatPrismaError('ProductDatabase.read', error);
     }
   }
 
@@ -53,7 +53,7 @@ export class ProductDatabase {
       });
       return products;
     } catch (error) {
-      throw formatPrismaErrors('ProductDatabase.readAll', error);
+      throw formatPrismaError('ProductDatabase.readAll', error);
     }
   }
 }

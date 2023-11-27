@@ -5,4 +5,5 @@ export const resetPasswordSchema = object({
     email: string().email(),
   }).strict(),
 });
+
 export type ResetPasswordInput = TypeOf<typeof resetPasswordSchema>;

@@ -19,6 +19,7 @@ export const createCheckoutSessionSchema = object({
     }),
   }).strict(),
 });
+
 export type createCheckoutSessionInput = TypeOf<
   typeof createCheckoutSessionSchema
 >;

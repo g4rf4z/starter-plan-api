@@ -1,6 +1,6 @@
 import { object, string, TypeOf } from 'zod';
 
-import { validatePasswordComplexity } from '@/services/data.service';
+import { validatePasswordComplexity } from '@/services';
 
 export const createUserSchema = object({
   body: object({

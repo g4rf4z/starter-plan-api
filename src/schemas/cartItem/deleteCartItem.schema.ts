@@ -5,4 +5,5 @@ export const deleteCartItemSchema = object({
     id: string(),
   }).strict(),
 });
+
 export type DeleteCartItemInput = TypeOf<typeof deleteCartItemSchema>;

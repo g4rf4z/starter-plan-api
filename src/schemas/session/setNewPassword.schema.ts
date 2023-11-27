@@ -1,6 +1,6 @@
 import { object, string, TypeOf } from 'zod';
 
-import { validatePasswordComplexity } from '@/services/data.service';
+import { validatePasswordComplexity } from '@/services';
 
 export const setNewPasswordSchema = object({
   params: object({
@@ -15,4 +15,5 @@ export const setNewPasswordSchema = object({
     .refine((data) => validatePasswordComplexity(data.password, 3))
     .refine((data) => data.password === data.passwordConfirmation),
 });
+
 export type SetNewPasswordInput = TypeOf<typeof setNewPasswordSchema>;

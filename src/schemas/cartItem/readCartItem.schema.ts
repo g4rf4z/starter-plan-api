@@ -5,4 +5,5 @@ export const readCartItemSchema = object({
     id: string(),
   }).strict(),
 });
+
 export type ReadCartItemInput = TypeOf<typeof readCartItemSchema>;

@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-import { formatPrismaErrors, prisma } from '@/services';
+import { prisma, formatPrismaError } from '@/services';
 
 import type {
   ISession,
@@ -32,7 +32,7 @@ export class SessionDatabase {
       });
       return session;
     } catch (error) {
-      throw formatPrismaErrors('SessionDatabase.create', error);
+      throw formatPrismaError('SessionDatabase.create', error);
     }
   }
 
@@ -43,7 +43,7 @@ export class SessionDatabase {
       });
       return session;
     } catch (error) {
-      throw formatPrismaErrors('SessionDatabase.readById', error);
+      throw formatPrismaError('SessionDatabase.readById', error);
     }
   }
 
@@ -63,7 +63,7 @@ export class SessionDatabase {
       });
       return;
     } catch (error) {
-      throw formatPrismaErrors('SessionDatabase.revokeAllExceptOne', error);
+      throw formatPrismaError('SessionDatabase.revokeAllExceptOne', error);
     }
   }
 
@@ -78,7 +78,7 @@ export class SessionDatabase {
       });
       return session;
     } catch (error) {
-      throw formatPrismaErrors('SessionDatabase.update', error);
+      throw formatPrismaError('SessionDatabase.update', error);
     }
   }
 }

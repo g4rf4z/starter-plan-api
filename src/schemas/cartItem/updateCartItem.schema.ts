@@ -8,4 +8,5 @@ export const updateCartItemSchema = object({
     quantity: number(),
   }).strict(),
 });
+
 export type UpdateCartItemInput = TypeOf<typeof updateCartItemSchema>;

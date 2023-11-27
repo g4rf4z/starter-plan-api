@@ -1,12 +1,12 @@
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 import {
-  ApiError,
   ConflictError,
   NotFoundError,
+  ApiError,
 } from '@/models/apiError/apiError.entity';
 
-export const formatPrismaErrors = (path: string, error: any) => {
+export const formatPrismaError = (path: string, error: any) => {
   if (error instanceof PrismaClientKnownRequestError) {
     switch (error.code) {
       case 'P2002':
@@ -16,6 +16,7 @@ export const formatPrismaErrors = (path: string, error: any) => {
           details: String(error.meta?.target),
           raw: String(error),
         });
+
       case 'P2022':
         return new NotFoundError({
           path,
@@ -23,6 +24,7 @@ export const formatPrismaErrors = (path: string, error: any) => {
           details: String(error.meta?.target),
           raw: String(error),
         });
+
       default:
         return new ApiError({
           status: 500,
@@ -39,7 +41,7 @@ export const formatPrismaErrors = (path: string, error: any) => {
       type: 'DATABASE',
       message: error.message,
       path,
-      details: error?.code,
+      details: error.code,
       raw: String(error),
     });
   }
