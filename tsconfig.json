@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-    "outDir": "build", // Specify the directory in which compiled JS files will be written.
-    "target": "es6", // ECMAScript version to which TS code must be compiled.
-    "module": "commonjs", // Specify the module type to be used.
-    "esModuleInterop": true, // Enable TS modules to be imported and exported interoperably with JS modules.
-    "forceConsistentCasingInFileNames": true, // Force case-sensitive file names.
+    "outDir": "build",
+    "target": "es6",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
     "paths": {
-      "@/*": ["./src/*"] // Define aliases for file paths.
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts"],
