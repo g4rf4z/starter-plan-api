@@ -31,7 +31,7 @@ router.post(
   resetPasswordController
 );
 router.post(
-  '/:userId/set-new-password/:token',
+  '/set-password/:userId/:token',
   validateSchema(setNewPasswordSchema),
   setNewPasswordController
 );
