@@ -10,8 +10,8 @@
     "url": "https://www.gregoirepinte.com/"
   },
   "engines": {
-    "node": "20.8.0",
-    "npm": "10.1.0"
+    "node": "20.11.1",
+    "npm": "10.4.0"
   },
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only src/app.ts",
