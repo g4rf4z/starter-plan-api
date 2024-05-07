@@ -4,6 +4,6 @@ import Stripe from 'stripe';
 const stripeSecretKey = config.get<string>('stripeSecretKey');
 
 export const stripe = new Stripe(stripeSecretKey, {
-  apiVersion: '2023-10-16',
+  apiVersion: '2024-04-10',
   typescript: true,
 });
