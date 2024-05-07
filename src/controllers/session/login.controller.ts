@@ -104,7 +104,7 @@ export const loginController = async (
       sameSite: 'none',
       secure: true,
     });
-    return res.status(201).json({ session });
+    return res.status(201).json(session);
   } catch (error) {
     return next(error);
   }

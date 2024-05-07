@@ -15,7 +15,7 @@ export const readCartController = async (
     const cartDb = new CartDatabase();
 
     const cart = await cartDb.readByUserId({ userId });
-    return res.status(200).json({ cart });
+    return res.status(200).json(cart);
   } catch (error) {
     return next(error);
   }

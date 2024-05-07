@@ -15,7 +15,7 @@ export const readUserController = async (
     const userDb = new UserDatabase();
 
     const user = await userDb.readById({ id: userId });
-    return res.status(200).json({ user });
+    return res.status(200).json(user);
   } catch (error) {
     return next(error);
   }

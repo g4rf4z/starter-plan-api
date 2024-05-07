@@ -27,7 +27,7 @@ export const retrieveSessionController = async (
         details: 'unauthorized',
       });
     }
-    return res.status(200).json({ session });
+    return res.status(200).json(session);
   } catch (error) {
     return next(error);
   }

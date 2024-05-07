@@ -28,7 +28,7 @@ export const createCartItemController = async (
       cartId,
       productId,
     });
-    return res.status(201).json({ cartItem });
+    return res.status(201).json(cartItem);
   } catch (error) {
     return next(error);
   }

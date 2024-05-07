@@ -20,7 +20,7 @@ export const readAllCartItemsController = async (
     const cartId = cart.id;
 
     const cartItems = await cartItemDb.readAll({ cartId });
-    return res.status(200).json({ cartItems });
+    return res.status(200).json(cartItems);
   } catch (error) {
     return next(error);
   }

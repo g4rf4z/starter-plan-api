@@ -19,7 +19,7 @@ export const updateCartItemController = async (
       id,
       quantity,
     });
-    return res.status(201).json({ cartItem });
+    return res.status(201).json(cartItem);
   } catch (error) {
     return next(error);
   }

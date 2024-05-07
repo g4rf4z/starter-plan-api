@@ -11,7 +11,7 @@ export const readAllProducts = async (
     const productDb = new ProductDatabase();
 
     const products = await productDb.readAll();
-    return res.status(200).json({ products });
+    return res.status(200).json(products);
   } catch (error) {
     return next(error);
   }
