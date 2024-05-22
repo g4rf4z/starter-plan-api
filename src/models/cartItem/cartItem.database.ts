@@ -64,6 +64,7 @@ export class CartItemDatabase {
     try {
       const cartItems = await this.cartItemDb.findMany({
         where: { cartId: data.cartId },
+        include: { product: true },
       });
       return cartItems;
     } catch (error) {
