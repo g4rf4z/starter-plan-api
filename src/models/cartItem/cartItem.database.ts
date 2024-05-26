@@ -6,6 +6,7 @@ import type {
   ICartItem,
   ICartItemCreate,
   ICartItemReadById,
+  ICartItemReadByCartIdAndProductId,
   ICartItemReadAll,
   ICartItemUpdate,
   ICartItemDelete,
@@ -52,7 +53,9 @@ export class CartItemDatabase {
   async readById(data: ICartItemReadById): Promise<ICartItem> {
     try {
       const cartItem = await this.cartItemDb.findUniqueOrThrow({
-        where: { id: data.id },
+        where: {
+          id: data.id,
+        },
       });
       return cartItem;
     } catch (error) {
@@ -60,11 +63,36 @@ export class CartItemDatabase {
     }
   }
 
+  async readByCartIdAndProductId(data: ICartItemReadByCartIdAndProductId): Promise<ICartItem> {
+    try {
+      const cartItem = await this.cartItemDb.findFirstOrThrow({
+        where: {
+          cartId: data.cartId,
+          productId: data.productId,
+        },
+        include: {
+          product: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      });
+      return cartItem;
+    } catch (error) {
+      throw formatPrismaError('CartItemDatabase.readByCartIdAndProductId', error);
+    }
+  }
+
   async readAll(data: ICartItemReadAll): Promise<ICartItem[]> {
     try {
       const cartItems = await this.cartItemDb.findMany({
-        where: { cartId: data.cartId },
-        include: { product: true },
+        where: {
+          cartId: data.cartId,
+        },
+        include: {
+          product: true,
+        },
       });
       return cartItems;
     } catch (error) {
