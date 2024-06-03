@@ -10,6 +10,7 @@ import type {
   ICartItemReadAll,
   ICartItemUpdate,
   ICartItemDelete,
+  ICartItemDeleteAll,
 } from '@/models/cartItem/cartItem.entity';
 
 export class CartItemDatabase {
@@ -124,16 +125,27 @@ export class CartItemDatabase {
     }
   }
 
-  async delete(data: ICartItemDelete): Promise<ICartItem> {
+  async delete(data: ICartItemDelete): Promise<void> {
     try {
-      const cartItem = await this.cartItemDb.delete({
+      await this.cartItemDb.delete({
         where: {
           id: data.id,
         },
       });
-      return cartItem;
     } catch (error) {
       throw formatPrismaError('CartItemDatabase.delete', error);
+    }
+  }
+
+  async deleteAll(data: ICartItemDeleteAll): Promise<void> {
+    try {
+      await this.cartItemDb.deleteMany({
+        where: {
+          cartId: data.cartId,
+        },
+      });
+    } catch (error) {
+      throw formatPrismaError('CartItemDatabase.deleteAll', error);
     }
   }
 }

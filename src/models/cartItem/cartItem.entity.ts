@@ -16,3 +16,4 @@ export type ICartItemReadByCartIdAndProductId = Pick<ICartItem, 'cartId' | 'prod
 export type ICartItemReadAll = Pick<ICartItem, 'cartId'>;
 export type ICartItemUpdate = Pick<ICartItem, 'id' | 'quantity'>;
 export type ICartItemDelete = Pick<ICartItem, 'id'>;
+export type ICartItemDeleteAll = Pick<ICartItem, 'cartId'>;

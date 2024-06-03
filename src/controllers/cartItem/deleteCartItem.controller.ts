@@ -9,11 +9,11 @@ export const deleteCartItemController = async (
   res: Response,
   next: NextFunction
 ) => {
+  const { id } = req.params;
+
+  const cartItemDb = new CartItemDatabase();
+
   try {
-    const { id } = req.params;
-
-    const cartItemDb = new CartItemDatabase();
-
     await cartItemDb.delete({ id });
     return res.status(204).send();
   } catch (error) {
