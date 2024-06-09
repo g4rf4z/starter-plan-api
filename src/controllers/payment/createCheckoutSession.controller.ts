@@ -14,6 +14,7 @@ import { UserProductDatabase } from '@/models/userProduct/userProduct.database';
 import { createCheckoutSessionInput } from '@/schemas/payment/createCheckoutSession.schema';
 
 const apiUrl = config.get<string>('apiUrl');
+const clientUrl = config.get<string>('clientUrl');
 const port = config.get<number>('port');
 
 export const createCheckoutSessionController = async (
@@ -82,8 +83,8 @@ export const createCheckoutSessionController = async (
       metadata: {
         purchased_product_ids: JSON.stringify(cartProductIds),
       },
-      success_url: `${apiUrl}:${port}/success`,
-      cancel_url: `${apiUrl}:${port}/cancel`,
+      success_url: `${clientUrl}`,
+      cancel_url: `${clientUrl}/cart`,
     });
     return res.status(303).send(checkoutSession.url);
   } catch (error) {
